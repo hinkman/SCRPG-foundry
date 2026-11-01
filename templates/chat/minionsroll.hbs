@@ -1,0 +1,22 @@
+<div class="SCRPG chat roll">
+    <div class="dice-results dice-rolled box-border minion-roll" style="border: 2px solid black">
+        <table>
+            <tr>
+                <th colspan="2">{{groupName}}</th>
+            </tr>
+            {{#each minions as |minion|}}
+            <tr>
+                <td>{{minion.name}}</td>
+                <td>
+                    <div class="dice" style="margin-right: 6px">
+                        <label> {{{rollResult.total}}} </label>
+                        {{#if rollResult.img}}
+                        <img class="{{rollResult.imgClass}}" src="{{rollResult.img}}" />
+                        {{/if}}
+                    </div>
+                </td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
+</div>

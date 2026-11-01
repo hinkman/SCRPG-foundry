@@ -1,0 +1,448 @@
+{{!-- Displays the powers, qualities, status and health --}}
+{{!-- Standard roles of power, quality and status together --}}
+{{!-- Individual rolls of power quality or status --}}
+
+
+{{!-- Powers --}}
+<section class="powersqualities box-border">
+    <table>
+        {{#if (eq actor.type "hero")}}
+        <colgroup>
+            <col width="31%">
+            <col width="31%">
+            <col width="23%">
+            <col>
+        </colgroup>
+        {{/if}}
+        {{#if (eq actor.type "villain")}}
+        <colgroup>
+            <col width="33.33%">
+            <col width="33.33%">
+            <col>
+        </colgroup>
+        {{/if}}
+        <tr>
+            {{!-- Displays powers or qualities header depending on wether there character is divided and --}}
+            {{!-- which divided state they are currently in --}}
+            {{#if (eq actor.system.dividedPsyche true)}}
+            {{#if (eq actor.system.civilianMode true)}}
+            <td>
+                <div class="section-name section-name-powerquality">
+                    <h3>{{localize "SCRPG.powerquality.qualities"}}</h3>
+                    <div class="buttons">
+                        {{!-- buttons for rolling just quality die and creating new quality --}}
+                        <a title='{{localize "SCRPG.button.rollQuality"}}' class="roll-power">
+                            <i class="fas fa-dice"></i>
+                        </a>
+                        <a title='{{localize "SCRPG.button.addNew"}}' class="item-create" data-type="quality">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </td>
+            {{else}}
+            <td>
+                <div class="section-name section-name-powerquality">
+                    <h3>{{localize "SCRPG.powerquality.powers"}}</h3>
+                    <div class="buttons">
+                        {{!-- buttons for rolling just power die and creating new power --}}
+                        <a title='{{localize "SCRPG.button.rollPower"}}' class="roll-power">
+                            <i class="fas fa-dice"></i>
+                        </a>
+                        <a title='{{localize "SCRPG.button.addNew"}}' class="item-create" data-type="power"
+                            data-aux="{{actor.system.mode}}">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </td>
+            {{/if}}
+            {{else}}
+            <td>
+                <div class="section-name section-name-powerquality">
+                    <h3>{{localize "SCRPG.powerquality.powers"}}</h3>
+                    <div class="buttons">
+                        {{!-- buttons for rolling just power die and creating new power --}}
+                        <a title='{{localize "SCRPG.button.rollPower"}}' class="roll-power">
+                            <i class="fas fa-dice"></i>
+                        </a>
+                        <a title='{{localize "SCRPG.button.addNew"}}' class="item-create" data-type="power"
+                            data-aux="{{actor.system.mode}}">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </td>
+            {{/if}}
+
+            {{!-- Displays powers or qualities header depending on wether there character is divided and --}}
+            {{!-- which divided state they are currently in --}}
+            {{#if (eq actor.system.dividedPsyche true)}}
+            {{#if (eq actor.system.poweredMode true)}}
+            <td>
+                <div class="section-name section-name-powerquality">
+                    <h3>{{localize "SCRPG.powerquality.powers"}}</h3>
+                    <div class="buttons">
+                        {{!-- buttons for rolling just power die and creating new power --}}
+                        <a title='{{localize "SCRPG.button.rollPower"}}' class="roll-quality">
+                            <i class="fas fa-dice"></i>
+                        </a>
+                        <a title='{{localize "SCRPG.button.addNew"}}' class="item-create" data-type="power"
+                            data-aux="{{actor.system.mode}}">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </td>
+            {{else}}
+            <td>
+                <div class="section-name section-name-powerquality">
+                    <h3>{{localize "SCRPG.powerquality.qualities"}}</h3>
+                    <div class="buttons">
+                        {{!-- buttons for rolling just quality die and creating new quality --}}
+                        <a title='{{localize "SCRPG.button.rollQuality"}}' class="roll-quality">
+                            <i class="fas fa-dice"></i>
+                        </a>
+                        <a title='{{localize "SCRPG.button.addNew"}}' class="item-create" data-type="quality">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </td>
+            {{/if}}
+            {{else}}
+            <td>
+                <div class="section-name section-name-powerquality">
+                    <h3>{{localize "SCRPG.powerquality.qualities"}}</h3>
+                    <div class="buttons">
+                        {{!-- buttons for rolling just quality die and creating new quality --}}
+                        <a title='{{localize "SCRPG.button.rollQuality"}}' class="roll-quality">
+                            <i class="fas fa-dice"></i>
+                        </a>
+                        <a title='{{localize "SCRPG.button.addNew"}}' class="item-create" data-type="quality">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </td>
+            {{/if}}
+
+
+            <td>
+                <div class="section-name section-name-powerquality">
+                    <h3>{{localize "SCRPG.powerquality.statusDice"}}</h3>
+                    <div class="buttons">
+                        {{!-- buttons for rolling just status die --}}
+                        <a title='{{localize "SCRPG.button.rollStatus"}}' class="roll-status">
+                            <i class="fas fa-dice"></i>
+                        </a>
+                        {{!-- button for adding new status type for villains --}}
+                        {{#if (eq actor.type "villain")}}
+                        <a title='{{localize "SCRPG.button.addNew"}}' class="item-create" data-type="villainStatus">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                        {{/if}}
+                    </div>
+                </div>
+            </td>
+            {{!-- Displays header for health for hero type character --}}
+            {{#if (eq actor.type "hero")}}
+            <td>
+                <div class="section-name section-name-powerquality">
+                    <h3>{{localize "SCRPG.powerquality.status"}}</h3>
+                </div>
+            </td>
+            {{/if}}
+        </tr>
+
+        <tr>
+            {{!-- Displays powers or qualities depending on wether there character is divided and --}}
+            {{!-- which divided state they are currently in --}}
+            {{#if (eq actor.system.dividedPsyche true)}}
+            {{#if (eq actor.system.civilianMode true)}}
+            <td class="top-align">
+                <div class="quality-list item-list">
+                    {{!-- Displays all qualities --}}
+                    {{!-- Qualities can be clicked to set them to the main roll --}}
+                    {{#each actor.quality as |quality id|}}
+                    <a class="quality-item item set-power {{#if (eq quality.system.selected 'power')}}quality-item-selected{{/if}}"
+                        title='{{localize "SCRPG.button.addToRoll"}}' data-item-id="{{quality._id}}">
+                        <div class="name">{{name}}</div>
+                        <div class="center">{{system.dieType}}</div>
+                    </a>
+                    {{/each}}
+                </div>
+            </td>
+            {{else}}
+            <td class="top-align">
+                <div class="power-list item-list">
+                    {{!-- Displays all powers --}}
+                    {{!-- Powers can be clicked to set them to the main roll --}}
+                    {{#each actor.power as |power id|}}
+                    {{#if (eq power.system.aux ../actor.system.mode)}}
+                    <a class="power-item item set-power {{#if (eq power.system.selected 'power')}}power-item-selected{{/if}}"
+                        title='{{localize "SCRPG.button.addToRoll"}}' data-item-id="{{power._id}}">
+                        <div class="name">{{name}}</div>
+                        <div class="center">{{system.dieType}}</div>
+                    </a>
+                    {{/if}}
+                    {{/each}}
+                </div>
+            </td>
+            {{/if}}
+            {{else}}
+            <td class="top-align">
+                <div class="power-list item-list">
+                    {{!-- Displays all powers --}}
+                    {{!-- Powers can be clicked to set them to the main roll --}}
+                    {{#each actor.power as |power id|}}
+                    {{#if (eq power.system.aux ../actor.system.mode)}}
+                    <a class="power-item item set-power {{#if (eq power.system.selected 'power')}}power-item-selected{{/if}}"
+                        title='{{localize "SCRPG.button.addToRoll"}}' data-item-id="{{power._id}}">
+                        <div class="name">{{name}}</div>
+                        <div class="center">{{system.dieType}}</div>
+                    </a>
+                    {{/if}}
+                    {{/each}}
+                </div>
+            </td>
+            {{/if}}
+
+            {{!-- Displays powers or qualities depending on wether there character is divided and --}}
+            {{!-- which divided state they are currently in --}}
+            {{#if (eq actor.system.dividedPsyche true)}}
+            {{#if (eq actor.system.poweredMode true)}}
+            <td class="top-align">
+                <div class="power-list item-list">
+                    {{!-- Displays all powers --}}
+                    {{!-- Powers can be clicked to set them to the main roll --}}
+                    {{#each actor.power as |power id|}}
+                    {{#if (eq power.system.aux ../actor.system.mode)}}
+                    <a class="power-item item set-quality  {{#if (eq power.system.selected 'quality')}}power-item-selected{{/if}}"
+                        title='{{localize "SCRPG.button.addToRoll"}}' data-item-id="{{power._id}}">
+                        <div class="name">{{name}}</div>
+                        <div class="center">{{system.dieType}}</div>
+                    </a>
+                    {{/if}}
+                    {{/each}}
+                </div>
+            </td>
+            {{else}}
+            <td class="top-align">
+                <div class="quality-list item-list">
+                    {{!-- Displays all qualities --}}
+                    {{!-- Qualities can be clicked to set them to the main roll --}}
+                    {{#each actor.quality as |quality id|}}
+                    <a class="quality-item item set-quality {{#if (eq quality.system.selected 'quality')}}quality-item-selected{{/if}}"
+                        title='{{localize "SCRPG.button.addToRoll"}}' data-item-id="{{quality._id}}">
+                        <div class="name">{{name}}</div>
+                        <div class="center">{{system.dieType}}</div>
+                    </a>
+                    {{/each}}
+                </div>
+            </td>
+            {{/if}}
+            {{else}}
+            <td class="top-align">
+                <div class="quality-list item-list">
+                    {{!-- Displays all qualities --}}
+                    {{!-- Qualities can be clicked to set them to the main roll --}}
+                    {{#each actor.quality as |quality id|}}
+                    <a class="quality-item item set-quality  {{#if (eq quality.system.selected 'quality')}}quality-item-selected{{/if}}"
+                        title='{{localize "SCRPG.button.addToRoll"}}' data-item-id="{{quality._id}}">
+                        <div class="name">{{name}}</div>
+                        <div class="center">{{system.dieType}}</div>
+                    </a>
+                    {{/each}}
+                </div>
+            </td>
+            {{/if}}
+
+            {{!-- Displays status dice and health ranges --}}
+            {{#if (eq actor.type "hero")}}
+            <td class="top-align">
+                <div class="status-dice">
+                    {{!-- Green status dice type --}}
+                    {{#if (eq actor.system.dividedStatus true)}}
+                    {{#if (eq actor.system.poweredMode true)}}
+                    <div class="health-box green-border green-status-background">
+                        {{actor.system.statusDie.green}}
+                    </div>
+                    {{else}}
+                    <div class="health-box green-border green-status-background">
+                        {{actor.system.statusDie.civilianGreen}}
+                    </div>
+                    {{/if}}
+                    {{else}}
+                    <select class="status-die-update green-border green-status-background"
+                        name="system.statusDie.green">
+                        {{selectOptions config.dieTypes selected=actor.system.statusDie.green localize=true}}
+                    </select>
+                    {{/if}}
+
+                    {{!-- Input to set maximum health --}}
+                    {{!-- Health ranges updated automatically based on max health --}}
+                    {{!-- Green health range --}}
+                    <div class="health-box green-border green-status-background">
+                        <input class="max-update" name="system.wounds.max" type="text"
+                            value="{{actor.system.wounds.max}}" data-dtype="Number">
+
+                        - {{actor.system.health.greenLow}}
+                    </div>
+
+                    {{!-- Yellow status dice type --}}
+                    {{#if (eq actor.system.dividedStatus true)}}
+                    {{#if (eq actor.system.poweredMode true)}}
+                    <div class="health-box yellow-border yellow-status-background">
+                        {{actor.system.statusDie.yellow}}
+                    </div>
+                    {{else}}
+                    <div class="health-box yellow-border yellow-status-background">
+                        {{actor.system.statusDie.civilianYellow}}
+                    </div>
+                    {{/if}}
+                    {{else}}
+                    <select class="status-die-update yellow-border yellow-status-background"
+                        name="system.statusDie.yellow">
+                        {{selectOptions config.dieTypes selected=actor.system.statusDie.yellow localize=true}}
+                    </select>
+                    {{/if}}
+
+                    {{!-- Yellow health range --}}
+                    <div class="health-box yellow-border yellow-status-background">
+                        {{actor.system.health.yellowHigh}} -
+                        {{actor.system.health.yellowLow}}
+                    </div>
+
+                    {{!-- Red status dice type --}}
+                    {{#if (eq actor.system.dividedStatus true)}}
+                    {{#if (eq actor.system.poweredMode true)}}
+                    <div class="health-box red-border red-status-background">
+                        {{actor.system.statusDie.red}}
+                    </div>
+                    {{else}}
+                    <div class="health-box red-border red-status-background">
+                        {{actor.system.statusDie.civilianRed}}
+                    </div>
+                    {{/if}}
+                    {{else}}
+                    <select class="status-die-update red-border red-status-background" name="system.statusDie.red">
+                        {{selectOptions config.dieTypes selected=actor.system.statusDie.red localize=true}}
+                    </select>
+                    {{/if}}
+
+                    {{!-- Red health range --}}
+                    <div class="health-box red-border red-status-background">
+                        {{actor.system.health.redHigh}} -
+                        {{actor.system.health.redLow}}
+                    </div>
+
+                </div>
+            </td>
+            {{/if}}
+
+            {{!-- Villain status dice --}}
+            {{#if (eq actor.type "villain")}}
+            <td class="top-align">
+                <div class="villain-status-list item-list">
+                    {{!-- Displays all villain statuses --}}
+                    {{!-- Villain statuses can be clicked to set them to the main roll --}}
+                    {{#each actor.villainStatus as |villainStatus id|}}
+                    <a class="villain-status-item item set-villain-status  {{#if (eq villainStatus.system.selected true)}}villain-status-item-selected{{/if}}"
+                        title='{{localize "SCRPG.button.addToRoll"}}' data-item-id="{{villainStatus._id}}">
+                        <div>{{name}}</div>
+                        <div style="text-align: center">{{system.dieType}}</div>
+                    </a>
+                    {{/each}}
+                </div>
+            </td>
+            {{/if}}
+
+            {{!-- Hero current health and scene status --}}
+            {{#if (eq actor.type "hero")}}
+            <td class="top-align">
+                <div class="status">
+                    <h4>{{localize "SCRPG.powerquality.currentHealth"}}</h4>
+                    <div class="current-health">
+                        <input {{#if (lte actor.system.wounds.value
+                            actor.system.health.redHigh)}}class="health-update red-border red-status-background" {{/if}}
+                            {{#if (lte actor.system.wounds.value
+                            actor.system.health.yellowHigh)}}class="health-update yellow-border yellow-status-background"
+                            {{/if}} {{#if (lte actor.system.wounds.value
+                            actor.system.wounds.max)}}class="health-update green-border green-status-background" {{/if}}
+                            name="system.wounds.value" type="text" value="{{actor.system.wounds.value}}"
+                            data-dtype="Number">
+                        <div class="health-adjust">
+                            <a class="increase-health">
+                                <i class="fas fa-angle-double-up"></i>
+                            </a>
+                            <a class="decrease-health">
+                                <i class="fas fa-angle-double-down"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    {{!-- Dropdown for selecting scene status --}}
+                    <h4>{{localize "SCRPG.powerquality.sceneStatus"}}</h4>
+                    <select {{#if (eq actor.system.scene "green" )}}
+                        class="scene-update green-border green-status-background" {{/if}} {{#if (eq
+                        actor.system.scene "yellow" )}} class="scene-update yellow-border yellow-status-background"
+                        {{/if}} {{#if (eq actor.system.scene "red" )}}
+                        class="scene-update red-border red-status-background" {{/if}} name="system.scene">
+                        {{selectOptions config.scenes selected=actor.system.scene localize=true}}
+                    </select>
+                </div>
+            </td>
+            {{/if}}
+        </tr>
+    </table>
+</section>
+
+{{!-- Standard Rolls --}}
+<section>
+    <div class="combined-roll box-border">
+        {{!-- Current selected power and die type --}}
+        <p><b>{{#if (eq actor.system.dividedPsyche true)}}
+                {{#if (eq actor.system.poweredMode true)}}
+                {{localize "SCRPG.powerquality.power"}}:
+                {{else}}
+                {{localize "SCRPG.powerquality.quality"}}:
+                {{/if}}
+                {{else}}
+                {{localize "SCRPG.powerquality.power"}}:
+                {{/if}}</b>
+            {{#if (eq actor.system.firstDieName "N/A")}}{{localize "SCRPG.sheet.newItem"}}
+            {{else}}
+            {{actor.system.firstDieName}}
+            {{/if}}
+            {{actor.system.firstDie}}</p>
+        {{!-- Current selected quality and die type --}}
+        <p><b>{{#if (eq actor.system.dividedPsyche true)}}
+                {{#if (eq actor.system.civilianMode true)}}
+                {{localize "SCRPG.powerquality.quality"}}:
+                {{else}}
+                {{localize "SCRPG.powerquality.power"}}:
+                {{/if}}
+                {{else}}
+                {{localize "SCRPG.powerquality.quality"}}:
+                {{/if}}</b>
+            {{#if (eq actor.system.secondDieName "N/A")}}{{localize "SCRPG.sheet.newItem"}}
+            {{else}}
+            {{actor.system.secondDieName}}
+            {{/if}}
+            {{actor.system.secondDie}}</p>
+        {{!-- Current selected status and die type--}}
+        <p><b> {{localize "SCRPG.powerquality.status"}}:</b>
+            {{#if (eq actor.system.thirdDieName "N/A")}}{{localize "SCRPG.sheet.newItem"}}
+            {{else}}
+            {{#if (eq actor.system.thirdDieName "green")}}{{localize "SCRPG.scene.green"}}{{/if}}
+            {{#if (eq actor.system.thirdDieName "yellow")}}{{localize "SCRPG.scene.yellow"}}{{/if}}
+            {{#if (eq actor.system.thirdDieName "red")}}{{localize "SCRPG.scene.red"}}{{/if}}
+            {{#if (eq this.actor.type "villain")}}{{actor.system.thirdDieName}}{{/if}}
+            {{/if}}
+            {{actor.system.thirdDie}}</p>
+        <a title='{{localize "SCRPG.button.rollMain"}}' class="make-roll">
+            <i class="fas fa-dice"></i>
+        </a>
+    </div>
+</section>

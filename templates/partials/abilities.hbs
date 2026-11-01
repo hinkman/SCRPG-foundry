@@ -1,0 +1,106 @@
+{{!-- Character sheet abilities display --}}
+
+{{!-- Displays Regular and Auxiliary abilities for hero type characters --}}
+{{!-- Auxiliary ability display --}}
+{{!-- Displays the current mode/form and its associated abilities --}}
+{{#if (eq actor.system.divided true)}}
+<div class="section-name section-name-divided">
+    <h3>{{localize "SCRPG.auxiliary.dividedPsyche"}}</h3>
+</div>
+<div class="auxiliary-table" style="margin-bottom: 4px;">
+    <table class="box-border">
+        <tr>
+            <td>
+                <div class="auxiliary-item">
+                    <input class="set-powered" type="checkbox" name="system.poweredMode" {{checked
+                        actor.system.poweredMode}} data-dtype="boolean" />
+                    <p>{{localize "SCRPG.auxiliary.powered"}}</p>
+                </div>
+            </td>
+            <td>
+                <div class="auxiliary-item">
+
+                    <input class="set-civilian" type="checkbox" name="system.civilianMode" {{checked
+                        actor.system.civilianMode}} data-dtype="boolean" />
+                    <p>{{localize "SCRPG.auxiliary.civilian"}}</p>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+{{/if}}
+
+{{#if (eq actor.system.civilianMode false)}}
+{{#if (eq actor.system.formchanger true)}}
+
+{{> "systems/scrpg/templates/partials/abilitiesmodeformcommon.hbs"}}
+
+{{/if}}
+
+{{#if (eq actor.system.modular true)}}
+
+{{> "systems/scrpg/templates/partials/abilitiesmodeformcommon.hbs"}}
+
+{{!-- Second yellow mode/form --}}
+{{#if (eq actor.system.mode "yellow2")}}
+<table class="box-border yellow-abilities">
+    <tr style="{{getAbilitiesEnabledFromStatusClass 'yellow2'
+    actor.system}}">
+        <th>{{localize "SCRPG.abilities.description"}}</th>
+    </tr>
+    <tr style="{{getAbilitiesEnabledFromStatusClass 'yellow2'
+    actor.system}}">
+        <td>
+            {{{actor.system.modeDescription.yellow2}}}
+        </td>
+    </tr>
+</table>
+{{> "systems/scrpg/templates/partials/abilitiestable.hbs" mode="yellow2"}}
+{{/if}}
+
+{{!-- Red mode/form --}}
+{{#if (eq actor.system.mode "red1")}}
+<table class="box-border red-abilities">
+    <tr style="{{getAbilitiesEnabledFromStatusClass 'red1'
+    actor.system}}">
+        <th>{{localize "SCRPG.abilities.description"}}</th>
+    </tr>
+    <tr style="{{getAbilitiesEnabledFromStatusClass 'red1'
+    actor.system}}">
+        <td>
+            {{{actor.system.modeDescription.red1}}}
+        </td>
+    </tr>
+</table>
+{{> "systems/scrpg/templates/partials/abilitiestable.hbs" mode="red1"}}
+{{/if}}
+{{/if}}
+{{/if}}
+
+{{!- Displays the regular green, yellow and red abilities --}}
+<h3 class="section-name section-name-ability">{{localize "SCRPG.abilities.abilities"}}</h3>
+<div class="ability-list">
+
+    {{#if (eq actor.type "hero")}}
+    {{> "systems/scrpg/templates/partials/abilitiestable.hbs" mode="green"}}
+    {{> "systems/scrpg/templates/partials/abilitiestable.hbs" mode="yellow"}}
+    {{> "systems/scrpg/templates/partials/abilitiestable.hbs" mode="red"}}
+    <div class="box-border out-box" style="{{getAbilitiesEnabledFromStatusClass 'out' actor.system}}">
+        <div class="out-box-child">
+            <input type="text" value="{{actor.system.out}}" name="system.out" placeholder="Out">
+        </div>
+        <div class="out-box-child">
+            <a title='{{localize "SCRPG.button.displayAbility"}}' class="roll-out">
+                <i class="fas fa-comment-alt"></i>
+            </a>
+        </div>
+    </div>
+
+    {{/if}}
+
+    {{!-- displays the villain abilities if the actor type is villain --}}
+    {{#if (eq actor.type "villain")}}
+    {{> "systems/scrpg/templates/partials/abilitiestable.hbs" mode="villain"}}
+    {{/if}}
+</div>

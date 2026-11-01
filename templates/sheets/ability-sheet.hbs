@@ -1,0 +1,81 @@
+{{!-- Sheet for displaying Abilities --}}
+
+<div class="sheet-content-root {{cssClass}}">
+<header class="ability-title sheet-header">
+        <h3 class="{{#color}}{{item.system.aux}}{{/color}}-abilities box-border "><input name="name" type="text"
+                value="{{item.name}}" placeholder="{{ localize 'Name' }}" /></h3>
+    </header>
+
+    <div class="sheet-content ability-content">
+        {{#if (eq this.item.actor null)}}
+        <table class="{{#color}}{{item.system.aux}}{{/color}}-abilities box-border type-table">
+            <tr>
+                <th>{{localize "SCRPG.type.ability"}}</th>
+                <td>
+                    {{!-- Dropdown menu shows where the ability belongs either green, yellow, red, villain --}}
+                    {{!-- or part of mode/form --}}
+                    <select name="system.aux">
+                        {{selectOptions config.modes selected=item.system.aux localize=true}}
+                    </select>
+                </td>
+            </tr>
+        </table>
+        {{/if}}
+        <table class="{{#color}}{{item.system.aux}}{{/color}}-abilities box-border">
+            <colgroup>
+                <col width="45px">
+                <col width="30px">
+                <col width="auto">
+            </colgroup>
+            <tr>
+                <th>{{localize "SCRPG.abilities.icon"}}</th>
+                <th>{{localize "SCRPG.abilities.type"}}</th>
+                <th>{{localize "SCRPG.abilities.gameText"}}</th>
+            </tr>
+            <tr>
+                <td>
+                    {{!-- buttons for setting what icons are associated with the ability --}}
+                    {{!-- icons turn green if selected --}}
+                    <div class="icon-position">
+                        <a class="set-attack">
+                            <i title={{localize "SCRPG.abilitytypes.attack" }} class="fas fa-hand-rock" {{#if (eq
+                                item.system.icon.attack true)}}style="color:green" {{/if}}></i>
+                        </a>
+                        <a class="set-defend">
+                            <i title={{localize "SCRPG.abilitytypes.defend" }} class="fas fa-shield-alt" {{#if (eq
+                                item.system.icon.defend true)}}style="color:green" {{/if}}></i>
+                        </a>
+                        <a class="set-overcome">
+                            <i title={{localize "SCRPG.abilitytypes.overcome" }} class="fas fa-share" {{#if (eq
+                                item.system.icon.overcome true)}}style="color:green" {{/if}}></i>
+                        </a>
+                        <a class="set-hinder">
+                            <i title={{localize "SCRPG.abilitytypes.hinder" }} class="fas fa-angle-double-down" {{#if
+                                (eq item.system.icon.hinder true)}}style="color:green" {{/if}}></i>
+                        </a>
+                        <a class="set-boost">
+                            <i title={{localize "SCRPG.abilitytypes.boost" }} class="fas fa-angle-double-up" {{#if (eq
+                                item.system.icon.boost true)}}style="color:green" {{/if}}></i>
+                        </a>
+                        <a class="set-recover">
+                            <i title={{localize "SCRPG.abilitytypes.recover" }} class="fas fa-plus-square" {{#if (eq
+                                item.system.icon.recover true)}}style="color:green" {{/if}}></i>
+                        </a>
+                    </div>
+                </td>
+                {{!-- Ability Type --}}
+                <td class="top-align">
+                    <select name="system.type">
+                        {{selectOptions config.abilityType selected=item.system.type localize=true labelAttr="desc"}}
+                    </select>
+                </td>
+                {{!-- Description input --}}
+                <td>
+                    <prose-mirror name="system.gameText" value="{{item.system.gameText}}" toggled>
+                      {{{enrichedAbilityGameText}}}
+                    </prose-mirror>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

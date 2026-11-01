@@ -1,0 +1,34 @@
+<div class="SCRPG chat roll">
+    <table class="box-border box-border-black {{#color}}{{item.system.aux}}{{/color}}-abilities">
+        <tr>
+            <td colspan="2" class="ability-title center-text">{{item.name}}</td>
+        </tr>
+        <tr>
+            <td class="center-text">
+                {{#if (eq item.system.type "A")}}{{localize "SCRPG.abilitytypes.A.tooltip"}}{{/if}}
+                {{#if (eq item.system.type "I")}}{{localize "SCRPG.abilitytypes.I.tooltip"}}{{/if}}
+                {{#if (eq item.system.type "R")}}{{localize "SCRPG.abilitytypes.R.tooltip"}}{{/if}}
+            </td>
+            <td class="center-text ability-icon">
+                {{#if (eq item.system.icon.attack true)}}<div class="icon"><i
+                        title={{localize "SCRPG.abilitytypes.attack" }} class="fas fa-hand-rock"></i></div>{{/if}}
+                {{#if (eq item.system.icon.defend true)}}<div class="icon"><i
+                        title={{localize "SCRPG.abilitytypes.defend" }} class="fas fa-shield-alt"></i></div>{{/if}}
+                {{#if (eq item.system.icon.overcome true)}}<div class="icon"><i
+                        title={{localize "SCRPG.abilitytypes.overcome" }} class="fas fa-share"></i></div>{{/if}}
+                {{#if (eq item.system.icon.hinder true)}}<div class="icon"><i
+                        title={{localize "SCRPG.abilitytypes.hinder" }} class="fas fa-angle-double-down"></i></div>
+                {{/if}}
+                {{#if (eq item.system.icon.boost true)}}<div class="icon"><i title={{localize "SCRPG.abilitytypes.boost"
+                        }} class="fas fa-angle-double-up"></i></div>{{/if}}
+                {{#if (eq item.system.icon.recover true)}}<div class="icon"><i
+                        title={{localize "SCRPG.abilitytypes.recover" }} class="fas fa-plus-square"></i></div>
+                {{/if}}
+            </td>
+        <tr>
+            <td colspan="2">
+                {{{item.system.gameText}}}
+            </td>
+        </tr>
+    </table>
+</div>

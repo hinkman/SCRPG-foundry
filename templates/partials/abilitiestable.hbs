@@ -1,0 +1,66 @@
+{{!-- Creates a table to display the abilities --}}
+
+{{!-- This partial takes a variable called mode which is uses --}}
+{{!-- to determine where the ability belongs --}}
+<div class="ability-list item-list {{#color}}{{mode}}{{/color}}-abilities">
+    <div class="box-border ability-table" style="{{getAbilitiesEnabledFromStatusClass mode actor.system}}">
+        <div class="ability-title">
+            <div class="ability-title-child">{{localize "SCRPG.abilities.icon"}}
+            </div>
+            <div class="ability-title-child">{{localize "SCRPG.abilities.name"}}
+            </div>
+            <div class="ability-title-child">{{localize "SCRPG.abilities.type"}}
+            </div>
+            <div class="ability-title-child">{{localize
+                "SCRPG.abilities.gameText"}}</div>
+            <div class="ability-title-child">
+                <a title='{{localize "SCRPG.button.addNew"}}' class="add-ability" data-type="ability"
+                    data-aux="{{mode}}">
+                    <i class=" fas fa-plus"></i>
+                </a>
+            </div>
+        </div>
+        {{#each actor.ability as |ability id|}}
+        {{#if (eq ability.system.aux ../mode)}}
+        <div class="ability-item item" data-item-id="{{ability._id}}">
+            <div class="ability-item-child">
+                {{!-- Icons can be selected here --}}
+                <div class="icon-position">
+                    {{#if (eq system.icon.attack true)}}<div class="icon"><i
+                            title={{localize "SCRPG.abilitytypes.attack" }} class="fas fa-hand-rock"></i></div>{{/if}}
+                    {{#if (eq system.icon.defend true)}}<div class="icon"><i
+                            title={{localize "SCRPG.abilitytypes.defend" }} class="fas fa-shield-alt"></i></div>{{/if}}
+                    {{#if (eq system.icon.overcome true)}}<div class="icon"><i
+                            title={{localize "SCRPG.abilitytypes.overcome" }} class="fas fa-share"></i></div>{{/if}}
+                    {{#if (eq system.icon.hinder true)}}<div class="icon"><i
+                            title={{localize "SCRPG.abilitytypes.hinder" }} class="fas fa-angle-double-down"></i></div>
+                    {{/if}}
+                    {{#if (eq system.icon.boost true)}}<div class="icon"><i title={{localize "SCRPG.abilitytypes.boost"
+                            }} class="fas fa-angle-double-up"></i></div>{{/if}}
+                    {{#if (eq system.icon.recover true)}}<div class="icon"><i
+                            title={{localize "SCRPG.abilitytypes.recover" }} class="fas fa-plus-square"></i></div>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="ability-item-child">
+                {{name}}
+            </div>
+            <div class="ability-item-child">
+                <div title="{{getLocalizeAbilityTypeTooltip system.type}}">{{getLocalizeAbilityTypeDescription
+                    system.type}}
+                </div>
+            </div>
+            <div class="ability-item-child">
+                <div>{{{system.gameText}}}</div>
+            </div>
+            <div class="ability-item-child">
+                {{!-- buttons for editing and deleting the ablity --}}
+                <a title='{{localize "SCRPG.button.displayAbility"}}' class="roll-item">
+                    <i class="fas fa-comment-alt"></i>
+                </a>
+            </div>
+        </div>
+        {{/if}}
+        {{/each}}
+    </div>
+</div>

@@ -1,0 +1,34 @@
+{{!-- Sheet for displaying minion forms --}}
+
+<div class="sheet-content-root {{cssClass}}">
+<header class="minion-form-title sheet-header">
+        <h3 class="box-border villain-abilities"><input name="name" type="text" value="{{item.name}}"
+                placeholder="{{ localize 'Name' }}" /></h3>
+    </header>
+    <div class="sheet-content minion-form-sheet">
+        <table class="villain-abilities box-border">
+            <tr>
+                <th>{{localize "SCRPG.sheet.description"}}</th>
+                {{#if (eq this.item.actor.system.type "hero")}}
+                <th>{{localize "SCRPG.sheet.bonus"}}</th>
+                {{/if}}
+            </tr>
+            <tr>
+                {{!-- Minion form description --}}
+                <td>
+                    <prose-mirror name="system.description" value="{{item.system.description}}" toggled>
+                      {{{enrichedMinionFormSheetDescription}}}
+                    </prose-mirror>
+                </td>
+                {{!-- Bonus required to apply form --}}
+                {{#if (eq this.item.actor.system.type "hero")}}
+                <td class="top-align">
+                    <select name="system.bonus">
+                        {{selectOptions config.bonus selected=item.system.bonus localize=true}}
+                    </select>
+                </td>
+                {{/if}}
+            </tr>
+        </table>
+    </div>
+</div>

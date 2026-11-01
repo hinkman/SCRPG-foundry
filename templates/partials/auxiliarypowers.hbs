@@ -1,0 +1,39 @@
+{{!-- Display powers for each mode/form --}}
+
+{{!-- This partial takes a variable called mode which is uses --}}
+{{!-- to determine where the ability belongs --}}
+<div class="powersqualities mode-power box-border">
+    <table>
+        <tr>
+            <td>
+                <div class="section-name section-name-powerquality">
+                    <h3>{{localize "SCRPG.powerquality.powers"}}</h3>
+                    <div class="buttons">
+                        {{!-- Buttons for creating a new power --}}
+                        <a title='{{localize "SCRPG.button.addNew"}}' class="item-create" data-type="power"
+                            data-aux="{{mode}}">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td class="top-align">
+                <div class="power-list item-list">
+                    {{!-- Displays all powers related to this mode/form --}}
+                    {{#each actor.power as |power id|}}
+                    {{#if (eq power.system.aux ../mode)}}
+                    <div class="power-item item" data-item-id="{{power._id}}">
+                        <div>{{name}}</div>
+                        <div>{{system.dieType}}</div>
+                    </div>
+                    {{/if}}
+                    {{/each}}
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

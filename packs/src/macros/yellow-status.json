@@ -1,0 +1,23 @@
+{
+  "name": "Yellow Status",
+  "type": "script",
+  "scope": "global",
+  "img": "icons/svg/dice-target.svg",
+  "command": "await game.scrpg.SetYellow();",
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "systemId": "scrpg",
+    "systemVersion": "2.0.0",
+    "coreVersion": "14.000",
+    "createdTime": 1662952510331,
+    "modifiedTime": 0,
+    "lastModifiedBy": null
+  },
+  "folder": null,
+  "sort": 0,
+  "_id": "w3uKqrR7Zw8ckhRV",
+  "_key": "!macros!w3uKqrR7Zw8ckhRV"
+}

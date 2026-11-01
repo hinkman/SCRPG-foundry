@@ -1,0 +1,58 @@
+<div class="{{#color}}{{minor}}{{/color}}-twists box-border">
+    <h3 class="twist-title-color">
+        {{#if (eq title "green")}} {{localize "SCRPG.scene.green"}} {{/if}}
+        {{#if (eq title "yellow")}} {{localize "SCRPG.scene.yellow"}} {{/if}}
+        {{#if (eq title "red")}} {{localize "SCRPG.scene.red"}} {{/if}}
+    </h3>
+    <div class="twist-title">
+        <h3>{{localize "SCRPG.twist.minorTwist"}}</h3>
+        <a title='{{localize "SCRPG.button.addNew"}}' class="create-twist" data-type="environmentTwist"
+            data-aux="{{minor}}">
+            <i class="fas fa-plus"></i>
+        </a>
+    </div>
+    <section class="environmentTwist-list item-list">
+        {{#each actor.environmentTwist as |twist id|}}
+        {{#if (eq twist.system.type ../minor)}}
+        <div class="environmentTwist-item item" data-item-id="{{twist._id}}">
+            <div class="nested-name">
+                <p>{{name}}: </p>
+                {{{system.description}}}
+            </div>
+            <div class="environment-buttons">
+                {{!-- button for pushing twist to chat --}}
+                <a title='{{localize "SCRPG.button.displayTwist"}}' class="roll-item">
+                    <i class="fas fa-comment-alt"></i>
+                </a>
+            </div>
+        </div>
+        {{/if}}
+        {{/each}}
+    </section>
+
+    <div class="twist-title">
+        <h3>{{localize "SCRPG.twist.majorTwist"}}</h3>
+        <a title='{{localize "SCRPG.button.addNew"}}' class="create-twist" data-type="environmentTwist"
+            data-aux="{{major}}">
+            <i class="fas fa-plus"></i>
+        </a>
+    </div>
+    <section class="environmentTwist-list item-list">
+        {{#each actor.environmentTwist as |twist id|}}
+        {{#if (eq twist.system.type ../major)}}
+        <div class="environmentTwist-item item" data-item-id="{{twist._id}}">
+            <div class="nested-name">
+                <p>{{name}}: </p>
+                {{{system.description}}}
+            </div>
+            <div class="environment-buttons">
+                {{!-- button for pushing twist to chat --}}
+                <a title='{{localize "SCRPG.button.displayTwist"}}' class="roll-item">
+                    <i class="fas fa-comment-alt"></i>
+                </a>
+            </div>
+        </div>
+        {{/if}}
+        {{/each}}
+    </section>
+</div>

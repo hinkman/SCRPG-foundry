@@ -1,0 +1,181 @@
+{{!-- Default mode/form --}}
+<div {{#if (eq actor.system.mode "main" )}} class="select-border green-abilities mode-name"
+    {{else}}class="box-border green-abilities mode-name" {{/if}}>
+    <input class="mode-name-input" type="text" name="system.modeName.main" value="{{actor.system.modeName.main}}"
+        placeholder='{{localize "SCRPG.modes.main"}}' />
+    {{!-- Buttons for minimizing the details and applying it to character --}}
+    <a title='{{localize "SCRPG.button.show"}}' class="show-main mode-item" {{#if (eq actor.system.modeDisplayed.main
+        true )}} style="color:green" {{/if}} data-aux="main">
+        <i class="fas fa-expand-arrows-alt"></i>
+    </a>
+    <a title='{{localize "SCRPG.button.changeMode"}}' class="set-mode mode-item" {{#if (eq actor.system.mode "main" )}}
+        style="color:green" {{/if}} data-aux="main">
+        <i class="fas fa-upload"></i>
+    </a>
+</div>
+{{!-- Displays powers, description and ability --}}
+{{#if (eq actor.system.modeDisplayed.main true)}}
+<div class="mode-card box-border green-abilities">
+    <div class="forms">
+        {{> "systems/scrpg/templates/partials/auxiliarypowers.hbs" mode="main"}}
+
+        <div>
+            <table class="box-border">
+                <tr>
+                    <th>
+                        {{localize "SCRPG.abilities.description"}}
+                    </th>
+                <tr>
+                    <td>
+                        <prose-mirror name="system.modeDescription.main" value="{{actor.system.modeDescription.main}}" toggled>
+                          {{{enrichedModeDescriptionMain}}}
+                        </prose-mirror>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+{{else}}
+<br>
+{{/if}}
+
+{{!-- First green mode/form --}}
+<div {{#if (eq actor.system.mode "green1" )}} class="select-border green-abilities mode-name"
+    {{else}}class="box-border green-abilities mode-name" {{/if}}>
+    <input class="mode-name-input" type="text" name="system.modeName.green1" value="{{actor.system.modeName.green1}}"
+        placeholder='{{localize "SCRPG.modes.green1"}}' />
+    {{!-- Buttons for minimizing the details and applying it to character --}}
+    <a title='{{localize "SCRPG.button.show"}}' class="show-green1 mode-item" {{#if (eq
+        actor.system.modeDisplayed.green1 true )}} style="color:green" {{/if}} data-aux="green1">
+        <i class="fas fa-expand-arrows-alt"></i>
+    </a>
+    <a title='{{localize "SCRPG.button.changeMode"}}' class="set-mode mode-item" {{#if (eq actor.system.mode "green1"
+        )}} style="color:green" {{/if}} data-aux="green1">
+        <i class="fas fa-upload"></i>
+    </a>
+</div>
+{{!-- Displays powers, description and ability --}}
+{{#if (eq actor.system.modeDisplayed.green1 true)}}
+<div class="mode-card box-border green-abilities">
+    <div class="forms">
+        {{> "systems/scrpg/templates/partials/auxiliarypowers.hbs" mode="green1"}}
+
+        <div>
+            <table class="box-border">
+                <tr>
+                    <th>
+                        {{localize "SCRPG.abilities.description"}}
+                    </th>
+                <tr>
+                    <td>
+                        <prose-mirror name="system.modeDescription.green1" value="{{actor.system.modeDescription.green1}}" toggled>
+                          {{{enrichedModeDescriptionGreen1}}}
+                        </prose-mirror>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        {{> "systems/scrpg/templates/partials/abilitiestable.hbs" mode="green1"}}
+
+    </div>
+</div>
+{{else}}
+<br>
+{{/if}}
+
+{{!-- Second green mode/form --}}
+{{#if (eq actor.system.powerless true)}}
+<div {{#if (eq actor.system.mode "green2" )}} class="select-border green-abilities mode-name"
+    {{else}}class="box-border green-abilities mode-name" {{/if}}>
+    <input class="mode-name-input" type="text" name="system.modeName.green2" value="{{actor.system.modeName.green2}}"
+        placeholder='{{localize "SCRPG.modes.green2"}}'>
+    {{!-- Buttons for minimizing the details and applying it to character --}}
+    <a title='{{localize "SCRPG.button.show"}}' class="show-green2 mode-item" {{#if (eq
+        actor.system.modeDisplayed.green2 true )}} style="color:green" {{/if}} data-aux="green2">
+        <i class="fas fa-expand-arrows-alt"></i>
+    </a>
+    <a title='{{localize "SCRPG.button.changeMode"}}' class="set-mode mode-item" {{#if (eq actor.system.mode "green2"
+        )}} style="color:green" {{/if}} data-aux="green2">
+        <i class="fas fa-upload"></i>
+    </a>
+</div>
+{{!-- Displays powers, description and ability --}}
+
+{{#if (eq actor.system.modeDisplayed.green2 true)}}
+<div class="mode-card box-border green-abilities">
+    <div class="forms">
+        {{> "systems/scrpg/templates/partials/auxiliarypowers.hbs" mode="green2"}}
+
+        <div>
+            <table class="box-border">
+                <tr>
+                    <th>
+                        {{localize "SCRPG.abilities.description"}}
+                    </th>
+                <tr>
+                    <td>
+                        <prose-mirror name="system.modeDescription.green2" value="{{actor.system.modeDescription.green2}}" toggled>
+                          {{{enrichedModeDescriptionGreen2}}}
+                        </prose-mirror>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        {{#if (eq actor.system.formchanger true)}}
+        {{> "systems/scrpg/templates/partials/abilitiestable.hbs" mode="green2"}}
+        {{/if}}
+    </div>
+</div>
+{{else}}
+<br>
+{{/if}}
+{{/if}}
+
+
+{{!-- First yellow mode/form --}}
+<div {{#if (eq actor.system.mode "yellow1" )}} class="select-border yellow-abilities mode-name"
+    {{else}}class="box-border yellow-abilities mode-name" {{/if}}>
+    <input class="mode-name-input" type="text" name="system.modeName.yellow1" value="{{actor.system.modeName.yellow1}}"
+        placeholder='{{localize "SCRPG.modes.yellow1"}}'>
+    {{!-- Buttons for minimizing the details and applying it to character --}}
+    <a title='{{localize "SCRPG.button.show"}}' class="show-yellow1 mode-item" {{#if (eq
+        actor.system.modeDisplayed.yellow1 true )}} style="color:green" {{/if}} data-aux="yellow1">
+        <i class="fas fa-expand-arrows-alt"></i>
+    </a>
+    <a title='{{localize "SCRPG.button.changeMode"}}' class="set-mode mode-item" {{#if (eq actor.system.mode "yellow1"
+        )}} style="color:green" {{/if}} data-aux="yellow1">
+        <i class="fas fa-upload"></i>
+    </a>
+</div>
+{{!-- Displays powers, description and ability --}}
+{{#if (eq actor.system.modeDisplayed.yellow1 true)}}
+<div class="mode-card box-border yellow-abilities">
+    <div class="forms">
+        {{> "systems/scrpg/templates/partials/auxiliarypowers.hbs" mode="yellow1"}}
+
+        <div>
+            <table class="box-border">
+                <tr>
+                    <th>
+                        {{localize "SCRPG.abilities.description"}}
+                    </th>
+                <tr>
+                    <td>
+                        <prose-mirror name="system.modeDescription.yellow1" value="{{actor.system.modeDescription.yellow1}}" toggled>
+                          {{{enrichedModeDescriptionYellow1}}}
+                        </prose-mirror>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        {{> "systems/scrpg/templates/partials/abilitiestable.hbs" mode="yellow1"}}
+
+    </div>
+</div>
+{{else}}
+<br>
+{{/if}}

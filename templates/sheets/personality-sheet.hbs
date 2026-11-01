@@ -1,0 +1,41 @@
+{{!-- Sheet for displaying Environments --}}
+
+<div class="sheet-content-root {{cssClass}}">
+<div class="personality sheet-content">
+        <div class="box-border">
+            <div class="personality-title">
+                <h3>
+                    <input name="name" type="text" value="{{item.name}}"
+                        placeholder='{{localize "SCRPG.charInfo.personality"}}'>
+                </h3>
+            </div>
+            <div class="personality-description">
+                <div>
+                    <prose-mirror name="system.description" value="{{item.system.description}}" toggled>
+                      {{{enrichedPersonalityDescription}}}
+                    </prose-mirror>
+                    <input name="system.out" type="text" value="{{item.system.out}}"
+                        placeholder='{{localize "SCRPG.charInfo.out"}}'>
+                </div>
+                <div class="status-dice">
+                    <div class="status-dice-child">
+                        <select name="system.statusDie.green" class="green-border green-status-background">
+                            {{selectOptions config.dieTypes selected=item.system.statusDie.green localize=true}}
+                        </select>
+                    </div>
+                    <div class="status-dice-child">
+                        <select name="system.statusDie.yellow" class="yellow-border yellow-status-background">
+                            {{selectOptions config.dieTypes selected=item.system.statusDie.yellow localize=true}}
+                        </select>
+                    </div>
+                    <div class="status-dice-child">
+                        <select name="system.statusDie.red" class="red-border red-status-background">
+                            {{selectOptions config.dieTypes selected=item.system.statusDie.red localize=true}}
+                        </select>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

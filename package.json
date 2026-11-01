@@ -1,0 +1,13 @@
+{
+  "name": "scrpg",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "pack:macros": "node ./tools/pack-macros.mjs",
+    "css": "sass SCSS/SCRPG.scss dist/SCRPG.css --style=expanded"
+  },
+  "devDependencies": {
+    "@foundryvtt/foundryvtt-cli": "^1.0.0",
+    "sass": "^1.77.0"
+  }
+}

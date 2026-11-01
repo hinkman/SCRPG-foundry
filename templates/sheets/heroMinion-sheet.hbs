@@ -1,0 +1,58 @@
+{{!-- Sheet for displaying hero minions --}}
+
+<div class="sheet-content-root {{cssClass}}">
+<header class="hero-minion-title sheet-header">
+        <h3 class="box-border villain-abilities"><input name="name" type="text" value="{{item.name}}"
+                placeholder="{{ localize 'Name' }}" /></h3>
+    </header>
+    <div class="sheet-content heroMinion-sheet">
+        <table class="box-border">
+            <tr class="villain-abilities">
+                <th>
+                    {{localize "SCRPG.minion.action"}}
+                </th>
+                {{#unless (eq this.item.actor.system.type "minion")}}
+                <th>
+                    {{#unless (eq this.item.actor.system.type "hero")}}
+                    {{localize "SCRPG.minion.ability"}}
+                    {{else}}
+                    {{localize "SCRPG.minion.form"}}
+                    {{/unless}}
+                </th>
+                {{/unless}}
+                <th>
+                    {{localize "SCRPG.sheet.die"}}
+                </th>
+            </tr>
+            <tr class="villain-abilities">
+                <td>
+                    {{!-- Drop down to select the action the minion can take --}}
+                    <select name="system.action">
+                        {{selectOptions config.actionType selected=item.system.action localize=true}}
+                    </select>
+                </td>
+                {{#unless (eq this.item.actor.system.type "minion")}}
+                <td>
+                    {{!-- Drop down to select the form that it can take --}}
+                    {{!-- list is generated from character options --}}
+                    <select name="system.form">
+                        <option value="N/A" {{#if (eq item.system.form "N/A")}}selected{{/if}}>N/A</option>
+                        {{#each this.item.actor.minionForm as |minionForm|}}
+                        <option value="{{name}}" {{#if (eq ../item.system.form name)}}selected{{/if}}>{{name}}</option>
+                        {{/each}}
+                    </select>
+                </td>
+                {{/unless}}
+                <td>
+                    {{!-- Drop down to select minion die type --}}
+                    <select name="system.dieType">
+                        {{selectOptions config.dieTypes selected=item.system.dieType localize=true}}
+                    </select>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+
+</div>

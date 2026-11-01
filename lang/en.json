@@ -1,0 +1,243 @@
+{
+    "ACTOR.TypeHero": "Hero",
+    "ACTOR.TypeVillain": "Villain",
+    "ACTOR.TypeEnvironment": "Environment",
+    "ACTOR.TypeScene": "Scene",
+    "ACTOR.TypeMinion": "Minion/Lieutenant",
+    "ITEM.TypePower": "Power",
+    "ITEM.TypeQuality": "Quality",
+    "ITEM.TypeAbility": "Ability",
+    "ITEM.TypeVillainstatus": "Villain Status",
+    "ITEM.TypeEnvironmenttwist": "Environment Twist",
+    "ITEM.TypeMinionform": "Minion Form",
+    "ITEM.TypeHerominion": "Hero Minion",
+    "ITEM.TypeMod": "Bonus/Penalty",
+    "ITEM.TypePrinciples": "Principle",
+    "ITEM.TypeBackgrounds": "Background",
+    "ITEM.TypePowersources": "Power Source",
+    "ITEM.TypeArchetypes": "Archetype",
+    "ITEM.TypePersonality": "Personality",
+    "SETTINGS.coloredDice.name": "Colored Dice",
+    "SETTINGS.coloredDice.hint": "Enable Sentinel Comics dice colors (d4=blue, d6=green, d8=orange, d10=red, d12=purple) in Chat roll messages. Dice will be grey if disabled. Changes will be applied to new rolls.",
+    "SETTINGS.mod.name": "Track Bonus/Penalty",
+    "SETTINGS.mod.hint": "Enable the ability to track bonuses and penalties gained throughout the game.",
+    "SETTINGS.availableAbilities.name": "Available Abilities",
+    "SETTINGS.availableAbilities.hint": "Abilities not currently avilable to you due to your current status will be greyed out",
+    "SCRPG": {
+        "sheet": {
+            "actor": "SCRPG Actor Sheet",
+            "item": "SCRPG Item Sheet",
+            "die": "Die",
+            "description": "Description",
+            "newItem": "N/A",
+            "newMinion": "Minion",
+            "name": "Name",
+            "bonus": "Bonus",
+            "firstPrinciple": "First Principle",
+            "secondPrinciple": "Second Principle",
+            "principle": "Principle",
+            "group": "Group"
+        },
+        "tabs": {
+            "heroInfo": "Hero",
+            "villainInfo": "Villain",
+            "environmentInfo": "Environment",
+            "powers": "Powers",
+            "principlesIssues": "Principles",
+            "auxiliary": "Auxiliary",
+            "minions": "Minions"
+        },
+        "scene": {
+            "green": "Green",
+            "yellow": "Yellow",
+            "red": "Red",
+            "sceneColor": "The Scene has changed to ",
+            "sceneReset": "The Scene has been Reset",
+            "sceneFailure": "The Scene Tracker is out of Spaces",
+            "prolonged": "Prolonged",
+            "standard": "Standard",
+            "epic": "Epic",
+            "available": "Available",
+            "done": "Done",
+            "initiative": "Initiative",
+            "sceneTracker": "Scene Tracker"
+        },
+        "charInfo": {
+            "heroName": "Hero Name",
+            "villainName": "Villain Name",
+            "alias": "Alias",
+            "physicalAttributes": "Physical Attributes",
+            "gender": "Gender",
+            "age": "Age",
+            "height": "Height",
+            "eyes": "Eyes",
+            "hair": "Hair",
+            "skin": "Skin",
+            "build": "Build",
+            "costume": "Costume",
+            "characteristics": "Characteristics",
+            "background": "Background",
+            "powerSource": "Power Source",
+            "archetype": "Archetype",
+            "personality": "Personality",
+            "approach": "Approach",
+            "health": "Health",
+            "currentHealth": "Current Health",
+            "maxHealth": "Max Health",
+            "out": "Out Ability"
+        },
+        "principles": {
+            "duringRoleplaying": "During Roleplaying"
+        },
+        "issues": {
+            "heroPoints": "Hero Points",
+            "thisIssue": "This Issue",
+            "heroPointRewards": "Hero Point Rewards",
+            "backIssues": "Back Issues",
+            "collections": "Collections"
+        },
+        "abilities": {
+            "abilities": "Abilities",
+            "icon": "Icon",
+            "type": "Type",
+            "gameText": "Game Text",
+            "name": "Name",
+            "formmode": "Form/Mode",
+            "description": "Description"
+        },
+        "abilitytypes": {
+            "A": {
+                "display": "A",
+                "tooltip": "Action"
+            },
+            "I": {
+                "display": "I",
+                "tooltip": "Inherent"
+            },
+            "R": {
+                "display": "R",
+                "tooltip": "Reaction"
+            },
+            "attack": "Attack",
+            "defend": "Defend",
+            "overcome": "Overcome",
+            "hinder": "Hinder",
+            "boost": "Boost",
+            "recover": "Recover"
+        },
+        "powerquality": {
+            "power": "Power",
+            "quality": "Quality",
+            "powers": "Powers",
+            "qualities": "Qualities",
+            "statusDice": "Status Dice",
+            "status": "Status",
+            "currentHealth": "Current Health",
+            "sceneStatus": "Scene Status"
+        },
+        "modes": {
+            "main": "Default Mode/Form",
+            "green": "Green",
+            "yellow": "Yellow",
+            "red": "Red",
+            "villain": "Villain",
+            "green1": "Green Mode/Form #1",
+            "green2": "Powerless Mode/Green Form #2",
+            "yellow1": "Yellow Mode/Form #1",
+            "yellow2": "Yellow Mode/Form #2",
+            "red1": "Red Mode/Form #1"
+        },
+        "auxiliary": {
+            "modular": "Modular",
+            "powerless": "Powerless Mode",
+            "formChanger": "Form-Changer",
+            "divided": "Divided",
+            "dividedPsyche": "Divided Psyche",
+            "dividedStatus": "Divided Status",
+            "powered": "Powered",
+            "civilian": "Civilian"
+        },
+        "twist": {
+            "greenminor": "Green Minor",
+            "greenmajor": "Green Major",
+            "yellowminor": "Yellow Minor",
+            "yellowmajor": "Yellow Major",
+            "redminor": "Red Minor",
+            "redmajor": "Red Major",
+            "minorTwist": "Minor Twist",
+            "majorTwist": "Major Twist"
+        },
+        "environment": {
+            "dieOne": "First Die",
+            "dieTwo": "Second Die",
+            "dieThree": "Third Die"
+        },
+        "actionType": {
+            "all": "All",
+            "attack": "Attack",
+            "defend": "Defend",
+            "boost": "Boost",
+            "hinder": "Hinder",
+            "overcome": "Overcome"
+        },
+        "minion": {
+            "ability": "Ability",
+            "action": "Action",
+            "form": "Form",
+            "minion": "Minion",
+            "minions": "Minions",
+            "minionlieutenant": "Minion Group/Lieutenant",
+            "minionForm": "Minion Forms",
+            "minionAbilities": "Minion Abilities",
+            "bonus": {
+                "one": "+1 or higher",
+                "two": "+2 or higher",
+                "three": "+3 or higher",
+                "four": "+4 or higher"
+            }
+        },
+        "button": {
+            "addNew": "Add New",
+            "delete": "Delete",
+            "edit": "Edit",
+            "rollMinion": "Roll Minion",
+            "rollPower": "Roll Power",
+            "rollQuality": "Roll Quality",
+            "rollStatus": "Roll Status",
+            "displayAbility": "Display Ability to Chat",
+            "displayTwist": "Display Twist to Chat",
+            "displayMinionForm": "Display Minion Form to Chat",
+            "rollMain": "Roll Dice Pool",
+            "rollEnvironment": "Roll Environment Dice",
+            "downgrade": "Downgrade Minion Die",
+            "upgrade": "Upgrade Minion Die",
+            "show": "Show/Hide Details",
+            "changeMode": "Change to this Mode/Form",
+            "deleteMinions": "Delete all Minions",
+            "deleteMods": "Delete all Bonuses and Penalties",
+            "addToRoll": "Add to Roll",
+            "deleteInitiative": "Clear Initiative Tracker",
+            "moveDone": "Move to Done",
+            "moveAvailable": "Move to Available",
+            "moveAll": "Reset Initiative",
+            "rollAllMinions": "Roll all in this group",
+            "editScene": "Edit Scene",
+            "closeSceneEdit": "Close Scene Edit",
+            "displayScene": "Display Scene to Chat"
+        },
+        "mod": {
+            "mod": "Bonus/Penalty",
+            "persistent": "Persistent",
+            "exclusive": "Exclusive",
+            "bonus": "Bonus",
+            "penalty": "Penalty",
+            "addNew": "Add New",
+            "modName": "Bonus/Penalty Name"
+        },
+        "type": {
+            "ability": "Ability Color/Type",
+            "power": "Power Type",
+            "twist": "Twist Color/Type"
+        }
+    }
+}

@@ -1,0 +1,40 @@
+<section class="environment">
+    <div>
+        <div class="environment-title box-border">
+            <div class="environment-dice">
+                <input class="environment-name" type="text" name="name" value="{{actor.name}}">
+                {{!-- Button for rolling environment dice --}}
+                <a title='{{localize "SCRPG.button.rollEnvironment"}}' class="make-roll">
+                    <i class="fas fa-dice"></i>
+                </a>
+                {{!-- Environment dice names and values --}}
+                <input name="system.firstDieName" type="text" value="{{actor.system.firstDieName}}">
+                <select name="system.firstDie">
+                    {{selectOptions config.dieTypes selected=actor.system.firstDie localize=true}}
+                </select>
+                <input name="system.secondDieName" type="text" value="{{actor.system.secondDieName}}">
+                <select name="system.secondDie">
+                    {{selectOptions config.dieTypes selected=actor.system.secondDie localize=true}}
+                </select>
+                <input name="system.thirdDieName" type="text" value="{{actor.system.thirdDieName}}">
+                <select name="system.thirdDie">
+                    {{selectOptions config.dieTypes selected=actor.system.thirdDie localize=true}}
+                </select>
+            </div>
+        </div>
+        {{!-- Displays green environment twists --}}
+        {{> "systems/scrpg/templates/partials/environmenttwist.hbs" title="green" minor="greenminor"
+        major="greenmajor"}}
+        {{!-- Displays yellow environment twists --}}
+        {{> "systems/scrpg/templates/partials/environmenttwist.hbs" title="yellow" minor="yellowminor"
+        major="yellowmajor"}}
+    </div>
+    <div>
+        {{!-- Environment image --}}
+        <div class="character-photo">
+            <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" class="img-border environment-img">
+        </div>
+        {{!-- Displays red environment twists --}}
+        {{> "systems/scrpg/templates/partials/environmenttwist.hbs" title="red" minor="redminor" major="redmajor"}}
+    </div>
+</section>

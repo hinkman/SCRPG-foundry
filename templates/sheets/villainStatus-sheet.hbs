@@ -1,0 +1,30 @@
+{{!-- Sheet for displaying villain status --}}
+
+<div class="sheet-content-root {{cssClass}}">
+<header class="villain-status-title sheet-header">
+        <h3 class="box-border white-abilities"><input name="name" type="text" value="{{item.name}}"
+                placeholder="{{ localize 'Name' }}" /></h3>
+    </header>
+    <div class="sheet-content">
+        <table class="box-border powerquality">
+            <tr>
+                <th>{{localize "SCRPG.sheet.die"}}</th>
+                <th>{{localize "SCRPG.sheet.description"}}</th>
+            </tr>
+            <tr>
+                {{!-- Dropdown menu for selecting die type --}}
+                <td>
+                    <select name="system.dieType">
+                        {{selectOptions config.dieTypes selected=item.system.dieType localize=true}}
+                    </select>
+                </td>
+                {{!-- Description input --}}
+                <td>
+                    <prose-mirror name="system.description" value="{{item.system.description}}" toggled>
+                      {{{enrichedVillainStatusDescription}}}
+                    </prose-mirror>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

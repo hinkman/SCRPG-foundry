@@ -1,0 +1,47 @@
+{{!-- Displays a roll of a sinple power, quality or status die --}}
+
+<div class="SCRPG chat roll">
+    {{!-- Displays used Mods in roll --}}
+    {{> "systems/scrpg/templates/chat/partials/modDisplay.hbs"}}
+    <div class="dice-results dice-rolled box-border minor-roll" style="border: 2px solid {{coloring}}">
+        {{!-- Table displays name, die type, and result --}}
+        <table>
+            <tr>
+                {{!-- Displays the type of roll, name, and die result --}}
+                {{#if (eq rollResult.rollType "power")}}
+                <th>{{localize "SCRPG.powerquality.power"}}</th>
+                {{/if}}
+                {{#if (eq rollResult.rollType "quality")}}
+                <th>{{localize "SCRPG.powerquality.quality"}}</th>
+                {{/if}}
+                {{#if (eq rollResult.rollType "status")}}
+                <th>{{localize "SCRPG.powerquality.status"}}</th>
+                {{/if}}
+                {{#if (eq rollResult.rollType "minion")}}
+                <th>{{localize "SCRPG.minion.minion"}}</th>
+                {{/if}}
+                <td>
+                    {{#if (eq rollResult.rollName "green")}}{{localize "SCRPG.scene.green"}}
+                    {{else}}
+                    {{#if (eq rollResult.rollName "yellow")}}{{localize "SCRPG.scene.yellow"}}
+                    {{else}}
+                    {{#if (eq rollResult.rollName "red")}}{{localize "SCRPG.scene.red"}}
+                    {{else}}
+                    {{rollResult.rollName}}
+                    {{/if}}
+                    {{/if}}
+                    {{/if}}
+
+                </td>
+                <td>
+                    <div class="dice" style="margin-right: 6px">
+                        <label> {{{rollResult.total}}} </label>
+                        {{#if rollResult.img}}
+                        <img class="{{rollResult.imgClass}}" src="{{rollResult.img}}" />
+                        {{/if}}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

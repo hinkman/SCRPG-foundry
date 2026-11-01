@@ -1,0 +1,23 @@
+{
+  "name": "Green Status",
+  "type": "script",
+  "scope": "global",
+  "img": "icons/svg/dice-target.svg",
+  "command": "await game.scrpg.SetGreen();",
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "systemId": "scrpg",
+    "systemVersion": "2.0.0",
+    "coreVersion": "14.000",
+    "createdTime": 1662952449113,
+    "modifiedTime": 0,
+    "lastModifiedBy": null
+  },
+  "folder": null,
+  "sort": 0,
+  "_id": "Whs3ipfQmMiAQCU3",
+  "_key": "!macros!Whs3ipfQmMiAQCU3"
+}

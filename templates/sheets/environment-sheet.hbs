@@ -1,0 +1,17 @@
+{{!-- Sheet for displaying Environments --}}
+
+<div class="sheet-content-root {{cssClass}}">
+<nav class="sheet-tabs tabs box-border" data-group="primary">
+        <a class="item" data-tab="info">{{ localize "SCRPG.tabs.environmentInfo" }}</a>
+        <a class="item" data-tab="minions">{{ localize "SCRPG.tabs.minions" }}</a>
+    </nav>
+    <section class="sheet-body">
+        {{!-- Hero Tab Content --}}
+        <div class="tab info" data-group="primary" data-tab="info">
+            {{> "systems/scrpg/templates/partials/environment.hbs"}}
+        </div>
+        <div class="tab minions" data-group="primary" data-tab="minions">
+            {{> "systems/scrpg/templates/partials/minions.hbs"}}
+        </div>
+    </section>
+</div>

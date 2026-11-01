@@ -1,0 +1,72 @@
+<div class="minion-form-list item-list">
+    {{!-- Table to displaying available minion forms --}}
+    <div class="villain-abilities box-border minion-form-table">
+        <div class="villain-minion-form-title">
+            <div class="minion-form-title-child">{{localize "SCRPG.minion.ability"}}</div>
+            <div class="minion-form-title-child">{{localize "SCRPG.sheet.description"}}</div>
+            <div class="minion-form-title-child">
+                {{!-- Button for adding a new minion form --}}
+                <a title='{{localize "SCRPG.button.addNew" }}' class="item-create" data-type="minionForm"
+                    data-group={{index}}>
+                    <i class=" fas fa-plus"></i>
+                </a>
+            </div>
+        </div>
+        {{!-- Displays all minion forms the character has --}}
+        {{#each actor.minionForm as |minionForm id|}}
+        {{#if (eq system.group ../index)}}
+        <div class="minionForm-item villain-minionForm-parent item" data-item-id="{{minionForm._id}}">
+            <div class="minionForm-child">
+                {{name}}
+            </div>
+            <div class="minionForm-child">
+                <div>{{{system.description}}}</div>
+            </div>
+            <div class="minionForm-child">
+                {{!-- buttons for pushing minion form to chat --}}
+                <a title='{{localize "SCRPG.button.displayMinionForm"}}' class="roll-item">
+                    <i class="fas fa-comment-alt"></i>
+                </a>
+            </div>
+        </div>
+        {{/if}}
+        {{/each}}
+    </div>
+</div>
+
+<div class="heroMinion-list item-list box-border">
+    {{#each actor.heroMinion as |heroMinion id|}}
+    {{#if (eq system.group ../index)}}
+    <div class="heroMinion-item item" data-item-id="{{heroMinion._id}}">
+        <table class="villain-abilities box-border minion-stats">
+            <tr>
+                <th colspan="2" class="minion-title">
+                    <div class="minion-name">
+                        <h3>{{name}}</h3>
+                        <div class="minion-button">
+                            <a title='{{localize "SCRPG.button.rollMinion" }}' class="roll-minion">
+                                <i class="fas fa-dice"></i>
+                            </a>
+                            <a title='{{localize "SCRPG.button.downgrade" }}' class="downgrade-minion">
+                                <i class="fas fa-angle-double-down"></i>
+                            </a>
+                            <a title='{{localize "SCRPG.button.upgrade" }}' class="upgrade-minion">
+                                <i class="fas fa-angle-double-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th>{{localize "SCRPG.minion.action"}}</th>
+                <td>{{getLocalizeMinionAbility system.action}}</td>
+            </tr>
+            <tr>
+                <th>{{localize "SCRPG.sheet.die"}}</th>
+                <td>{{system.dieType}}</td>
+            </tr>
+        </table>
+    </div>
+    {{/if}}
+    {{/each}}
+</div>

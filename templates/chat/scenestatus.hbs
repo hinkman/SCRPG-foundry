@@ -1,0 +1,52 @@
+<div class="SCRPG chat roll">
+    <div class="scene-output box-border box-border-black">
+        <div class="scene-section">
+            <div class="scene-stars">
+                {{#multiple gc}}
+                <div class="scene-checked">
+                    <label><i class="fas fa-check"></i></label>
+                    <i class="fa-solid fa-burst green-current status-font"></i>
+                </div>
+                {{/multiple}}
+                {{#multiple gt}}
+                <i class="fa-solid fa-burst green-total status-font"></i>
+                {{/multiple}}
+            </div>
+            <div class="green-spaces-name">
+                <h3>{{localize "SCRPG.scene.green"}}</h3>
+            </div>
+        </div>
+        <div class="scene-section">
+            <div class="scene-stars">
+                {{#multiple yc}}
+                <div class="scene-checked">
+                    <label><i class="fas fa-check"></i></label>
+                    <i class="fa-solid fa-burst yellow-current status-font"></i>
+                </div>
+                {{/multiple}}
+                {{#multiple yt}}
+                <i class="fa-solid fa-burst yellow-total status-font"></i>
+                {{/multiple}}
+            </div>
+            <div class="yellow-spaces-name">
+                <h3>{{localize "SCRPG.scene.yellow"}}</h3>
+            </div>
+        </div>
+        <div class="scene-section">
+            <div class="scene-stars">
+                {{#multiple rc}}
+                <div class="scene-checked">
+                    <label><i class="fas fa-check"></i></label>
+                    <i class="fa-solid fa-burst red-current status-font"></i>
+                </div>
+                {{/multiple}}
+                {{#multiple rt}}
+                <i class="fa-solid fa-burst red-total status-font"></i>
+                {{/multiple}}
+            </div>
+            <div class="red-spaces-name">
+                <h3>{{localize "SCRPG.scene.red"}}</h3>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+{{!-- Sheet for displaying Environments --}}
+
+<div class="sheet-content-root {{cssClass}}">
+<div class="sheet-content">
+        <div class="principle box-border">
+            <div>
+                <h3 class="principle-title">
+                    <input name="name" type="text" value="{{item.name}}"
+                        placeholder='{{localize "SCRPG.charInfo.principle"}}'>
+                </h3>
+            </div>
+            <h4 class="principle-section">
+                {{localize "SCRPG.principles.duringRoleplaying"}}
+            </h4>
+            <div>
+                <prose-mirror name="system.roleplaying" value="{{item.system.roleplaying}}" toggled>
+                  {{{enrichedPrincipleRoleplaying}}}
+                </prose-mirror>
+            </div>
+
+            <h4 class="principle-section">
+                {{localize "SCRPG.twist.minorTwist"}}
+            </h4>
+            <div>
+                <prose-mirror name="system.minorTwist" value="{{item.system.minorTwist}}" toggled>
+                  {{{enrichedPrincipleMinorTwist}}}
+                </prose-mirror>
+            </div>
+            <h4 class="principle-section">
+                {{localize "SCRPG.twist.majorTwist"}}
+            </h4>
+            <div>
+                <prose-mirror name="system.majorTwist" value="{{item.system.majorTwist}}" toggled>
+                  {{{enrichedPrincipleMajorTwist}}}
+                </prose-mirror>
+            </div>
+        </div>
+    </div>
+</div>

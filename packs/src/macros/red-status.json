@@ -1,0 +1,23 @@
+{
+  "name": "Red Status",
+  "type": "script",
+  "scope": "global",
+  "img": "icons/svg/dice-target.svg",
+  "command": "await game.scrpg.SetRed();",
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "systemId": "scrpg",
+    "systemVersion": "2.0.0",
+    "coreVersion": "14.000",
+    "createdTime": 1662952527010,
+    "modifiedTime": 0,
+    "lastModifiedBy": null
+  },
+  "folder": null,
+  "sort": 0,
+  "_id": "l4HSjJjmhPPxLVX3",
+  "_key": "!macros!l4HSjJjmhPPxLVX3"
+}

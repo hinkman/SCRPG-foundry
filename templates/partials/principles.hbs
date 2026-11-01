@@ -1,0 +1,66 @@
+{{!-- Principles --}}
+<section class="sheet-content principles twocolgrid box-border">
+    {{!-- Entries for first principle, roleplaying info, minor twist and major twist --}}
+    <div class="principle DroppableFirstPrinciple">
+        <h3 class="section-name section-name-principle">
+            <input name="system.firstPrinciple.name" type="text" value="{{actor.system.firstPrinciple.name}}"
+                placeholder='{{localize "SCRPG.sheet.firstPrinciple"}}'>
+        </h3>
+        <h4 class="principle-section">
+            {{localize "SCRPG.principles.duringRoleplaying"}}
+        </h4>
+        <div>
+            <prose-mirror name="system.firstPrinciple.roleplaying" value="{{actor.system.firstPrinciple.roleplaying}}" toggled>
+              {{{enrichedFirstPrincipleRoleplaying}}}
+            </prose-mirror>
+        </div>
+        <h4 class="principle-section">
+            {{localize "SCRPG.twist.minorTwist"}}
+        </h4>
+        <div>
+            <prose-mirror name="system.firstPrinciple.minorTwist" value="{{actor.system.firstPrinciple.minorTwist}}" toggled>
+              {{{enrichedFirstPrincipleMinorTwist}}}
+            </prose-mirror>
+        </div>
+        <h4 class="principle-section">
+            {{localize "SCRPG.twist.majorTwist"}}
+        </h4>
+        <div>
+            <prose-mirror name="system.firstPrinciple.majorTwist" value="{{actor.system.firstPrinciple.majorTwist}}" toggled>
+              {{{enrichedFirstPrincipleMajorTwist}}}
+            </prose-mirror>
+        </div>
+    </div>
+
+    {{!-- Entries for second principle, roleplaying info, minor twist and major twist --}}
+    <div class="principle left-border DroppableSecondPrinciple">
+        <h3 class="section-name section-name-principle">
+            <input name="system.secondPrinciple.name" type="text" value="{{actor.system.secondPrinciple.name}}"
+                placeholder='{{localize "SCRPG.sheet.secondPrinciple"}}'>
+        </h3>
+        <h4 class="principle-section">
+            {{localize "SCRPG.principles.duringRoleplaying"}}
+        </h4>
+        <div>
+            <prose-mirror name="system.secondPrinciple.roleplaying" value="{{actor.system.secondPrinciple.roleplaying}}" toggled>
+              {{{enrichedSecondPrincipleRoleplaying}}}
+            </prose-mirror>
+        </div>
+        <h4 class="principle-section">
+            {{localize "SCRPG.twist.minorTwist"}}
+        </h4>
+        <div>
+            <prose-mirror name="system.secondPrinciple.minorTwist" value="{{actor.system.secondPrinciple.minorTwist}}" toggled>
+              {{{enrichedSecondPrincipleMinorTwist}}}
+            </prose-mirror>
+        </div>
+        <h4 class="principle-section">
+            {{localize "SCRPG.twist.majorTwist"}}
+        </h4>
+        <div>
+            <prose-mirror name="system.secondPrinciple.majorTwist" value="{{actor.system.secondPrinciple.majorTwist}}" toggled>
+              {{{enrichedSecondPrincipleMajorTwist}}}
+            </prose-mirror>
+        </div>
+    </div>
+</section>

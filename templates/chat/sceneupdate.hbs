@@ -1,0 +1,15 @@
+<div class="SCRPG chat roll">
+    <div class="scene box-border box-border-black {{coloring}}-abilities">
+        <h3>{{#if (eq type "failure")}}{{localize "SCRPG.scene.sceneFailure"}}
+            {{else}}
+            {{#if (eq type "reset")}}{{localize "SCRPG.scene.sceneReset"}}
+            {{else}}
+            {{localize "SCRPG.scene.sceneColor"}}
+            {{#if (eq type "green")}}{{localize "SCRPG.scene.green"}}{{/if}}
+            {{#if (eq type "yellow")}}{{localize "SCRPG.scene.yellow"}}{{/if}}
+            {{#if (eq type "red")}}{{localize "SCRPG.scene.red"}}{{/if}}
+            {{/if}}
+            {{/if}}
+        </h3>
+    </div>
+</div>

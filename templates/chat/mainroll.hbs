@@ -1,0 +1,66 @@
+{{!-- Displays typical role of Power quality and status together --}}
+
+{{!-- Table of selected power, quality and status for roll --}}
+<div class="SCRPG chat roll">
+    <div class="dice-rolled box-border main-roll" style="border: 2px solid {{coloring}}">
+        <table>
+            <tr>
+                {{!-- Displays title appropriate to environment or power/quality --}}
+                {{#if (eq type "environment")}}
+                <th>{{localize "SCRPG.environment.dieOne"}}</th>
+                {{else}}
+                {{#if (eq civilianMode true)}}
+                <th>{{localize "SCRPG.powerquality.quality"}}</th>
+                {{else}}
+                <th>{{localize "SCRPG.powerquality.power"}}</th>
+                {{/if}}
+                {{/if}}
+                <td>{{names.[0]}}</td>
+            </tr>
+            <tr>
+                {{!-- Displays title appropriate to environment or power/quality --}}
+                {{#if (eq type "environment")}}
+                <th>{{localize "SCRPG.environment.dieTwo"}}</th>
+                {{else}}
+                {{#if (eq poweredMode true)}}
+                <th>{{localize "SCRPG.powerquality.power"}}</th>
+                {{else}}
+                <th>{{localize "SCRPG.powerquality.quality"}}</th>
+                {{/if}}
+                {{/if}}
+                <td>{{names.[1]}}</td>
+            </tr>
+            <tr>
+                {{!-- Displays title appropriate to environment or status --}}
+                {{#if (eq type "environment")}}
+                <th>{{localize "SCRPG.environment.dieThree"}}</th>
+                {{else}}
+                <th>{{localize "SCRPG.powerquality.status"}}</th>
+                {{/if}}
+                <td>
+                    {{#if (eq names.[2] "green")}}{{localize "SCRPG.scene.green"}}{{/if}}
+                    {{#if (eq names.[2] "yellow")}}{{localize "SCRPG.scene.yellow"}}{{/if}}
+                    {{#if (eq names.[2] "red")}}{{localize "SCRPG.scene.red"}}{{/if}}
+                    {{#if (ne type "hero")}}{{names.[2]}}{{/if}}
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    {{!-- Displays used Mods in roll --}}
+    {{> "systems/scrpg/templates/chat/partials/modDisplay.hbs"}}
+
+    {{!-- Roll result displayed in order of Max, Mid and Min --}}
+    <div class="dice-results box-border" style="border: 2px solid {{coloring}}">
+        {{#each dice}}
+        <p style="font-weight: bold; margin-left: 6px;">{{this.dicePosition}} :</p>
+        <div class="dice" style="margin-right: 6px">
+            <label> {{this.total}} </label>
+            {{#if this.img}}
+            <img class="{{this.imgClass}}" src="{{this.img}}" />
+            {{/if}}
+        </div>
+        {{/each}}
+    </div>
+
+</div>

@@ -1,0 +1,79 @@
+{
+    "id": "scrpg",
+    "title": "Sentinel Comics the Roleplaying Game (Unofficial)",
+    "description": "A system for playing Sentinel Comics the Roleplaying Game",
+    "type": "system",
+    "authors": [
+        {
+            "name": "RabidRaccoon"
+        },
+        {
+            "name": "GamerDragon"
+        }
+    ],
+    "version": "2.0.0",
+    "compatibility": {
+        "minimum": "14",
+        "verified": "14"
+    },
+    "esmodules": [
+        "SCRPG.js"
+    ],
+    "styles": [
+        "dist/SCRPG.css"
+    ],
+    "packs": [
+        {
+            "name": "macros",
+            "label": "SCRPG Macros",
+            "path": "packs/macros",
+            "type": "Macro",
+            "ownership": {
+                "GAMEMASTER": "OWNER",
+                "ASSISTANT": "OWNER",
+                "PLAYER": "OBSERVER"
+            }
+        }
+    ],
+    "languages": [
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "lang/en.json"
+        }
+    ],
+    "grid": {
+        "distance": 5,
+        "units": "ft"
+    },
+    "primaryTokenAttribute": "wounds",
+    "initiative": "N/A",
+    "documentTypes": {
+        "Actor": {
+            "hero": {},
+            "villain": {},
+            "environment": {},
+            "scene": {},
+            "minion": {}
+        },
+        "Item": {
+            "power": {},
+            "quality": {},
+            "ability": {},
+            "villainStatus": {},
+            "environmentTwist": {},
+            "heroMinion": {},
+            "minionForm": {},
+            "mod": {},
+            "principles": {},
+            "backgrounds": {},
+            "powerSources": {},
+            "archetypes": {},
+            "personality": {},
+            "initiativeActor": {}
+        }
+    },
+    "url": "https://gitlab.com/RabidRaccoon/scrpg",
+    "manifest": "https://gitlab.com/RabidRaccoon/scrpg/-/raw/main/system.json",
+    "download": "https://gitlab.com/RabidRaccoon/scrpg/-/archive/v2.0.0/scrpg-v2.0.0.zip"
+}

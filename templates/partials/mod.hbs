@@ -1,0 +1,104 @@
+{{!-- Available Mods --}}
+<section>
+    <div class="section-name section-name-mod">
+        <h3>{{localize "SCRPG.mod.mod"}}</h3>
+        <a title='{{localize "SCRPG.button.deleteMods" }}' class="delete-all" data-type="mod">
+            <i class="fas fa-trash"></i>
+        </a>
+    </div>
+    <div class="mods item-list">
+        <table class="box-border">
+            <tr>
+                <th>{{localize "SCRPG.mod.addNew"}}</th>
+                <th>{{localize "SCRPG.mod.bonus"}}</th>
+                <th>{{localize "SCRPG.mod.penalty"}}</th>
+            </tr>
+            <tr>
+                <td class="mod-create-td">
+                    <div>
+                        <input name="system.modName" type="text" value="{{actor.system.modName}}"
+                            placeholder='{{localize "SCRPG.mod.modName"}}' />
+                    </div>
+                    <div class="mod-dialogue">
+                        <div class="mod-per-dialogue">
+                            <p>
+                                {{localize "SCRPG.mod.persistent"}}
+                                <i title='{{localize "SCRPG.mod.persistent"}}' class="fas fa-hourglass"></i>
+                            </p>
+                            <input type="checkbox" name="system.persistent" {{checked actor.system.persistent}}
+                                data-dtype="boolean" />
+                        </div>
+                        <div class="mod-exc-dialogue">
+                            <p>
+                                {{localize "SCRPG.mod.exclusive"}}
+                                <i title='{{localize "SCRPG.mod.exclusive"}}' class="fas fa-lock"></i>
+                            </p>
+                            <input type="checkbox" name="system.exclusive" {{checked actor.system.exclusive}}
+                                data-dtype="boolean" />
+                        </div>
+                    </div>
+                    <div class="mod-buttons">
+                        {{#multiple 4}}
+                        <div class="mod-buttons-child">
+                            <a title='{{localize "SCRPG.button.addNew"}}'
+                                class="create-mod mod-link box-border green-abilities" data-type="mod"
+                                data-value="+{{@index}}">
+                                <h3>+{{@index}}</h3>
+                            </a>
+                        </div>
+                        {{/multiple}}
+                        {{#multiple 4}}
+                        <div class="mod-buttons-child">
+                            <a title='{{localize "SCRPG.button.addNew"}}'
+                                class="create-mod mod-link box-border red-abilities" data-type="mod"
+                                data-value="-{{@index}}">
+                                <h3>-{{@index}}</h3>
+                            </a>
+                        </div>
+                        {{/multiple}}
+                    </div>
+                </td>
+                <td>
+                    <div class="bonuses">
+                        {{#each actor.mod as |mod id|}}
+                        {{#if (gte system.value 0)}}
+                        <div class="mod-item item mod-select box-border green-abilities {{#if (eq system.selected true)}}green-border{{/if}}"
+                            data-item-id="{{ mod._id}}">
+                            <h3>{{#if (eq system.named true)}}{{name}}{{/if}} {{system.value}}</h3>
+                            <div class="p-e-icon">
+                                {{#if (eq system.persistent true)}}
+                                <i title='{{localize "SCRPG.mod.persistent"}}' class="fas fa-hourglass"></i>
+                                {{/if}}
+                                {{#if (eq system.exclusive true)}}
+                                <i title='{{localize "SCRPG.mod.exclusive"}}' class="fas fa-lock"></i>
+                                {{/if}}
+                            </div>
+                        </div>
+                        {{/if}}
+                        {{/each}}
+                    </div>
+                </td>
+                <td>
+                    <div class="penalties">
+                        {{#each actor.mod as |mod id|}}
+                        {{#if (lte system.value 0)}}
+                        <div class="mod-item item mod-select box-border red-abilities  {{#if (eq system.selected true)}}red-border{{/if}}"
+                            data-item-id="{{ mod._id}}">
+                            <h3>{{#if (eq system.named true)}}{{name}}{{/if}} {{system.value}}</h3>
+                            <div class="p-e-icon">
+                                {{#if (eq system.persistent true)}}
+                                <i title='{{localize "SCRPG.mod.persistent"}}' class="fas fa-hourglass"></i>
+                                {{/if}}
+                                {{#if (eq system.exclusive true)}}
+                                <i title='{{localize "SCRPG.mod.exclusive"}}' class="fas fa-lock"></i>
+                                {{/if}}
+                            </div>
+                        </div>
+                        {{/if}}
+                        {{/each}}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</section>

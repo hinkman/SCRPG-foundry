@@ -1,0 +1,197 @@
+<div class="sheet-content-root {{cssClass}}">
+<div class="scene-tracker box-border">
+        <div class="scene-tracker-title">
+            <h1>{{localize "SCRPG.scene.sceneTracker"}}</h1>
+            <i title='{{localize "SCRPG.button.displayScene" }}' class="fas fa-comment-alt display-scene"></i>
+            {{#if (eq actor.system.options false)}}
+            <i title='{{localize "SCRPG.button.editScene" }}' class="fas fa-edit scene-options"></i>
+            {{else}}
+            <i title='{{localize "SCRPG.button.closeSceneEdit" }}' class="fas fa-times-circle scene-options"></i>
+            {{/if}}
+        </div>
+
+
+        {{#if (eq actor.system.options true)}}
+        <div class="scene-tracker-child scene-tracker-presets">
+            <a class="scene-tracker-setting" data-type="standard">
+                <h3>{{localize "SCRPG.scene.standard"}}</h3>
+            </a>
+            <a class="scene-tracker-setting" data-type="prolonged">
+                <h3>{{localize "SCRPG.scene.prolonged"}}</h3>
+            </a>
+            <a class="scene-tracker-setting" data-type="epic">
+                <h3>{{localize "SCRPG.scene.epic"}}</h3>
+            </a>
+        </div>
+
+        <div class="scene-tracker-child scene-tracker-options">
+            <select name="system.greenSpace.setting" class="adjust-green update-scene green-border green-abilities"
+                data-color="green">
+                {{#multiple "10"}}
+                <option value="{{@index}}" {{#if (eq ../actor.system.greenSpace.setting @index)}}selected{{/if}}>{{@index}}</option>
+                {{/multiple}}
+            </select>
+
+            <select name="system.yellowSpace.setting" class="adjust-yellow update-scene yellow-border yellow-abilities"
+                data-color="yellow">
+                {{#multiple "10"}}
+                <option value="{{@index}}" {{#if (eq ../actor.system.yellowSpace.setting @index)}}selected{{/if}}>{{@index}}</option>
+                {{/multiple}}
+            </select>
+
+            <select name="system.redSpace.setting" class="adjust-red update-scene red-border red-abilities"
+                data-color="red">
+                {{#multiple "10"}}
+                <option value="{{@index}}" {{#if (eq ../actor.system.redSpace.setting @index)}}selected{{/if}}>{{@index}}</option>
+                {{/multiple}}
+            </select>
+        </div>
+        {{/if}}
+
+        <div class="scene-tracker-child">
+            <div class=" scene-tracker-spaces">
+                <div class="green-spaces">
+                    {{#multiple actor.system.greenSpace.setting}}
+                    <div class="set-scene" data-num="{{@index}}" data-color="green">
+                        <div class="spaces">
+                            {{#if (gte ../actor.system.greenSpace.current @index)}}
+                            <label><i class="fas fa-check"></i></label>
+                            {{/if}}
+                            <svg height="50" width="57" class={{#if (gte ../actor.system.greenSpace.current
+                                @index)}}"green-scene-selected"{{else}}"green-scene{{/if}}">
+                                <defs>
+                                    <filter id="f1" x="0" y="0" width="200%" height="200%">
+                                        <feOffset result="offOut" in="SourceAlpha" dx="2" dy="2" />
+                                        <feBlend in="SourceGraphic" in2="offOut" mode="normal" />
+                                    </filter>
+                                </defs>
+                                <polygon
+                                    points="7,9 20,16 24,5 31,15 44,4 42,17 53,19 42,26 49,38 35,32 32,41 25,35 9,45 16,32 5,27 16,25"
+                                    filter="url(#f1)" />
+                            </svg>
+                        </div>
+                    </div>
+                    {{/multiple}}
+                </div>
+                <div class="green-spaces-name">
+                    <h3>{{localize "SCRPG.scene.green"}}</h3>
+                </div>
+            </div>
+            <div class=" scene-tracker-spaces">
+                <div class="yellow-spaces">
+                    {{#multiple actor.system.yellowSpace.setting}}
+                    <div class="set-scene" data-num="{{@index}}" data-color="yellow">
+                        <div class="spaces">
+                            {{#if (gte ../actor.system.yellowSpace.current @index)}}
+                            <label><i class="fas fa-check"></i></label>
+                            {{/if}}
+                            <svg height="50" width="57" class={{#if (gte ../actor.system.yellowSpace.current
+                                @index)}}"yellow-scene-selected"{{else}}"yellow-scene{{/if}}">
+                                <defs>
+                                    <filter id="f1" x="0" y="0" width="200%" height="200%">
+                                        <feOffset result="offOut" in="SourceAlpha" dx="2" dy="2" />
+                                        <feBlend in="SourceGraphic" in2="offOut" mode="normal" />
+                                    </filter>
+                                </defs>
+                                <polygon
+                                    points="7,9 20,16 24,5 31,15 44,4 42,17 53,19 42,26 49,38 35,32 32,41 25,35 9,45 16,32 5,27 16,25"
+                                    filter="url(#f1)" />
+                            </svg>
+                        </div>
+                    </div>
+                    {{/multiple}}
+                </div>
+                <div class="yellow-spaces-name">
+                    <h3>{{localize "SCRPG.scene.yellow"}}</h3>
+                </div>
+            </div>
+            <div class=" scene-tracker-spaces">
+                <div class="red-spaces">
+                    {{#multiple actor.system.redSpace.setting}}
+                    <div class="set-scene" data-num="{{@index}}" data-color="red">
+                        <div class="spaces">
+                            {{#if (gte ../actor.system.redSpace.current @index)}}
+                            <label><i class="fas fa-check"></i></label>
+                            {{/if}}
+                            <svg height="50" width="57" class={{#if (gte ../actor.system.redSpace.current
+                                @index)}}"red-scene-selected"{{else}}"red-scene{{/if}}">
+                                <defs>
+                                    <filter id="f1" x="0" y="0" width="200%" height="200%">
+                                        <feOffset result="offOut" in="SourceAlpha" dx="2" dy="2" />
+                                        <feBlend in="SourceGraphic" in2="offOut" mode="normal" />
+                                    </filter>
+                                </defs>
+                                <polygon
+                                    points="7,9 20,16 24,5 31,15 44,4 42,17 53,19 42,26 49,38 35,32 32,41 25,35 9,45 16,32 5,27 16,25"
+                                    filter="url(#f1)" />
+                            </svg>
+                        </div>
+                    </div>
+                    {{/multiple}}
+                </div>
+                <div class="red-spaces-name">
+                    <h3>{{localize "SCRPG.scene.red"}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box-border initiative-tracker">
+
+        <h1 class="initiative-tracker-title">{{localize "SCRPG.scene.initiative" }}</h1>
+
+        <div class="initiative ">
+            <div class="initiative-available box-border">
+                <div class="initiative-name initiative-name-available green-abilities">
+                    <div class="available-title">
+                        <h3>{{localize "SCRPG.scene.available"}}</h3>
+                    </div>
+                    <div class="buttons">
+                        <a title='{{localize "SCRPG.button.addNew" }}' class="item-create" data-type="initiativeActor">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                        <a title='{{localize "SCRPG.button.deleteInitiative" }}' class="delete-all"
+                            data-type="initiativeActor">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </div>
+                </div>
+                {{#each actor.initiativeActor as |init id|}}
+                {{#if (eq init.system.acted false)}}
+                <div class="initiativeActor-item item box-border" data-item-id="{{init._id}}">
+                    <input class="inline-edit" data-field="name" type="text" value="{{init.name}}" />
+                    <a title='{{localize "SCRPG.button.moveDone" }}' class="change-acted-status">
+                        <i class="fas fa-arrow-alt-circle-right"></i>
+                    </a>
+                </div>
+                {{/if}}
+                {{/each}}
+            </div>
+            <div class="initiative-done box-border">
+                <div class="initiative-name initiative-name-done red-abilities">
+                    <div class="done-title">
+                        <h3>{{localize "SCRPG.scene.done"}}</h3>
+                    </div>
+                    <div class="buttons">
+                        <a title='{{localize "SCRPG.button.moveAll" }}' class="reset-initiative"
+                            data-type="initiativeActor">
+                            <i class="fas fa-arrow-alt-circle-left"></i>
+                        </a>
+                    </div>
+                </div>
+                {{#each actor.initiativeActor as |init id|}}
+                {{#if (eq init.system.acted true)}}
+                <div class="initiativeActor-item item box-border" data-item-id="{{init._id}}">
+                    <input class="inline-edit" data-field="name" type="text" value="{{init.name}}" />
+                    <a title='{{localize "SCRPG.button.moveAvailable" }}' class="change-acted-status">
+                        <i class="fas fa-arrow-alt-circle-left"></i>
+                    </a>
+                </div>
+                {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,41 @@
+{{!-- List of Applied Mods --}}
+{{#if selectedmods.length}}
+<div class="box-border mod-box" style="border: 2px solid {{coloring}}">
+    {{#if (eq bonus true)}}<p>{{localize "SCRPG.mod.bonus"}}</p>{{/if}}
+    <div class="mod-bonus">
+        {{#each selectedmods}}
+        {{#if (gte system.value 0)}}
+        <div class="green-abilities mod-rolls">
+            <span class="mod-roll-text"> {{system.value}} {{#if system.named}}{{name}}{{/if}}</span>
+            <div class="p-e-icon">
+                {{#if (eq system.persistent true)}}
+                <i title='{{localize "SCRPG.mod.persistent"}}' class="fas fa-hourglass"></i>
+                {{/if}}
+                {{#if (eq system.exclusive true)}}
+                <i title='{{localize "SCRPG.mod.exclusive"}}' class="fas fa-lock"></i>
+                {{/if}}
+            </div>
+        </div>
+        {{/if}}
+        {{/each}}
+    </div>
+    {{#if (eq penalty true)}}<p>{{localize "SCRPG.mod.penalty"}}</p>{{/if}}
+    <div class="mod-penalty">
+        {{#each selectedmods}}
+        {{#if (lte system.value 0)}}
+        <div class="red-abilities mod-rolls">
+            <span class="mod-roll-text"> {{system.value}} {{#if system.named}}{{name}}{{/if}}</span>
+            <div class="p-e-icon">
+                {{#if (eq system.persistent true)}}
+                <i title='{{localize "SCRPG.mod.persistent"}}' class="fas fa-hourglass"></i>
+                {{/if}}
+                {{#if (eq system.exclusive true)}}
+                <i title='{{localize "SCRPG.mod.exclusive"}}' class="fas fa-lock"></i>
+                {{/if}}
+            </div>
+        </div>
+        {{/if}}
+        {{/each}}
+    </div>
+</div>
+{{/if}}

@@ -1,0 +1,37 @@
+{{!-- Sheet for displaying environment twist --}}
+
+<div class="sheet-content-root {{cssClass}}">
+<header class="environment-twist-title sheet-header">
+        <h3 class="{{#color}}{{item.system.type}}{{/color}}-abilities box-border "><input name="name" type="text"
+                value="{{item.name}}" placeholder="{{ localize 'Name' }}" /></h3>
+    </header>
+
+    {{!-- Drop down menu for selecting the type --}}
+    <div class="sheet-content environment-twist-content">
+        {{#if (eq this.item.actor null)}}
+        <table class="{{#color}}{{actor.system.type}}{{/color}}-abilities box-border type-table">
+            <tr>
+                <th>{{localize "SCRPG.type.twist"}}</th>
+                <td>
+                    <select name="system.type">
+                        {{selectOptions config.twistType selected=item.system.type localize=true}}
+                    </select>
+                </td>
+            </tr>
+        </table>
+        {{/if}}
+        <table class="box-border {{#color}}{{item.system.type}}{{/color}}-abilities">
+            <tr>
+                <th>{{localize "SCRPG.sheet.description"}}</th>
+            </tr>
+            <tr>
+                <td>
+                    {{!-- Form for filling in description--}}
+                    <prose-mirror name="system.description" value="{{item.system.description}}" toggled>
+                      {{{enrichedEnvironmentTwistDescription}}}
+                    </prose-mirror>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

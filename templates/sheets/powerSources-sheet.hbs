@@ -1,0 +1,19 @@
+{{!-- Sheet for displaying PowerSource --}}
+
+<div class="sheet-content-root {{cssClass}}">
+<div class="power-source sheet-content">
+        <div class="box-border">
+            <div class="power-source-title">
+                <h3>
+                    <input name="name" type="text" value="{{item.name}}"
+                        placeholder='{{localize "SCRPG.charInfo.powerSource"}}'>
+                </h3>
+            </div>
+            <div class="power-source-description">
+                <prose-mirror name="system.description" value="{{item.system.description}}" toggled>
+                  {{{enrichedPowerSourcesDescription}}}
+                </prose-mirror>
+            </div>
+        </div>
+    </div>
+</div>

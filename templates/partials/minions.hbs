@@ -1,0 +1,103 @@
+{{!-- Hero minions and minion forms --}}
+
+{{#if (eq actor.type "hero")}}
+<h3 class="section-name section-name-ability">{{localize "SCRPG.minion.minionForm"}}</h3>
+{{else}}
+<h3 class="section-name section-name-ability">{{localize "SCRPG.minion.minionAbilities"}}</h3>
+{{/if}}
+<div class="minion-form-list item-list">
+    {{!-- Table to displaying available minion forms --}}
+    <div class="villain-abilities box-border minion-form-table">
+        <div class={{#if (eq actor.system.type "hero" )}}"minion-form-title"{{else}}"villain-minion-form-title"{{/if}}>
+            <div class="minion-form-title-child">{{localize "SCRPG.sheet.name"}}</div>
+            <div class="minion-form-title-child">{{localize "SCRPG.sheet.description"}}</div>
+            {{#if (eq actor.system.type "hero")}}
+            <div class="minion-form-title-child">{{localize "SCRPG.sheet.bonus"}}</div>
+            {{/if}}
+            <div class="minion-form-title-child">
+                {{!-- Button for adding a new minion form --}}
+                <a title='{{localize "SCRPG.button.addNew" }}' class="item-create" data-type="minionForm">
+                    <i class=" fas fa-plus"></i>
+                </a>
+            </div>
+        </div>
+        {{!-- Displays all minion forms the character has --}}
+        {{#each actor.minionForm as |minionForm id|}}
+        <div class={{#if (eq ../actor.system.type "hero" )}}"minionForm-item minionForm-parent
+            item"{{else}}"minionForm-item villain-minionForm-parent item"{{/if}} data-item-id="{{minionForm._id}}">
+            <div class="minionForm-child">
+                {{name}}
+            </div>
+            <div class="minionForm-child">
+                <div>{{{system.description}}}</div>
+            </div>
+            {{#if (eq ../actor.system.type "hero")}}
+            <div class="minionForm-child">
+                {{getLocalizeMinionBonus system.bonus}}
+            </div>
+            {{/if}}
+            <div class="minionForm-child">
+                {{!-- buttons for pushing minion form to chat --}}
+                <a title='{{localize "SCRPG.button.displayMinionForm"}}' class="roll-item">
+                    <i class="fas fa-comment-alt"></i>
+                </a>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+
+{{!-- Section for displaying available minons and their abilities --}}
+<div class="section-name section-name-minion">
+    <h3>{{localize "SCRPG.minion.minions"}}</h3>
+    <div class="buttons">
+        <a title='{{localize "SCRPG.button.addNew" }}' class="item-create" data-type="heroMinion">
+            <i class="fas fa-plus"></i>
+        </a>
+        <a title='{{localize "SCRPG.button.deleteMinions" }}' class="delete-all" data-type="heroMinion">
+            <i class="fas fa-trash"></i>
+        </a>
+    </div>
+</div>
+<div class="heroMinion-list item-list box-border">
+    {{#each actor.heroMinion as |heroMinion id|}}
+    <div class="heroMinion-item item" data-item-id="{{heroMinion._id}}">
+        <table class="villain-abilities box-border minion-stats">
+            <tr>
+                <th colspan="2" class="minion-title">
+                    <div class="minion-name">
+                        <h3>{{name}}</h3>
+                        <div class="minion-button">
+                            <a title='{{localize "SCRPG.button.rollMinion" }}' class="roll-minion">
+                                <i class="fas fa-dice"></i>
+                            </a>
+                            <a title='{{localize "SCRPG.button.downgrade" }}' class="downgrade-minion">
+                                <i class="fas fa-angle-double-down"></i>
+                            </a>
+                            <a title='{{localize "SCRPG.button.upgrade" }}' class="upgrade-minion">
+                                <i class="fas fa-angle-double-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th>{{localize "SCRPG.minion.action"}}</th>
+                <td>{{getLocalizeMinionAbility system.action}}</td>
+            </tr>
+            <tr>
+                {{#if (eq ../actor.system.type "hero")}}
+                <th>{{localize "SCRPG.minion.form"}}</th>
+                {{else}}
+                <th>{{localize "SCRPG.minion.ability"}}</th>
+                {{/if}}
+                <td>{{system.form}}</td>
+            </tr>
+            <tr>
+                <th>{{localize "SCRPG.sheet.die"}}</th>
+                <td>{{system.dieType}}</td>
+            </tr>
+        </table>
+    </div>
+    {{/each}}
+</div>

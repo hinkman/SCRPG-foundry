@@ -1,0 +1,19 @@
+{{!-- Sheet for displaying Backgrounds --}}
+
+<div class="sheet-content-root {{cssClass}}">
+<div class="background sheet-content">
+        <div class="box-border">
+            <div class="background-title">
+                <h3>
+                    <input name="name" type="text" value="{{item.name}}"
+                        placeholder='{{localize "SCRPG.charInfo.background"}}'>
+                </h3>
+            </div>
+            <div class="background-description">
+                <prose-mirror name="system.description" value="{{item.system.description}}" toggled>
+                  {{{enrichedBackgroundDescription}}}
+                </prose-mirror>
+            </div>
+        </div>
+    </div>
+</div>

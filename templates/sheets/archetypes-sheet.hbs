@@ -1,0 +1,19 @@
+{{!-- Sheet for displaying Archetype --}}
+
+<div class="sheet-content-root {{cssClass}}">
+<div class="archetype sheet-content">
+        <div class="box-border">
+            <div class="archetype-title">
+                <h3>
+                    <input name="name" type="text" value="{{item.name}}"
+                        placeholder='{{localize "SCRPG.charInfo.archetype"}}'>
+                </h3>
+            </div>
+            <div class="archetype-description">
+                <prose-mirror name="system.description" value="{{item.system.description}}" toggled>
+                  {{{enrichedArchetypeDescription}}}
+                </prose-mirror>
+            </div>
+        </div>
+    </div>
+</div>
