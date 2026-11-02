@@ -1,3 +1,13 @@
+# SCRPG-foundry
+
+## Note
+
+This repo is an updated version of the [original Sentinel Comics module](https://gitlab.com/RabidRaccoon/scrpg)
+created by [RabidRaccoon](https://gitlab.com/RabidRaccoon). All credit goes to them for the
+great work in supporting Sentinel Comics. The updates to this repo were done to support
+Foundry version 14+. 
+
+-------------------------
 # Sentinel Comics The Roleplaying Game (Unofficial)
 
 This game system for [Foundry Virtual Tabletop](https://foundryvtt.com/) provides the character sheets and game system for [Sentinel Comics the Roleplaying Game](https://greaterthangames.com/product/sentinel-comics-the-role-playing-game-core-rulebook/) by [Greater than Games](https://greaterthangames.com/).
