@@ -1,255 +1,258 @@
-.SCRPG.sheet.item {
-    form {
-        display: flex;
-        flex-direction: column;
-    }
+@use "variables" as *;
 
-    .sheet-content {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-
-        .editor {
-            height: 6.25rem;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid $inputdarkgray;
-            border-radius: 3px;
-
-            p {
-                margin: 0.25rem;
-            }
-
-            .tox .tox-tbtn {
-                transform: scale(0.9);
-                height: 18px;
-                width: auto;
-            }
-
-            .tox.tox-tinymce .tox-tbtn[title="Formats"] {
-                width: 80px;
-            }
-
-            .tox .tox-toolbar__group {
-                padding: 0;
-            }
-        }
-    }
-
-    .powerquality {
-        background-color: $white;
-
-        td:first-child {
-            width: 3.75rem;
-        }
-    }
-
-    .green-abilities {
-        background-color: $greenbg;
-    }
-
-    .yellow-abilities {
-        background-color: $yellowbg;
-    }
-
-    .red-abilities {
-        background-color: $redbg;
-    }
-
-    .villain-abilities {
-        background-color: $graybg;
-    }
-
-    .white-abilities {
-        background-color: $white;
-    }
-
-    .box-border {
-        border: 2px solid $black;
-        box-shadow: 2px 2px $gray;
-        margin-bottom: 4px;
-    }
-
-    .green-abilities,
-    .yellow-abilities,
-    .red-abilities,
-    .villain-abilities,
-    .white-abilities,
-    .powerquality {
-
-        td,
-        tr,
-        th {
-            border: 1px dotted $black;
-            padding: 4px;
-        }
-    }
-
-    .icon-position {
-        display: grid;
-        grid-template-columns: 50% 50%;
-        grid-gap: 2px;
-        text-align: center;
-    }
-
-    .minion-form-sheet {
-        td:nth-child(2) {
-            width: 7.5rem;
-            text-align: center;
-            vertical-align: top;
-
-            select {
-                margin-top: 3px;
-            }
-        }
-    }
-
-    .heroMinion-sheet,
-    .mod-sheet {
-        td {
-            text-align: center;
-        }
-    }
-
-    .archetype-title {
-        background: linear-gradient(90deg, #ef5fa3 0%, #986cae 100%);
-    }
-
-    .background-title {
-        background: linear-gradient(90deg, #9cdaf5 0%, #419ed6 100%);
-    }
-
-    .power-source-title {
-        background: linear-gradient(90deg, #fbe65b 0%, #f5914c 100%);
-    }
-
-    .personality-title {
-        background: linear-gradient(90deg, #5bc4bd 0%, #0d848e 100%);
-    }
-
-    .principle-title {
-        border: 1px solid #000000;
-        -webkit-box-shadow: 2px 2px #000000;
-        box-shadow: 2px 2px #000000;
-        padding: 2px;
-        background: -webkit-gradient(linear, left top, left bottom, from(#e06026), to(#fbc015));
-        background: linear-gradient(#e06026, #fbc015);
-
-        input {
-            border: none;
-            font-weight: bold;
-        }
-    }
-
-    .ability-title,
-    .power-title,
-    .quality-title,
-    .villain-status-title,
-    .environment-twist-title,
-    .hero-minion-title,
-    .minion-form-title,
-    .mod-title,
-    .archetype-title,
-    .background-title,
-    .personality-title,
-    .power-source-title {
-
-        h3 {
+@layer scrpg {
+    .SCRPG.sheet.item {
+        form {
             display: flex;
-            flex-direction: row;
-            margin: 0px;
+            flex-direction: column;
         }
 
-        input {
-            font-weight: bold;
-            height: 32px;
-            width: 100%;
-            border: none;
-        }
-    }
+        .sheet-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
 
-    .archetype-description,
-    .background-description,
-    .personality-description,
-    .power-source-description {
-        background-color: white;
-        padding: 4px;
-    }
+            .editor {
+                height: 6.25rem;
+                background: rgba(255, 255, 255, 0.2);
+                border: 1px solid $inputdarkgray;
+                border-radius: 3px;
 
-    .personality-description {
-        display: grid;
-        grid-template-columns: auto 80px;
+                p {
+                    margin: 0.25rem;
+                }
 
-        input {
-            background-color: #d8d8da;
-            height: 32px;
-            width: 100%;
-            border: none;
-            margin-top: 2px;
-            margin-bottom: 2px;
-        }
-    }
+                .tox .tox-tbtn {
+                    transform: scale(0.9);
+                    height: 18px;
+                    width: auto;
+                }
 
-    .status-dice {
-        display: grid;
-    }
+                .tox.tox-tinymce .tox-tbtn[title="Formats"] {
+                    width: 80px;
+                }
 
-    .status-dice-child {
-        margin: auto;
-    }
-
-    .green-status-background {
-        background-color: $greenbg;
-    }
-
-    .yellow-status-background {
-        background-color: $yellowbg;
-    }
-
-    .red-status-background {
-        background-color: $redbg;
-    }
-
-    .green-border {
-        border: 2px solid $greenborder;
-    }
-
-    .yellow-border {
-        border: 2px solid $yellowborder;
-    }
-
-    .red-border {
-        border: 2px solid $redborder;
-    }
-
-    .principle-section {
-        border-top: 2px dotted $black;
-        border-bottom: 2px dotted $black;
-        text-align: center;
-    }
-
-    .principle {
-        background-color: $white;
-        padding: 4px;
-
-        .editor {
-            margin-bottom: 8px;
-        }
-    }
-
-    .ability-content,
-    .environment-twist-content,
-    .power-content {
-        table {
-            margin-bottom: 0;
-        }
-
-        .type-table {
-            th {
-                width: 160px;
+                .tox .tox-toolbar__group {
+                    padding: 0;
+                }
             }
+        }
 
+        .powerquality {
+            background-color: $white;
+
+            td:first-child {
+                width: 3.75rem;
+            }
+        }
+
+        .green-abilities {
+            background-color: $greenbg;
+        }
+
+        .yellow-abilities {
+            background-color: $yellowbg;
+        }
+
+        .red-abilities {
+            background-color: $redbg;
+        }
+
+        .villain-abilities {
+            background-color: $graybg;
+        }
+
+        .white-abilities {
+            background-color: $white;
+        }
+
+        .box-border {
+            border: 2px solid $black;
+            box-shadow: 2px 2px $gray;
+            margin-bottom: 4px;
+        }
+
+        .green-abilities,
+        .yellow-abilities,
+        .red-abilities,
+        .villain-abilities,
+        .white-abilities,
+        .powerquality {
+
+            td,
+            tr,
+            th {
+                border: 1px dotted $black;
+                padding: 4px;
+            }
+        }
+
+        .icon-position {
+            display: grid;
+            grid-template-columns: 50% 50%;
+            grid-gap: 2px;
+            text-align: center;
+        }
+
+        .minion-form-sheet {
+            td:nth-child(2) {
+                width: 7.5rem;
+                text-align: center;
+                vertical-align: top;
+
+                select {
+                    margin-top: 3px;
+                }
+            }
+        }
+
+        .heroMinion-sheet,
+        .mod-sheet {
             td {
                 text-align: center;
+            }
+        }
+
+        .archetype-title {
+            background: linear-gradient(90deg, #ef5fa3 0%, #986cae 100%);
+        }
+
+        .background-title {
+            background: linear-gradient(90deg, #9cdaf5 0%, #419ed6 100%);
+        }
+
+        .power-source-title {
+            background: linear-gradient(90deg, #fbe65b 0%, #f5914c 100%);
+        }
+
+        .personality-title {
+            background: linear-gradient(90deg, #5bc4bd 0%, #0d848e 100%);
+        }
+
+        .principle-title {
+            border: 1px solid #000000;
+            -webkit-box-shadow: 2px 2px #000000;
+            box-shadow: 2px 2px #000000;
+            padding: 2px;
+            background: linear-gradient(#e06026, #fbc015);
+
+            input {
+                border: none;
+                font-weight: bold;
+            }
+        }
+
+        .ability-title,
+        .power-title,
+        .quality-title,
+        .villain-status-title,
+        .environment-twist-title,
+        .hero-minion-title,
+        .minion-form-title,
+        .mod-title,
+        .archetype-title,
+        .background-title,
+        .personality-title,
+        .power-source-title {
+
+            h3 {
+                display: flex;
+                flex-direction: row;
+                margin: 0px;
+            }
+
+            input {
+                font-weight: bold;
+                height: 32px;
+                width: 100%;
+                border: none;
+            }
+        }
+
+        .archetype-description,
+        .background-description,
+        .personality-description,
+        .power-source-description {
+            background-color: white;
+            padding: 4px;
+        }
+
+        .personality-description {
+            display: grid;
+            grid-template-columns: auto 80px;
+
+            input {
+                background-color: #d8d8da;
+                height: 32px;
+                width: 100%;
+                border: none;
+                margin-top: 2px;
+                margin-bottom: 2px;
+            }
+        }
+
+        .status-dice {
+            display: grid;
+        }
+
+        .status-dice-child {
+            margin: auto;
+        }
+
+        .green-status-background {
+            background-color: $greenbg;
+        }
+
+        .yellow-status-background {
+            background-color: $yellowbg;
+        }
+
+        .red-status-background {
+            background-color: $redbg;
+        }
+
+        .green-border {
+            border: 2px solid $greenborder;
+        }
+
+        .yellow-border {
+            border: 2px solid $yellowborder;
+        }
+
+        .red-border {
+            border: 2px solid $redborder;
+        }
+
+        .principle-section {
+            border-top: 2px dotted $black;
+            border-bottom: 2px dotted $black;
+            text-align: center;
+        }
+
+        .principle {
+            background-color: $white;
+            padding: 4px;
+
+            .editor {
+                margin-bottom: 8px;
+            }
+        }
+
+        .ability-content,
+        .environment-twist-content,
+        .power-content {
+            table {
+                margin-bottom: 0;
+            }
+
+            .type-table {
+                th {
+                    width: 160px;
+                }
+
+                td {
+                    text-align: center;
+                }
             }
         }
     }

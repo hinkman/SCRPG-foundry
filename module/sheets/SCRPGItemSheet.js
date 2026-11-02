@@ -26,7 +26,7 @@ export default class SCRPGItemSheet extends HandlebarsApplicationMixin(ItemSheet
     static PARTS = {
         body: {
             template: "systems/scrpg-foundry/templates/sheets/power-sheet.hbs",
-            scrollable: [""]
+            scrollable: [".sheet-content-root"]
         }
     };
 

@@ -1,356 +1,359 @@
-.SCRPG.chat.roll {
-    .box-border {
-        box-shadow: 2px 2px $gray;
-        margin-bottom: 4px;
+@use "variables" as *;
 
-        &-black {
-            border: 2px black solid;
-        }
-    }
+@layer scrpg {
+    .SCRPG.chat.roll {
+        .box-border {
+            box-shadow: 2px 2px $gray;
+            margin-bottom: 4px;
 
-    .main-roll {
-        th:first-child {
-            width: 90px;
-            min-width: 90px;
-            ;
+            &-black {
+                border: 2px black solid;
+            }
         }
 
-        td:nth-child(2) {
-            max-width: 178px;
-            overflow: hidden;
-        }
-    }
+        .main-roll {
+            th:first-child {
+                width: 90px;
+                min-width: 90px;
+            }
 
-    .minor-roll {
-        th:first-child {
-            width: 65px;
-            min-width: 65px;
-        }
-
-        td:nth-child(2) {
-            max-width: 169px;
-            overflow: hidden;
+            td:nth-child(2) {
+                max-width: 178px;
+                overflow: hidden;
+            }
         }
 
-        td:nth-child(3) {
-            width: 40px;
-        }
-    }
+        .minor-roll {
+            th:first-child {
+                width: 65px;
+                min-width: 65px;
+            }
 
-    .minion-roll {
-        th {
-            text-align: center;
-            height: 34px;
-        }
+            td:nth-child(2) {
+                max-width: 169px;
+                overflow: hidden;
+            }
 
-        td:first-child {
-            text-align: left;
-            overflow: hidden;
-        }
-
-        td:nth-child(2) {
-            width: 40px;
+            td:nth-child(3) {
+                width: 40px;
+            }
         }
 
-        tr:first-child {
-            border-bottom: 1px solid black;
+        .minion-roll {
+            th {
+                text-align: center;
+                height: 34px;
+            }
+
+            td:first-child {
+                text-align: left;
+                overflow: hidden;
+            }
+
+            td:nth-child(2) {
+                width: 40px;
+            }
+
+            tr:first-child {
+                border-bottom: 1px solid black;
+            }
+
+            tr:nth-child(n+2) {
+                border-bottom: 1px dotted black;
+            }
+
+            tr:last-child {
+                border-bottom: none;
+            }
         }
 
-        tr:nth-child(n+2) {
-            border-bottom: 1px dotted black;
+        .dice-rolled {
+
+            table td {
+                text-align: center;
+            }
+
+            table th {
+                padding-left: 8px;
+            }
+
+            table {
+                background-color: $white;
+                margin: 0;
+                border: 0;
+            }
         }
 
-        tr:last-child {
-            border-bottom: none;
-        }
-    }
-
-    .dice-rolled {
-
-        table td {
-            text-align: center;
-        }
-
-        table th {
-            padding-left: 8px;
-        }
-
-        table {
+        .dice-results {
             background-color: $white;
-            margin: 0;
-            border: 0;
+            display: flex;
+            justify-content: center;
+
+            p {
+                display: inline;
+            }
+
+            .dice {
+                position: relative;
+                margin: 2px;
+                display: inline-flex;
+                width: 1.5625rem;
+                height: 1.5625rem;
+
+                label {
+                    position: absolute;
+                    top: 4px;
+                    font-weight: bold;
+                    text-align: center;
+                    width: 100%;
+                    z-index: 1;
+                }
+
+                img {
+                    position: absolute;
+                    width: 1.5625rem;
+                    height: 1.5625rem;
+                    border: none;
+                }
+            }
+
+            .d4 {
+                filter: brightness(0) saturate(100%) invert(69%) sepia(89%) saturate(3407%) hue-rotate(189deg) brightness(108%) contrast(99%);
+            }
+
+            .d6 {
+                filter: brightness(0) saturate(100%) invert(79%) sepia(45%) saturate(559%) hue-rotate(47deg) brightness(82%) contrast(89%);
+            }
+
+            .d8 {
+                filter: brightness(0) saturate(100%) invert(74%) sepia(16%) saturate(5893%) hue-rotate(346deg) brightness(105%) contrast(97%);
+            }
+
+            .d10 {
+                filter: brightness(0) saturate(100%) invert(35%) sepia(79%) saturate(1183%) hue-rotate(330deg) brightness(98%) contrast(90%);
+            }
+
+            .d12 {
+                filter: brightness(0) saturate(100%) invert(45%) sepia(9%) saturate(2852%) hue-rotate(247deg) brightness(118%) contrast(78%);
+            }
+
         }
-    }
 
-    .dice-results {
-        background-color: $white;
-        display: flex;
-        justify-content: center;
+        .green-abilities {
+            background-color: $greenbg;
+        }
 
-        p {
+        .yellow-abilities {
+            background-color: $yellowbg;
+        }
+
+        .red-abilities {
+            background-color: $redbg;
+        }
+
+        .icon {
             display: inline;
         }
 
-        .dice {
-            position: relative;
+        .villain-abilities {
+            background-color: $graybg;
+        }
+
+        .green-abilities,
+        .yellow-abilities,
+        .red-abilities,
+        .villain-abilities {
+            margin-top: 0;
+
+            table {
+                margin: 0;
+            }
+
+            td,
+            tr,
+            th {
+                border: 1px dotted $black;
+                padding: 4px;
+            }
+
+            p {
+                margin: 0px;
+            }
+        }
+
+        .ability-title {
+            font-weight: bold;
+        }
+
+        .center-text {
+            text-align: center;
+        }
+
+        .ability-icon {
+            width: 50%;
+        }
+
+        .nested-name {
+            p:first-child {
+                display: inline;
+                font-weight: bold;
+            }
+
+            p:nth-child(2) {
+                display: inline
+            }
+        }
+
+        .scene {
+            h3 {
+                margin: 4px;
+                text-align: center;
+            }
+        }
+
+        .mod-box {
+            background-color: $white;
+            padding: 3.5px 0;
+
+            p {
+                margin: 0;
+                font-weight: bold;
+                margin-left: 8px;
+            }
+
+            .mod-bonus,
+            .mod-penalty {
+                display: flex;
+                flex-wrap: wrap;
+                margin-left: 16px;
+            }
+        }
+
+        .mod-rolls {
             margin: 2px;
-            display: inline-flex;
-            width: 1.5625rem;
-            height: 1.5625rem;
+            padding: 1px 5px;
+            border: 1px solid black;
+            width: max-content;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            flex-direction: row;
+            height: 21px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+
+            .p-e-icon {
+                font-size: 0.7rem;
+                margin: auto 0px auto 4px;
+            }
+        }
+
+        .mod-roll-text {
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .fa-hourglass {
+            color: $persistent;
+        }
+
+        .fa-lock {
+            color: $exclusive;
+        }
+
+        .green-current {
+            color: $greenfill
+        }
+
+        .green-total {
+            color: $greenbg-dark
+        }
+
+        .yellow-current {
+            color: $yellowfill
+        }
+
+        .yellow-total {
+            color: $yellowbg-dark
+        }
+
+        .red-current {
+            color: $redfill
+        }
+
+        .red-total {
+            color: $redbg-dark
+        }
+
+        .status-font {
+            font-size: 22px;
+            text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+        }
+
+        .scene-output {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 2px;
+        }
+
+        .scene-section {
+            display: grid;
+
+            .green-spaces-name,
+            .yellow-spaces-name,
+            .red-spaces-name {
+                margin: 0;
+                text-align: center;
+                margin: auto 4px;
+
+                h3 {
+                    font-weight: bold;
+                    margin: 0;
+                    font-size: 14px;
+                    border: none;
+                }
+            }
+
+            .green-spaces-name {
+                border-top: 3px solid $greentxt;
+                color: $greentxt;
+            }
+
+            .yellow-spaces-name {
+                border-top: 3px solid $yellowtxt;
+                color: $yellowtxt;
+            }
+
+            .red-spaces-name {
+                border-top: 3px solid $redtxt;
+                color: $redtxt;
+            }
+        }
+
+        .scene-stars {
+            display: flex;
+
+            i {
+                margin: 2px auto;
+                padding: 0 2px;
+            }
+        }
+
+        .scene-checked {
+            position: relative;
+            margin: auto;
 
             label {
                 position: absolute;
-                top: 4px;
-                font-weight: bold;
-                text-align: center;
-                width: 100%;
-                z-index: 1;
-            }
+                top: 5px;
+                left: 5px;
 
-            img {
-                position: absolute;
-                width: 1.5625;
-                height: 1.5625;
-                border: none;
-            }
-        }
-
-        .d4 {
-            filter: brightness(0) saturate(100%) invert(69%) sepia(89%) saturate(3407%) hue-rotate(189deg) brightness(108%) contrast(99%);
-        }
-
-        .d6 {
-            filter: brightness(0) saturate(100%) invert(79%) sepia(45%) saturate(559%) hue-rotate(47deg) brightness(82%) contrast(89%);
-        }
-
-        .d8 {
-            filter: brightness(0) saturate(100%) invert(74%) sepia(16%) saturate(5893%) hue-rotate(346deg) brightness(105%) contrast(97%);
-        }
-
-        .d10 {
-            filter: brightness(0) saturate(100%) invert(35%) sepia(79%) saturate(1183%) hue-rotate(330deg) brightness(98%) contrast(90%);
-        }
-
-        .d12 {
-            filter: brightness(0) saturate(100%) invert(45%) sepia(9%) saturate(2852%) hue-rotate(247deg) brightness(118%) contrast(78%);
-        }
-
-    }
-
-    .green-abilities {
-        background-color: $greenbg;
-    }
-
-    .yellow-abilities {
-        background-color: $yellowbg;
-    }
-
-    .red-abilities {
-        background-color: $redbg;
-    }
-
-    .icon {
-        display: inline;
-    }
-
-    .villain-abilities {
-        background-color: $graybg;
-    }
-
-    .green-abilities,
-    .yellow-abilities,
-    .red-abilities,
-    .villain-abilities {
-        margin-top: 0;
-
-        table {
-            margin: 0;
-        }
-
-        td,
-        tr,
-        th {
-            border: 1px dotted $black;
-            padding: 4px;
-        }
-
-        p {
-            margin: 0px;
-        }
-    }
-
-    .ability-title {
-        font-weight: bold;
-    }
-
-    .center-text {
-        text-align: center;
-    }
-
-    .ability-icon {
-        width: 50%;
-    }
-
-    .nested-name {
-        p:first-child {
-            display: inline;
-            font-weight: bold;
-        }
-
-        p:nth-child(2) {
-            display: inline
-        }
-    }
-
-    .scene {
-        h3 {
-            margin: 4px;
-            text-align: center;
-        }
-    }
-
-    .mod-box {
-        background-color: $white;
-        padding: 3.5px 0;
-
-        p {
-            margin: 0;
-            font-weight: bold;
-            margin-left: 8px;
-        }
-
-        .mod-bonus,
-        .mod-penalty {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: 16px;
-        }
-    }
-
-    .mod-rolls {
-        margin: 2px;
-        padding: 1px 5px;
-        border: 1px solid black;
-        width: max-content;
-        font-weight: bold;
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: nowrap;
-        flex-direction: row;
-        height: 21px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-
-        .p-e-icon {
-            font-size: 0.7rem;
-            margin: auto 0px auto 4px;
-        }
-    }
-
-    .mod-roll-text {
-        text-overflow: ellipsis;
-        overflow: hidden;
-    }
-
-    .fa-hourglass {
-        color: $persistent;
-    }
-
-    .fa-lock {
-        color: $exclusive;
-    }
-
-    .green-current {
-        color: $greenfill
-    }
-
-    .green-total {
-        color: $greenbg-dark
-    }
-
-    .yellow-current {
-        color: $yellowfill
-    }
-
-    .yellow-total {
-        color: $yellowbg-dark
-    }
-
-    .red-current {
-        color: $redfill
-    }
-
-    .red-total {
-        color: $redbg-dark
-    }
-
-    .status-font {
-        font-size: 22px;
-        text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-    }
-
-    .scene-output {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        padding: 2px;
-    }
-
-    .scene-section {
-        display: grid;
-
-        .green-spaces-name,
-        .yellow-spaces-name,
-        .red-spaces-name {
-            margin: 0;
-            text-align: center;
-            margin: auto 4px;
-
-            h3 {
-                font-weight: bold;
-                margin: 0;
-                font-size: 14px;
-                border: none;
-            }
-        }
-
-        .green-spaces-name {
-            border-top: 3px solid $greentxt;
-            color: $greentxt;
-        }
-
-        .yellow-spaces-name {
-            border-top: 3px solid $yellowtxt;
-            color: $yellowtxt;
-        }
-
-        .red-spaces-name {
-            border-top: 3px solid $redtxt;
-            color: $redtxt;
-        }
-    }
-
-    .scene-stars {
-        display: flex;
-
-        i {
-            margin: 2px auto;
-            padding: 0 2px;
-        }
-    }
-
-    .scene-checked {
-        position: relative;
-        margin: auto;
-
-        label {
-            position: absolute;
-            top: 5px;
-            left: 5px;
-
-            i {
-                font-size: 12px;
+                i {
+                    font-size: 12px;
+                }
             }
         }
     }
