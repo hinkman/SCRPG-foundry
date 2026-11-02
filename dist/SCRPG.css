@@ -110,7 +110,6 @@
     -webkit-box-shadow: 2px 2px #000000;
     box-shadow: 2px 2px #000000;
     padding: 2px;
-    background: -webkit-gradient(linear, left top, left bottom, from(#e06026), to(#fbc015));
     background: linear-gradient(#e06026, #fbc015);
   }
   .SCRPG.sheet.item .principle-title input {
@@ -220,6 +219,8 @@
   .SCRPG.sheet.item .power-content .type-table td {
     text-align: center;
   }
+}
+@layer scrpg {
   .SCRPG.sheet.actor h3 {
     border-bottom: none;
   }
@@ -290,8 +291,16 @@
     background: linear-gradient(#AA4618, #fbc015);
   }
   .SCRPG.sheet.actor .section-name input {
-    all: unset;
+    appearance: none;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    font: inherit;
     width: 100%;
+    color: #111111;
+    -webkit-text-fill-color: #111111;
   }
   .SCRPG.sheet.actor .section-name-principle {
     width: 75%;
@@ -394,10 +403,16 @@
     background: inherit;
   }
   .SCRPG.sheet.actor .char-info input {
-    all: unset;
+    appearance: none;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font: inherit;
     width: 100%;
     text-align: center;
-    background: rgba(255, 255, 255, 0.2);
+    color: #111111;
+    -webkit-text-fill-color: #111111;
+    background: rgba(255, 255, 255, 0.92);
     border: 1px solid #565656;
     border-radius: 3px;
   }
@@ -477,21 +492,23 @@
     display: grid;
     grid-template-columns: auto auto auto auto;
     grid-gap: 4px;
-    place-content: center start;
+    align-content: center;
+    justify-content: flex-start;
   }
   .SCRPG.sheet.actor .back-issues input[type=text],
   .SCRPG.sheet.actor .collections input[type=text] {
     border: 0;
     border-radius: 0;
     height: fit-content;
-    background: inherit;
+    color: #111111;
+    -webkit-text-fill-color: #111111;
+    background: rgba(255, 255, 255, 0.92);
     width: 100%;
     border-bottom: 1px dotted #000000;
     padding: 0px 4px;
   }
   .SCRPG.sheet.actor .back-issues input[type=checkbox],
   .SCRPG.sheet.actor .collections input[type=checkbox] {
-    margin: 0;
     width: 16px;
     height: 16px;
     margin: auto;
@@ -610,8 +627,14 @@
     grid-template-columns: 2fr 1fr;
   }
   .SCRPG.sheet.actor .max-update {
-    all: unset;
+    appearance: none;
+    box-sizing: border-box;
+    margin: 0;
+    font: inherit;
     width: 1.875rem;
+    color: #111111;
+    -webkit-text-fill-color: #111111;
+    background: transparent;
     border: 1px solid #808080;
     white-space: nowrap;
     padding: 0;
@@ -874,7 +897,7 @@
     grid-template-columns: 5fr 1fr;
     grid-gap: 4px;
     padding: 4px;
-    justify-content: end;
+    justify-content: flex-end;
   }
   .SCRPG.sheet.actor .environment-dice a {
     font-size: 1.25rem;
@@ -1116,7 +1139,7 @@
   .SCRPG.sheet.actor .mod-dialogue {
     display: flex;
     flex-direction: column;
-    align-items: right;
+    align-items: flex-end;
   }
   .SCRPG.sheet.actor .mod-dialogue .mod-per-dialogue,
   .SCRPG.sheet.actor .mod-dialogue .mod-exc-dialogue {
@@ -1348,6 +1371,8 @@
     font-weight: bold;
     margin: auto 0;
   }
+}
+@layer scrpg {
   .SCRPG.chat.roll .box-border {
     box-shadow: 2px 2px #808080;
     margin-bottom: 4px;
@@ -1430,8 +1455,8 @@
   }
   .SCRPG.chat.roll .dice-results .dice img {
     position: absolute;
-    width: 1.5625;
-    height: 1.5625;
+    width: 1.5625rem;
+    height: 1.5625rem;
     border: none;
   }
   .SCRPG.chat.roll .dice-results .d4 {
@@ -1638,17 +1663,81 @@
   .SCRPG.chat.roll .scene-checked label i {
     font-size: 12px;
   }
+}
+@layer scrpg {
   /* ApplicationV2 form root + prose-mirror editors */
-  .SCRPG.sheet form {
+  .SCRPG.sheet {
+    /* Fill the AppV2 window content area */
+    height: 100%;
+    /*
+     * Sheet art is light-themed. Force light form controls + dark text so
+     * Foundry/browser dark mode does not make input values invisible.
+     */
+    color-scheme: light;
+    color: #111111;
+  }
+  .SCRPG.sheet input:not([type=checkbox]):not([type=radio]),
+  .SCRPG.sheet textarea,
+  .SCRPG.sheet select {
+    color: #111111;
+    background-color: rgba(255, 255, 255, 0.92);
+    -webkit-text-fill-color: #111111;
+  }
+  .SCRPG.sheet input::placeholder,
+  .SCRPG.sheet textarea::placeholder {
+    color: #666666;
+    opacity: 1;
+  }
+  .SCRPG.sheet option {
+    color: #111111;
+    background-color: #ffffff;
+  }
+  .SCRPG.sheet prose-mirror,
+  .SCRPG.sheet .editor,
+  .SCRPG.sheet .editor-content {
+    color: #111111;
+  }
+  .SCRPG.sheet .sheet-tabs .item {
+    color: #111111;
+  }
+  .SCRPG.sheet form,
+  .SCRPG.sheet .window-content {
     display: flex;
     flex-direction: column;
     height: 100%;
+    min-height: 0;
+    overflow: hidden;
   }
   .SCRPG.sheet .sheet-content-root {
     display: flex;
     flex-direction: column;
+    flex: 1;
+    min-height: 0;
     height: 100%;
     overflow: hidden;
+  }
+  .SCRPG.sheet {
+    /* Sheets without a .sheet-body (items, minion, scene) scroll the root */
+  }
+  .SCRPG.sheet.item .sheet-content-root, .SCRPG.sheet.actor .sheet-content-root.scroll-root {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .SCRPG.sheet .sheet-tabs {
+    flex: 0 0 auto;
+  }
+  .SCRPG.sheet {
+    /* Actor tab panels scroll inside the fixed sheet height */
+  }
+  .SCRPG.sheet .sheet-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .SCRPG.sheet .sheet-body .tab {
+    height: auto;
+    min-height: 0;
   }
   .SCRPG.sheet prose-mirror {
     display: block;

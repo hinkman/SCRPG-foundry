@@ -24,7 +24,7 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
     static PARTS = {
         body: {
             template: "systems/scrpg-foundry/templates/sheets/heroCharacter-sheet.hbs",
-            scrollable: [""]
+            scrollable: [".sheet-body"]
         }
     };
 
