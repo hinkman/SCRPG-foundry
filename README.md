@@ -72,4 +72,6 @@ npm install
 npm run pack:macros
 ```
 
-Scene status helpers are also available as `game.scrpg.SetGreen()`, `game.scrpg.SetYellow()`, and `game.scrpg.SetRed()`.
+Scene status helpers are also available as `game['scrpg-foundry'].SetGreen()`, `game['scrpg-foundry'].SetYellow()`, and `game['scrpg-foundry'].SetRed()`.
+
+Package id is **`scrpg-foundry`** (not `scrpg`) so it does not collide with other packages. After installing, Foundry stores the system under `Data/systems/scrpg-foundry/`.

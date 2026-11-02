@@ -34,13 +34,13 @@
 {{#if (eq actor.system.civilianMode false)}}
 {{#if (eq actor.system.formchanger true)}}
 
-{{> "systems/scrpg/templates/partials/abilitiesmodeformcommon.hbs"}}
+{{> "systems/scrpg-foundry/templates/partials/abilitiesmodeformcommon.hbs"}}
 
 {{/if}}
 
 {{#if (eq actor.system.modular true)}}
 
-{{> "systems/scrpg/templates/partials/abilitiesmodeformcommon.hbs"}}
+{{> "systems/scrpg-foundry/templates/partials/abilitiesmodeformcommon.hbs"}}
 
 {{!-- Second yellow mode/form --}}
 {{#if (eq actor.system.mode "yellow2")}}
@@ -56,7 +56,7 @@
         </td>
     </tr>
 </table>
-{{> "systems/scrpg/templates/partials/abilitiestable.hbs" mode="yellow2"}}
+{{> "systems/scrpg-foundry/templates/partials/abilitiestable.hbs" mode="yellow2"}}
 {{/if}}
 
 {{!-- Red mode/form --}}
@@ -73,7 +73,7 @@
         </td>
     </tr>
 </table>
-{{> "systems/scrpg/templates/partials/abilitiestable.hbs" mode="red1"}}
+{{> "systems/scrpg-foundry/templates/partials/abilitiestable.hbs" mode="red1"}}
 {{/if}}
 {{/if}}
 {{/if}}
@@ -83,9 +83,9 @@
 <div class="ability-list">
 
     {{#if (eq actor.type "hero")}}
-    {{> "systems/scrpg/templates/partials/abilitiestable.hbs" mode="green"}}
-    {{> "systems/scrpg/templates/partials/abilitiestable.hbs" mode="yellow"}}
-    {{> "systems/scrpg/templates/partials/abilitiestable.hbs" mode="red"}}
+    {{> "systems/scrpg-foundry/templates/partials/abilitiestable.hbs" mode="green"}}
+    {{> "systems/scrpg-foundry/templates/partials/abilitiestable.hbs" mode="yellow"}}
+    {{> "systems/scrpg-foundry/templates/partials/abilitiestable.hbs" mode="red"}}
     <div class="box-border out-box" style="{{getAbilitiesEnabledFromStatusClass 'out' actor.system}}">
         <div class="out-box-child">
             <input type="text" value="{{actor.system.out}}" name="system.out" placeholder="Out">
@@ -101,6 +101,6 @@
 
     {{!-- displays the villain abilities if the actor type is villain --}}
     {{#if (eq actor.type "villain")}}
-    {{> "systems/scrpg/templates/partials/abilitiestable.hbs" mode="villain"}}
+    {{> "systems/scrpg-foundry/templates/partials/abilitiestable.hbs" mode="villain"}}
     {{/if}}
 </div>

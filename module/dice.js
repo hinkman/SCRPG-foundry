@@ -17,8 +17,8 @@ export async function TaskCheck(actor = null) {
     const civilianMode = actor.system.civilianMode;
     const type = actor.type;
     const mods = getMods(actor);
-    const color = game.settings.get("scrpg", "coloredDice");
-    const modsOn = game.settings.get("scrpg", "mod");
+    const color = game.settings.get("scrpg-foundry", "coloredDice");
+    const modsOn = game.settings.get("scrpg-foundry", "mod");
     let coloring = "black";
     let selectedmods = [];
     let penalty = false;
@@ -30,7 +30,7 @@ export async function TaskCheck(actor = null) {
         bonus = mods.some(m => m.system.selected && parseInt(m.system.value) > 0);
     }
 
-    const messageTemplate = "systems/scrpg/templates/chat/mainroll.hbs";
+    const messageTemplate = "systems/scrpg-foundry/templates/chat/mainroll.hbs";
     const rollFormula = `{${d1},${d2},${d3}}`;
     const rollResult = await new Roll(rollFormula).evaluate();
 
@@ -77,12 +77,12 @@ export async function TaskCheck(actor = null) {
 
 /* Rolls either power, quality or status and displays to chat */
 export async function SingleCheck(roll = null, rollType = null, rollName = null, actor = null) {
-    const messageTemplate = "systems/scrpg/templates/chat/minorroll.hbs";
-    const color = game.settings.get("scrpg", "coloredDice");
+    const messageTemplate = "systems/scrpg-foundry/templates/chat/minorroll.hbs";
+    const color = game.settings.get("scrpg-foundry", "coloredDice");
     const rollResult = await new Roll(roll).evaluate();
     let coloring = "black";
     const mods = getMods(actor);
-    const modsOn = game.settings.get("scrpg", "mod");
+    const modsOn = game.settings.get("scrpg-foundry", "mod");
     let selectedmods = [];
     let penalty = false;
     let bonus = false;
@@ -128,7 +128,7 @@ export async function SingleCheck(roll = null, rollType = null, rollName = null,
 
 export async function ItemRoll(item = null) {
     const chatData = { item };
-    const messageTemplate = `systems/scrpg/templates/chat/${item.type}roll.hbs`;
+    const messageTemplate = `systems/scrpg-foundry/templates/chat/${item.type}roll.hbs`;
     const render = await renderTemplate(messageTemplate, chatData);
 
     return ChatMessage.create({
@@ -139,14 +139,15 @@ export async function ItemRoll(item = null) {
 
 export async function RollAllMinions(actor = null, group = 1) {
     const minions = [];
-    const color = game.settings.get("scrpg", "coloredDice");
+    const color = game.settings.get("scrpg-foundry", "coloredDice");
     const groupKeys = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
-    const groupName = actor.system.groupName[groupKeys[parseInt(group) - 1]] ?? "";
+    const groupIndex = Number(group);
+    const groupName = actor.system.groupName[groupKeys[groupIndex - 1]] ?? "";
     const heroMinions = actor.items.filter(it => it.type === "heroMinion");
 
     for (let i = 0; i < heroMinions.length; i++) {
         const minion = heroMinions[i];
-        if (minion.system.group != group) continue;
+        if (Number(minion.system.group) !== groupIndex) continue;
 
         const rollResult = await new Roll(minion.system.dieType).evaluate();
 
@@ -163,7 +164,7 @@ export async function RollAllMinions(actor = null, group = 1) {
         });
     }
 
-    const render = await renderTemplate("systems/scrpg/templates/chat/minionsroll.hbs", {
+    const render = await renderTemplate("systems/scrpg-foundry/templates/chat/minionsroll.hbs", {
         minions,
         groupName
     });
@@ -175,7 +176,7 @@ export async function RollAllMinions(actor = null, group = 1) {
 }
 
 export async function OutRoll(out = null) {
-    const render = await renderTemplate("systems/scrpg/templates/chat/outroll.hbs", { out });
+    const render = await renderTemplate("systems/scrpg-foundry/templates/chat/outroll.hbs", { out });
     return ChatMessage.create({
         speaker: ChatMessage.getSpeaker(),
         content: render
@@ -214,7 +215,6 @@ async function usedAllValidPenalties(mods) {
     const usedExclusivePenalities = selectedPenalties.filter(m => m.system.exclusive).length;
 
     if (unusedVirginPenalities) return true;
-    if (unselectedPenalties.length && (usedPersistentPenalities !== totalPersistentPenalities)) return true;
-    if (unselectedPenalties.length && !usedExclusivePenalities && stillHaveUnusedExclusivePenalities) return true;
-    return false;
+    if (unselectedPenalties.length && usedPersistentPenalities !== totalPersistentPenalities) return true;
+    return Boolean(unselectedPenalties.length && !usedExclusivePenalities && stillHaveUnusedExclusivePenalities);
 }

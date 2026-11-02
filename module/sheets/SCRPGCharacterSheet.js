@@ -23,7 +23,7 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
 
     static PARTS = {
         body: {
-            template: "systems/scrpg/templates/sheets/heroCharacter-sheet.hbs",
+            template: "systems/scrpg-foundry/templates/sheets/heroCharacter-sheet.hbs",
             scrollable: [""]
         }
     };
@@ -45,8 +45,8 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
         const parts = super._configureRenderParts(options);
         const type = this.document.type;
         parts.body.template = (type === "hero" || type === "villain")
-            ? "systems/scrpg/templates/sheets/heroCharacter-sheet.hbs"
-            : `systems/scrpg/templates/sheets/${type}-sheet.hbs`;
+            ? "systems/scrpg-foundry/templates/sheets/heroCharacter-sheet.hbs"
+            : `systems/scrpg-foundry/templates/sheets/${type}-sheet.hbs`;
         return parts;
     }
 
@@ -172,14 +172,14 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
         context.actor.minionForm = minionForm;
     }
 
-    getNextMinionIndex(start = 1, minionName = "") {
+    getNextMinionIndex(start = 1) {
         let highestIndex = start - 1;
         for (const item of this.document.items) {
             if (item.type !== "heroMinion") continue;
             const name = item.name ?? "";
             const match = name.match(/(\d+)\s*$/);
             const curindex = match ? parseInt(match[1]) : NaN;
-            if (!isNaN(curindex) && curindex > highestIndex) highestIndex = curindex;
+            if (!Number.isNaN(curindex) && curindex > highestIndex) highestIndex = curindex;
         }
         return highestIndex + 1;
     }
@@ -330,17 +330,17 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
                         case 10: minionName = this.actor.system.groupName.ten
                             break
                     }
-                    if (minionName == "") {
+                    if (minionName === "") {
                         minionName = game.i18n.localize("SCRPG.sheet.newMinion")
                     }
                 }
-                if (this.actor.type == "hero") {
+                if (this.actor.type === "hero") {
                     action = "attack";
                 }
                 if (element.dataset.dietype) {
                     dieType = element.dataset.dietype
                 }
-                if (this.actor.type == "minion") {
+                if (this.actor.type === "minion") {
                     itemData = {
                         name: minionName + " " + this.getNextMinionIndex(1, minionName),
                         type: element.dataset.type,
@@ -413,7 +413,7 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
     async _onDeleteAll(event) {
         event.preventDefault();
         let element = event.currentTarget;
-        let itemsId = this.actor.items.filter(it => it.type == element.dataset.type).map(m => m._id);
+        let itemsId = this.actor.items.filter(it => it.type === element.dataset.type).map(m => m._id);
         let content = ""
 
         switch (element.dataset.type) {
@@ -442,7 +442,7 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
     async _onDeleteAllMinions(event) {
         event.preventDefault();
         let element = event.currentTarget;
-        let itemsId = this.actor.items.filter(it => it.type == element.dataset.type && it.system.group == parseInt(element.dataset.group)).map(m => m._id);
+        let itemsId = this.actor.items.filter(it => it.type === element.dataset.type && Number(it.system.group) === Number(element.dataset.group)).map(m => m.id);
         console.log(itemsId)
         let content = "<p>Are you sure you want to delete all Minions in this group?</p>"
 
@@ -483,27 +483,24 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
         let element = event.currentTarget;
         let itemId = element.closest(".item").dataset.itemId;
         let item = this.actor.items.get(itemId);
-        let itemSelected = item.system.selected
-        let otherPowers = [];
+        let itemSelected = item.system.selected;
 
-        if (itemSelected == "power") {
+        if (itemSelected === "power") {
             this.actor.update({ "system.firstDie": "d4" });
             this.actor.update({ "system.firstDieName": game.i18n.localize("SCRPG.sheet.newItem") });
             item.update({ "system.selected": null });
         } else {
-            if (itemSelected == "quality") {
+            if (itemSelected === "quality") {
                 this.actor.update({ "system.secondDie": "d4" });
                 this.actor.update({ "system.secondDieName": game.i18n.localize("SCRPG.sheet.newItem") });
             }
             this.actor.update({ "system.firstDie": item.system.dieType });
             this.actor.update({ "system.firstDieName": item.name });
             item.update({ "system.selected": "power" });
-            if (this.actor.system.civilianMode) {
-                otherPowers = this.actor.items.filter(it => (it.type == "quality" && it.key != itemId && it.system.selected != "quality") || it.type == "power");
-            } else {
-                otherPowers = this.actor.items.filter(it => it.type == "power" && it.key != itemId && it.system.selected != "quality");
-            }
-            otherPowers.forEach(oe => oe.update({ 'system.selected': null }));
+            const otherPowers = this.actor.system.civilianMode
+                ? this.actor.items.filter(it => (it.type === "quality" && it.id !== itemId && it.system.selected !== "quality") || it.type === "power")
+                : this.actor.items.filter(it => it.type === "power" && it.id !== itemId && it.system.selected !== "quality");
+            otherPowers.forEach(oe => oe.update({ "system.selected": null }));
         }
     }
 
@@ -513,29 +510,25 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
         let element = event.currentTarget;
         let itemId = element.closest(".item").dataset.itemId;
         let item = this.actor.items.get(itemId);
-        let itemSelected = item.system.selected
-        let otherPowers = [];
+        let itemSelected = item.system.selected;
 
-        if (itemSelected == "quality") {
+        if (itemSelected === "quality") {
             this.actor.update({ "system.secondDie": "d4" });
             this.actor.update({ "system.secondDieName": game.i18n.localize("SCRPG.sheet.newItem") });
             item.update({ "system.selected": null });
         } else {
-            if (itemSelected == "power") {
+            if (itemSelected === "power") {
                 this.actor.update({ "system.firstDie": "d4" });
                 this.actor.update({ "system.firstDieName": game.i18n.localize("SCRPG.sheet.newItem") });
             }
             this.actor.update({ "system.secondDie": item.system.dieType });
             this.actor.update({ "system.secondDieName": item.name });
             item.update({ "system.selected": "quality" });
-            if (this.actor.system.poweredMode) {
-                otherPowers = this.actor.items.filter(it => (it.type == "power" && it.key != itemId && it.system.selected != "power") || it.type == "quality");
-            } else {
-                otherPowers = this.actor.items.filter(it => it.type == "quality" && it.key != itemId && it.system.selected != "power");
-            }
-            otherPowers.forEach(oe => oe.update({ 'system.selected': null }));
+            const otherPowers = this.actor.system.poweredMode
+                ? this.actor.items.filter(it => (it.type === "power" && it.id !== itemId && it.system.selected !== "power") || it.type === "quality")
+                : this.actor.items.filter(it => it.type === "quality" && it.id !== itemId && it.system.selected !== "power");
+            otherPowers.forEach(oe => oe.update({ "system.selected": null }));
         }
-
     }
 
     //Assigns villain status to main roll
@@ -552,12 +545,11 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
             item.update({ "system.selected": false });
         } else {
             //system.secondDie represents the die that will be used in the main roll for quality
-            let otherPowers = [];
             this.actor.update({ "system.thirdDie": item.system.dieType });
             this.actor.update({ "system.thirdDieName": item.name });
             item.update({ "system.selected": true });
-            otherPowers = this.actor.items.filter(it => it.type == "villainStatus" && it.key != itemId);
-            otherPowers.forEach(oe => oe.update({ 'system.selected': false }));
+            const otherPowers = this.actor.items.filter(it => it.type === "villainStatus" && it.id !== itemId);
+            otherPowers.forEach(oe => oe.update({ "system.selected": false }));
         }
     }
 
@@ -603,9 +595,9 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
         let roll = this.actor.system.firstDie;
         let rollType = "power";
         let actor = this.actor
-        if (this.actor.system.civilianMode == true) {
+        if (this.actor.system.civilianMode) {
             rollType = "quality";
-        };
+        }
         let rollName = this.actor.system.firstDieName;
         dice.SingleCheck(roll, rollType, rollName, actor);
     }
@@ -617,9 +609,9 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
         let roll = this.actor.system.secondDie;
         let rollType = "quality";
         let actor = this.actor
-        if (this.actor.system.poweredMode == true) {
+        if (this.actor.system.poweredMode) {
             rollType = "power";
-        };
+        }
         let rollName = this.actor.system.secondDieName;
         dice.SingleCheck(roll, rollType, rollName, actor);
     }
@@ -650,11 +642,9 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
     }
 
     _onRollAllMinions(event) {
-        event.preventDefault;
-        let element = event.currentTarget;
-        let actor = this.actor;
-
-        dice.RollAllMinions(actor, element.dataset.group);
+        event.preventDefault();
+        const element = event.currentTarget;
+        dice.RollAllMinions(this.actor, element.dataset.group);
     }
 
     //Updates heath ranges when Max health set
@@ -813,27 +803,25 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
     //Applies the selected mode/form to the character
     _onSetMode(event) {
         event.preventDefault();
-        let element = event.currentTarget;
-        let powers = [];
+        const element = event.currentTarget;
         this.actor.update({ "system.mode": element.dataset.aux });
-        powers = this.actor.items.filter(it => it.type == "power");
-        powers.forEach(oe => oe.update({ 'system.selected': false }));
+        const powers = this.actor.items.filter(it => it.type === "power");
+        powers.forEach(oe => oe.update({ "system.selected": false }));
         this.actor.update({ "system.firstDie": "d4" });
         this.actor.update({ "system.firstDieName": game.i18n.localize("SCRPG.sheet.newItem") });
     }
 
-    _onChangeMode(event) {
-        let powers = [];
-        powers = this.actor.items.filter(it => it.type == "power");
-        powers.forEach(oe => oe.update({ 'system.selected': false }));
+    _onChangeMode(_event) {
+        const powers = this.actor.items.filter(it => it.type === "power");
+        powers.forEach(oe => oe.update({ "system.selected": false }));
         this.actor.update({ "system.firstDie": "d4" });
         this.actor.update({ "system.firstDieName": game.i18n.localize("SCRPG.sheet.newItem") });
     }
 
     //Turns on and off modular
     //Disables formchanger if modular active
-    _onSetModular(event) {
-        if (this.actor.system.modular == true) {
+    _onSetModular(_event) {
+        if (this.actor.system.modular) {
             this.actor.update({ "system.mode": "main" });
             this.actor.update({ "system.modeDisplayed.green1": false });
             this.actor.update({ "system.modeDisplayed.green2": false });
@@ -843,25 +831,25 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
         } else {
             this.actor.update({ "system.powerless": false });
             this.actor.update({ "system.formchanger": false });
-            this.actor.update({ "system.divided": false })
-            this.actor.update({ "system.dividedPsyche": false })
-            this.actor.update({ "system.dividedStatus": false })
-            this.actor.update({ "system.poweredMode": false })
-            this.actor.update({ "system.civilianMode": false })
+            this.actor.update({ "system.divided": false });
+            this.actor.update({ "system.dividedPsyche": false });
+            this.actor.update({ "system.dividedStatus": false });
+            this.actor.update({ "system.poweredMode": false });
+            this.actor.update({ "system.civilianMode": false });
             this.actor.update({ "system.mode": "main" });
         }
     }
 
-    _onSetPowerless(event) {
-        if (this.actor.system.powerless == true) {
-            this.actor.update({ "system.mode": "main" })
+    _onSetPowerless(_event) {
+        if (this.actor.system.powerless) {
+            this.actor.update({ "system.mode": "main" });
         }
     }
 
     //Turns on and off formchanger
     //Disables modular if modular active
-    _onSetFormChanger(event) {
-        if (this.actor.system.formchanger == true) {
+    _onSetFormChanger(_event) {
+        if (this.actor.system.formchanger) {
             this.actor.update({ "system.mode": "main" });
             this.actor.update({ "system.modeDisplayed.green1": false });
             this.actor.update({ "system.modeDisplayed.green2": false });
@@ -875,61 +863,57 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
 
     //turns on the divided psyche mode and set the mode powered
     //turns off modular mode
-    _onSetDivided(event) {
-        let currentStatus = this.actor.system.thirdDieName;
-        let actor = this.actor
-        if (this.actor.system.divided == true) {
+    _onSetDivided(_event) {
+        const currentStatus = this.actor.system.thirdDieName;
+        const actor = this.actor;
+        if (this.actor.system.divided) {
             this.actor.update({ "system.mode": "main" });
             this.actor.update({ "system.poweredMode": false });
             this.actor.update({ "system.civilianMode": false });
             this.actor.update({ "system.dividedStatus": false });
             this.actor.update({ "system.dividedPsyche": false });
-            status.DividedHealthChange(currentStatus, actor)
-
+            status.DividedHealthChange(currentStatus, actor);
         } else {
             this.actor.update({ "system.modular": false });
             this.actor.update({ "system.mode": "main" });
             this.actor.update({ "system.poweredMode": true });
-
         }
     }
 
     //Turns on divided psyche powered mode and turns off civilian mode
-    _onSetPowered(event) {
-        let currentStatus = this.actor.system.thirdDieName;
-        let actor = this.actor;
-        let otherPowers = [];
-        if (this.actor.system.poweredMode == true) {
+    _onSetPowered(_event) {
+        const currentStatus = this.actor.system.thirdDieName;
+        const actor = this.actor;
+        if (this.actor.system.poweredMode) {
             this.actor.update({ "system.civilianMode": true });
         } else {
             this.actor.update({ "system.civilianMode": false });
         }
-        otherPowers = this.actor.items.filter(it => it.type == "quality");
-        otherPowers.forEach(oe => oe.update({ 'system.selected': null }));
+        const otherPowers = this.actor.items.filter(it => it.type === "quality");
+        otherPowers.forEach(oe => oe.update({ "system.selected": null }));
         this.actor.update({ "system.firstDie": "d4" });
         this.actor.update({ "system.firstDieName": game.i18n.localize("SCRPG.sheet.newItem") });
         this.actor.update({ "system.secondDie": "d4" });
         this.actor.update({ "system.secondDieName": game.i18n.localize("SCRPG.sheet.newItem") });
-        status.DividedHealthChange(currentStatus, actor)
+        status.DividedHealthChange(currentStatus, actor);
     }
 
     //Turns on divided psyche civilian mode and turns off powered mode
-    _onSetCivilian(event) {
-        let currentStatus = this.actor.system.thirdDieName;
-        let actor = this.actor;
-        let otherPowers = [];
-        if (this.actor.system.civilianMode == true) {
+    _onSetCivilian(_event) {
+        const currentStatus = this.actor.system.thirdDieName;
+        const actor = this.actor;
+        if (this.actor.system.civilianMode) {
             this.actor.update({ "system.poweredMode": true });
         } else {
             this.actor.update({ "system.poweredMode": false });
         }
-        otherPowers = this.actor.items.filter(it => it.type == "power");
-        otherPowers.forEach(oe => oe.update({ 'system.selected': null }));
+        const otherPowers = this.actor.items.filter(it => it.type === "power");
+        otherPowers.forEach(oe => oe.update({ "system.selected": null }));
         this.actor.update({ "system.firstDie": "d4" });
         this.actor.update({ "system.firstDieName": game.i18n.localize("SCRPG.sheet.newItem") });
         this.actor.update({ "system.secondDie": "d4" });
         this.actor.update({ "system.secondDieName": game.i18n.localize("SCRPG.sheet.newItem") });
-        status.DividedHealthChange(currentStatus, actor)
+        status.DividedHealthChange(currentStatus, actor);
     }
 
     //Displays or hides red mode/form
@@ -964,7 +948,7 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
 
         let modNameTrueValue = InputBox.value;
 
-        if (modNameTrueValue != "") {
+        if (modNameTrueValue !== "") {
             name = modNameTrueValue;
             named = modNameTrueValue !== "";
         }
@@ -992,7 +976,7 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
         let target = event.target;
 
         //Look for 'mod-create-td' in the DOM
-        while (DOMDepth < 20 && foundItem == false) {
+        while (DOMDepth < 20 && !foundItem) {
             if (target.classList.contains('mod-create-td')) {
                 foundItem = true;
             }
@@ -1002,13 +986,13 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
             }
         }
 
-        if (foundItem == false) { throw "getInputBoxViaDOM(event): Can't find the <td> with class 'mod-create-td'"; }
+        if (!foundItem) { throw "getInputBoxViaDOM(event): Can't find the <td> with class 'mod-create-td'"; }
         //Now look for the input with name 'system.modName'
         DOMDepth = 0;
         foundItem = false;
 
-        while (DOMDepth < 20 && foundItem == false) {
-            if (target.attributes['name'] && target.attributes['name'].value == 'system.modName') {
+        while (DOMDepth < 20 && !foundItem) {
+            if (target.attributes['name'] && target.attributes['name'].value === 'system.modName') {
                 foundItem = true;
             }
             else {
@@ -1017,7 +1001,7 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
             }
         }
 
-        if (foundItem == false) { throw "getInputBoxViaDOM(event): Can't find the input with the name 'system.modename'"; }
+        if (!foundItem) { throw "getInputBoxViaDOM(event): Can't find the input with the name 'system.modename'"; }
 
         return target;
     }
@@ -1041,10 +1025,10 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
             let otherExclusives;
 
             if (isBonus) {
-                otherExclusives = this.actor.items.filter(it => it.type == "mod" && it.system.exclusive == true && parseInt(it.system.value) > 0);
+                otherExclusives = this.actor.items.filter(it => it.type === "mod" && it.system.exclusive && parseInt(it.system.value) > 0);
             }
             else {
-                otherExclusives = this.actor.items.filter(it => it.type == "mod" && it.system.exclusive == true && parseInt(it.system.value) < 0);
+                otherExclusives = this.actor.items.filter(it => it.type === "mod" && it.system.exclusive && parseInt(it.system.value) < 0);
             }
 
             //Foreach exclusive, deselect
@@ -1177,21 +1161,21 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
             return true;
         }
 
-        if (actorType == 'hero' && !validHeroDrops.includes(itemDataType)) {
+        if (actorType === 'hero' && !validHeroDrops.includes(itemDataType)) {
             return false;
         }
-        else if (actorType == 'villain' && !validVillainDrops.includes(itemDataType)) {
+        else if (actorType === 'villain' && !validVillainDrops.includes(itemDataType)) {
             return false;
         }
-        else if (actorType == 'environment' && !validEnvironmentDrops.includes(itemDataType)) {
+        else if (actorType === 'environment' && !validEnvironmentDrops.includes(itemDataType)) {
             return false;
         }
-        else if (actorType == 'scene' && !validSceneDrops.includes(itemDataType)) {
+        else if (actorType === 'scene' && !validSceneDrops.includes(itemDataType)) {
             return false;
         }
-        else if (actorType == 'minion' && !validMinionDrops.includes(itemDataType)) {
+        else if (actorType === 'minion' && !validMinionDrops.includes(itemDataType)) {
             return false;
-        };
+        }
 
         return true;
     }
@@ -1217,7 +1201,7 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
         if (path.length) {
             for (let i = 0; i < path.length; i++) {
                 const className = path[i].className;
-                if (className != null && String(className).includes(target)) {
+                if (className !== null && String(className).includes(target)) {
                     return true;
                 }
             }
@@ -1243,15 +1227,15 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
 
         switch (element.dataset.color) {
             case "green":
-                if (greenSetting == current && (yellowCurrent == 0 || redCurrent > 0 || yellowCurrent == yellowSetting)) {
+                if (greenSetting === current && (yellowCurrent === 0 || redCurrent > 0 || yellowCurrent === yellowSetting)) {
                     scene.SetYellow();
-                } else if (current < greenSetting && greenSetting == greenCurrent) {
+                } else if (current < greenSetting && greenSetting === greenCurrent) {
                     scene.SetGreen();
                 }
                 this.actor.update({ "system.greenSpace.current": current });
                 this.actor.update({ "system.yellowSpace.current": 0 });
                 this.actor.update({ "system.redSpace.current": 0 });
-                if (greenCurrent == current && yellowCurrent == 0) {
+                if (greenCurrent === current && yellowCurrent === 0) {
                     scene.SceneReset(this.actor);
                     scene.SetGreen();
                     scene.SceneStatus(0, 0, 0, greenSetting, yellowSetting, redSetting);
@@ -1261,15 +1245,15 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
                 break
 
             case "yellow":
-                if ((greenCurrent < greenSetting || yellowCurrent == yellowSetting) && current != yellowSetting) {
+                if ((greenCurrent < greenSetting || yellowCurrent === yellowSetting) && current !== yellowSetting) {
                     scene.SetYellow();
-                } else if (yellowSetting == current && yellowCurrent < yellowSetting) {
+                } else if (yellowSetting === current && yellowCurrent < yellowSetting) {
                     scene.SetRed();
                 }
                 this.actor.update({ "system.yellowSpace.current": current });
                 this.actor.update({ "system.greenSpace.current": greenSetting });
                 this.actor.update({ "system.redSpace.current": 0 });
-                if (yellowCurrent == current && redCurrent == 0) {
+                if (yellowCurrent === current && redCurrent === 0) {
                     scene.SceneReset(this.actor);
                     scene.SetGreen();
                     scene.SceneStatus(0, 0, 0, greenSetting, yellowSetting, redSetting);
@@ -1280,7 +1264,7 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
 
             case "red":
 
-                if (redSetting == current && redCurrent != current) {
+                if (redSetting === current && redCurrent !== current) {
                     scene.SetRed();
                 } else if (yellowCurrent < this.actor.system.yellowSpace.setting) {
                     scene.SetRed();
@@ -1288,7 +1272,7 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
                 this.actor.update({ "system.redSpace.current": current });
                 this.actor.update({ "system.yellowSpace.current": yellowSetting });
                 this.actor.update({ "system.greenSpace.current": greenSetting });
-                if (redCurrent == current) {
+                if (redCurrent === current) {
                     scene.SceneReset(this.actor);
                     scene.SetGreen();
                     scene.SceneStatus(0, 0, 0, greenSetting, yellowSetting, redSetting);
@@ -1350,9 +1334,9 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
     _onResetInitiative(event) {
         event.preventDefault()
         let element = event.currentTarget;
-        let itemsId = this.actor.items.filter(it => it.type == element.dataset.type).map(m => m._id);
+        let itemsId = this.actor.items.filter(it => it.type === element.dataset.type).map(m => m._id);
         for (let i = 0; i < itemsId.length; i++) {
-            this.actor.items.get(itemsId[i]).update({ "system.acted": false });;
+            this.actor.items.get(itemsId[i]).update({ "system.acted": false });
         }
     }
 

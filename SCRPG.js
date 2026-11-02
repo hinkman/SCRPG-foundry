@@ -9,30 +9,30 @@ const { loadTemplates } = foundry.applications.handlebars;
 
 async function preloadHandlebarsTemplates() {
     const templatePaths = [
-        "systems/scrpg/templates/partials/heroinfo.hbs",
-        "systems/scrpg/templates/partials/principles.hbs",
-        "systems/scrpg/templates/partials/issuescollections.hbs",
-        "systems/scrpg/templates/partials/powerquality.hbs",
-        "systems/scrpg/templates/partials/abilities.hbs",
-        "systems/scrpg/templates/partials/auxiliary.hbs",
-        "systems/scrpg/templates/partials/auxiliarypowers.hbs",
-        "systems/scrpg/templates/partials/abilitiestable.hbs",
-        "systems/scrpg/templates/partials/formmodularcommon.hbs",
-        "systems/scrpg/templates/partials/abilitiesmodeformcommon.hbs",
-        "systems/scrpg/templates/partials/environment.hbs",
-        "systems/scrpg/templates/partials/environmenttwist.hbs",
-        "systems/scrpg/templates/partials/minions.hbs",
-        "systems/scrpg/templates/partials/mod.hbs",
-        "systems/scrpg/templates/chat/partials/modDisplay.hbs",
-        "systems/scrpg/templates/partials/miniongroups.hbs",
-        "systems/scrpg/templates/partials/minionsheetbuttons.hbs"
+        "systems/scrpg-foundry/templates/partials/heroinfo.hbs",
+        "systems/scrpg-foundry/templates/partials/principles.hbs",
+        "systems/scrpg-foundry/templates/partials/issuescollections.hbs",
+        "systems/scrpg-foundry/templates/partials/powerquality.hbs",
+        "systems/scrpg-foundry/templates/partials/abilities.hbs",
+        "systems/scrpg-foundry/templates/partials/auxiliary.hbs",
+        "systems/scrpg-foundry/templates/partials/auxiliarypowers.hbs",
+        "systems/scrpg-foundry/templates/partials/abilitiestable.hbs",
+        "systems/scrpg-foundry/templates/partials/formmodularcommon.hbs",
+        "systems/scrpg-foundry/templates/partials/abilitiesmodeformcommon.hbs",
+        "systems/scrpg-foundry/templates/partials/environment.hbs",
+        "systems/scrpg-foundry/templates/partials/environmenttwist.hbs",
+        "systems/scrpg-foundry/templates/partials/minions.hbs",
+        "systems/scrpg-foundry/templates/partials/mod.hbs",
+        "systems/scrpg-foundry/templates/chat/partials/modDisplay.hbs",
+        "systems/scrpg-foundry/templates/partials/miniongroups.hbs",
+        "systems/scrpg-foundry/templates/partials/minionsheetbuttons.hbs"
     ];
 
     return loadTemplates(templatePaths);
 }
 
 function registerSystemSettings() {
-    game.settings.register("scrpg", "coloredDice", {
+    game.settings.register("scrpg-foundry", "coloredDice", {
         config: true,
         scope: "world",
         name: "SETTINGS.coloredDice.name",
@@ -40,7 +40,7 @@ function registerSystemSettings() {
         type: Boolean,
         default: true
     });
-    game.settings.register("scrpg", "mod", {
+    game.settings.register("scrpg-foundry", "mod", {
         config: true,
         scope: "client",
         name: "SETTINGS.mod.name",
@@ -48,7 +48,7 @@ function registerSystemSettings() {
         type: Boolean,
         default: true
     });
-    game.settings.register("scrpg", "availableAbilities", {
+    game.settings.register("scrpg-foundry", "availableAbilities", {
         config: true,
         scope: "client",
         name: "SETTINGS.availableAbilities.name",
@@ -59,22 +59,22 @@ function registerSystemSettings() {
 }
 
 Hooks.once("init", function () {
-    console.log("SCRPG | Initialising SCRPG");
+    console.log("scrpg-foundry | Initialising Sentinel Comics RPG");
 
     CONFIG.SCRPG = SCRPG;
     CONFIG.Actor.dataModels = actorDataModels;
     CONFIG.Item.dataModels = itemDataModels;
 
     // Expose scene helpers for compendium macros
-    game.scrpg = { ...scene };
+    game["scrpg-foundry"] = { ...scene };
 
     const DocumentSheetConfig = foundry.applications.apps.DocumentSheetConfig;
-    DocumentSheetConfig.registerSheet(foundry.documents.Actor, "scrpg", SCRPGCharacterSheet, {
+    DocumentSheetConfig.registerSheet(foundry.documents.Actor, "scrpg-foundry", SCRPGCharacterSheet, {
         types: ["hero", "villain", "environment", "scene", "minion"],
         makeDefault: true,
         label: "SCRPG.sheet.actor"
     });
-    DocumentSheetConfig.registerSheet(foundry.documents.Item, "scrpg", SCRPGItemSheet, {
+    DocumentSheetConfig.registerSheet(foundry.documents.Item, "scrpg-foundry", SCRPGItemSheet, {
         makeDefault: true,
         label: "SCRPG.sheet.item"
     });
@@ -127,13 +127,13 @@ Handlebars.registerHelper("getLocalizeMinionBonus", function (bonus) {
 });
 
 Handlebars.registerHelper("ifSetting", function (setting, options) {
-    const settingState = game.settings.get("scrpg", setting);
+    const settingState = game.settings.get("scrpg-foundry", setting);
     if (settingState) return new Handlebars.SafeString(options.fn(this));
     return options.inverse ? options.inverse(this) : "";
 });
 
 Handlebars.registerHelper("getAbilitiesEnabledFromStatusClass", function (mode, actor) {
-    const setting = game.settings.get("scrpg", "availableAbilities");
+    const setting = game.settings.get("scrpg-foundry", "availableAbilities");
     const sceneStatus = actor.scene;
     const actorStatus = actor.thirdDieName;
     const actorHealth = actor.wounds.value;
