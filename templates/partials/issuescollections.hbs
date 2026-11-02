@@ -4,33 +4,30 @@
     <div class="box-border hero-point">
         {{!-- Hero points collected in a session --}}
         <div class="hero-point-grid">
-            <div class="hero-point-grid-item">
-                <h3>{{localize "SCRPG.issues.heroPoints"}}</h3>
-                <h3>{{localize "SCRPG.issues.thisIssue"}}:</h3>
-            </div>
-            <div class="hero-point-two">
-                <input type="checkbox" name="system.heroPoints.game.one" {{checked actor.system.heroPoints.game.one}}
-                    data-dtype="boolean" />
-                <input type="checkbox" name="system.heroPoints.game.two" {{checked actor.system.heroPoints.game.two}}
-                    data-dtype="boolean" />
-            </div>
-            <div class="hero-point-three">
-                <input type="checkbox" name="system.heroPoints.game.three" {{checked
-                    actor.system.heroPoints.game.three}} data-dtype="boolean" />
-                <input type="checkbox" name="system.heroPoints.game.four" {{checked actor.system.heroPoints.game.four}}
-                    data-dtype="boolean" />
-                <input type="checkbox" name="system.heroPoints.game.five" {{checked actor.system.heroPoints.game.five}}
-                    data-dtype="boolean" />
+            <h3 class="hero-point-heading">{{localize "SCRPG.issues.heroPoints"}} {{localize "SCRPG.issues.thisIssue"}}:</h3>
+            <div class="hero-point-checks">
+                <div class="hero-point-two">
+                    <input type="checkbox" name="system.heroPoints.game.one" {{checked actor.system.heroPoints.game.one}}
+                        data-dtype="boolean" />
+                    <input type="checkbox" name="system.heroPoints.game.two" {{checked actor.system.heroPoints.game.two}}
+                        data-dtype="boolean" />
+                </div>
+                <div class="hero-point-three">
+                    <input type="checkbox" name="system.heroPoints.game.three" {{checked
+                        actor.system.heroPoints.game.three}} data-dtype="boolean" />
+                    <input type="checkbox" name="system.heroPoints.game.four" {{checked actor.system.heroPoints.game.four}}
+                        data-dtype="boolean" />
+                    <input type="checkbox" name="system.heroPoints.game.five" {{checked actor.system.heroPoints.game.five}}
+                        data-dtype="boolean" />
+                </div>
             </div>
         </div>
 
         {{!-- Hero rewards available for +1, +2, +3, and +4 --}}
-        <div>
-            <h3>{{localize "SCRPG.issues.heroPointRewards"}}</h3>
+        <div class="hero-point-rewards">
+            <h3 class="hero-point-heading">{{localize "SCRPG.issues.heroPointRewards"}}</h3>
             <div class="hero-reward-grid">
-                <div>
-                    <h3>+1</h3>
-                </div>
+                <span class="hero-reward-label">+1</span>
                 <div class="hero-point-four">
                     <input type="checkbox" name="system.heroPoints.one.one" {{checked actor.system.heroPoints.one.one}}
                         data-dtype="boolean" />
@@ -41,9 +38,7 @@
                     <input type="checkbox" name="system.heroPoints.one.four" {{checked
                         actor.system.heroPoints.one.four}} data-dtype="boolean" />
                 </div>
-                <div>
-                    <h3>+2</h3>
-                </div>
+                <span class="hero-reward-label">+2</span>
                 <div class="hero-point-four">
                     <input type="checkbox" name="system.heroPoints.two.one" {{checked actor.system.heroPoints.two.one}}
                         data-dtype="boolean" />
@@ -54,9 +49,7 @@
                     <input type="checkbox" name="system.heroPoints.two.four" {{checked
                         actor.system.heroPoints.two.four}} data-dtype="boolean" />
                 </div>
-                <div>
-                    <h3>+3</h3>
-                </div>
+                <span class="hero-reward-label">+3</span>
                 <div class="hero-point-four">
                     <input type="checkbox" name="system.heroPoints.three.one" {{checked
                         actor.system.heroPoints.three.one}} data-dtype="boolean" />
@@ -67,9 +60,7 @@
                     <input type="checkbox" name="system.heroPoints.three.four" {{checked
                         actor.system.heroPoints.three.four}} data-dtype="boolean" />
                 </div>
-                <div>
-                    <h3>+4</h3>
-                </div>
+                <span class="hero-reward-label">+4</span>
                 <div class="hero-point-four">
                     <input type="checkbox" name="system.heroPoints.four.one" {{checked
                         actor.system.heroPoints.four.one}} data-dtype="boolean" />

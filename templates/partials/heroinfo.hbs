@@ -111,28 +111,32 @@
                         <h4>{{localize "SCRPG.charInfo.powerSource"}}</h4>
                         <input name="system.powerSource" type="text" value="{{actor.system.powerSource}}">
                     </td>
+                </tr>
                 <tr>
-                    {{/if}}
-
-                    {{!-- Displays villain specific data --}}
-                    {{#if (eq actor.type "villain")}}
-                    <td>
-                        <h4>{{localize "SCRPG.charInfo.approach"}}</h4>
-                        <input name="system.approach" type="text" value="{{actor.system.approach}}">
-                    </td>
-                    {{/if}}
                     <td>
                         <h4>{{localize "SCRPG.charInfo.archetype"}}</h4>
                         <input name="system.archetype" type="text" value="{{actor.system.archetype}}">
                     </td>
-                    {{#if (eq actor.type "hero")}}
                     <td>
                         <h4>{{localize "SCRPG.charInfo.personality"}}</h4>
                         <input name="system.personality" type="text" value="{{actor.system.personality}}">
                     </td>
-                    {{/if}}
                 </tr>
+                {{/if}}
+
+                {{!-- Displays villain specific data --}}
+                {{#if (eq actor.type "villain")}}
+                <tr>
+                    <td>
+                        <h4>{{localize "SCRPG.charInfo.approach"}}</h4>
+                        <input name="system.approach" type="text" value="{{actor.system.approach}}">
+                    </td>
+                    <td>
+                        <h4>{{localize "SCRPG.charInfo.archetype"}}</h4>
+                        <input name="system.archetype" type="text" value="{{actor.system.archetype}}">
+                    </td>
                 </tr>
+                {{/if}}
             </table>
         </div>
 
