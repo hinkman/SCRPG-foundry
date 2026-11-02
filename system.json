@@ -14,7 +14,7 @@
             "name": "GamerDragon"
         }
     ],
-    "version": "0.9.5",
+    "version": "0.9.6",
     "compatibility": {
         "minimum": "14",
         "verified": "14"
@@ -78,5 +78,5 @@
     },
     "url": "https://github.com/hinkman/SCRPG-foundry",
     "manifest": "https://raw.githubusercontent.com/hinkman/SCRPG-foundry/main/system.json",
-    "download": "https://github.com/hinkman/SCRPG-foundry/releases/download/v0.9.5/scrpg-foundry.zip"
+    "download": "https://github.com/hinkman/SCRPG-foundry/releases/download/v0.9.6/scrpg-foundry.zip"
 }

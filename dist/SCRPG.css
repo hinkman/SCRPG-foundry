@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @layer scrpg {
   .SCRPG.sheet.item form {
     display: flex;
@@ -225,12 +226,10 @@
     border-bottom: none;
   }
   .SCRPG.sheet.actor .editor {
-    min-height: 6.25rem;
-    height: auto;
+    height: 6.25rem;
     background: rgba(255, 255, 255, 0.92);
     border: 1px solid #565656;
     border-radius: 3px;
-    color: #111111;
   }
   .SCRPG.sheet.actor .editor p {
     margin: 0.25rem;
@@ -245,6 +244,16 @@
   }
   .SCRPG.sheet.actor .editor .tox .tox-toolbar__group {
     padding: 0;
+  }
+  .SCRPG.sheet.actor {
+    /* Don't let legacy .editor height rules affect AppV2 ProseMirror layout. */
+  }
+  .SCRPG.sheet.actor prose-mirror .editor-container {
+    height: auto;
+    min-height: 0;
+    background: #ffffff;
+    border: none;
+    box-shadow: none;
   }
   .SCRPG.sheet.actor .sheet-content {
     height: 100%;
@@ -1797,34 +1806,6 @@
     color: #111111;
     background-color: #ffffff;
   }
-  .SCRPG.sheet {
-    /*
-     * ProseMirror (esp. toggled edit mode) inherits Foundry dark-theme text
-     * colors. Force dark text + caret on our light sheet surfaces.
-     */
-  }
-  .SCRPG.sheet prose-mirror,
-  .SCRPG.sheet prose-mirror .editor,
-  .SCRPG.sheet prose-mirror .editor-content,
-  .SCRPG.sheet prose-mirror .ProseMirror,
-  .SCRPG.sheet .editor,
-  .SCRPG.sheet .editor-content,
-  .SCRPG.sheet .ProseMirror {
-    color: #111111 !important;
-    caret-color: #111111 !important;
-    -webkit-text-fill-color: #111111;
-  }
-  .SCRPG.sheet prose-mirror .editor-content,
-  .SCRPG.sheet prose-mirror .ProseMirror,
-  .SCRPG.sheet .editor-content.ProseMirror {
-    background-color: #ffffff !important;
-  }
-  .SCRPG.sheet prose-mirror .editor-content *,
-  .SCRPG.sheet prose-mirror .ProseMirror * {
-    color: inherit;
-    -webkit-text-fill-color: inherit;
-    caret-color: inherit;
-  }
   .SCRPG.sheet .sheet-tabs {
     background-color: #d3d3d3;
   }
@@ -1874,22 +1855,30 @@
     height: auto;
     min-height: 0;
   }
+  .SCRPG.sheet {
+    /*
+     * ProseMirror must keep Foundry's flex + absolute .editor-content layout.
+     * Only restyle the editable content surface — never the menu/toolbar —
+     * so dark-theme menu icons stay visible on the dark menu background.
+     */
+  }
   .SCRPG.sheet prose-mirror {
-    display: block;
-    min-height: 6.25rem;
     background: rgba(255, 255, 255, 0.92);
     border: 1px solid #565656;
     border-radius: 3px;
-    color-scheme: light;
+    /* Inactive enriched HTML (direct children before edit is toggled on) */
   }
-  .SCRPG.sheet prose-mirror .editor {
-    height: auto;
-    min-height: 5rem;
+  .SCRPG.sheet prose-mirror > :not(.editor-container):not(.menu-container):not(button) {
+    color: #111111;
+  }
+  .SCRPG.sheet prose-mirror .editor-container {
     background: #ffffff;
   }
   .SCRPG.sheet prose-mirror .editor-content,
-  .SCRPG.sheet prose-mirror .ProseMirror {
-    min-height: 4.5rem;
+  .SCRPG.sheet prose-mirror .editor-content.ProseMirror {
+    color: #111111;
+    caret-color: #111111;
+    background-color: #ffffff;
   }
 }
 
