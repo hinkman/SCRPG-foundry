@@ -79,16 +79,18 @@
         }
 
         .principle {
-            padding: 4px;
+            padding: 4px 4px 2px;
         }
 
         .section-name {
             border: 1px solid $black;
             box-shadow: 2px 2px $black;
-            padding: 2px;
+            padding: 2px 6px;
             background: linear-gradient($titleorange, $titleyellow);
+            color: #111111;
 
             input {
+                -webkit-appearance: none;
                 appearance: none;
                 box-sizing: border-box;
                 margin: 0;
@@ -96,13 +98,22 @@
                 border: none;
                 background: transparent;
                 font: inherit;
+                font-weight: 700;
+                font-style: italic;
                 width: 100%;
                 color: #111111;
                 -webkit-text-fill-color: #111111;
+
+                &::placeholder {
+                    color: rgba(0, 0, 0, 0.42);
+                    -webkit-text-fill-color: rgba(0, 0, 0, 0.42);
+                    opacity: 1;
+                }
             }
 
             &-principle {
                 width: 75%;
+                margin-bottom: 0.35rem;
             }
 
             &-powerquality {
@@ -162,9 +173,25 @@
         }
 
         .principle-section {
-            border-top: 2px dotted $black;
-            border-bottom: 2px dotted $black;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.35rem 0 0.2rem;
+            border: none;
             text-align: center;
+            color: $titlegray;
+            font-style: italic;
+            font-weight: 600;
+            font-size: 0.7rem;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+
+            &::before,
+            &::after {
+                content: "";
+                flex: 1 1 auto;
+                border-top: 2px dotted $black;
+            }
         }
 
         .hero-img {
@@ -187,17 +214,25 @@
             h3 {
                 color: $titleorange;
                 margin: 0px;
+                font-style: italic;
+                font-weight: 700;
             }
 
             h4 {
                 color: $titlegray;
-                display: inline;
+                display: block;
+                margin: 0 0 0.1rem;
+                font-size: 0.7rem;
+                font-weight: 600;
+                letter-spacing: 0.03em;
+                text-transform: uppercase;
             }
 
             .names,
             .physical,
             .characteristics {
                 background-color: $orangebg;
+                color: #111111;
             }
         }
 
@@ -249,49 +284,74 @@
 
         .issues-grid {
             display: grid;
-            grid-template-columns: 10.625rem 1fr 1fr;
+            /* Hero points are fixed content; back issues / collections grow with the sheet. */
+            grid-template-columns: 12.5rem minmax(0, 1fr) minmax(0, 1fr);
             column-gap: 4px;
+            align-items: stretch;
         }
 
         .hero-point,
         .back-issues,
         .collections {
             background-color: $bluebg;
-            padding: 4px;
+            padding: 6px 8px;
+            color: #111111;
 
-            h3 {
+            h3,
+            .hero-point-heading,
+            .hero-reward-label {
                 color: $titleblue;
+                font-style: italic;
+                font-weight: 700;
+                margin: 0;
             }
         }
 
         .hero-point {
+            /* Oval checkboxes matching the printed sheet; override Foundry defaults. */
             input[type="checkbox"] {
-                appearance: none;
-                width: 20px;
-                height: 12px;
-                border: 1px solid $inputlightgray;
-                background-color: $white;
-                border-radius: 50%;
-                margin: 0;
-                padding: 0;
-            }
+                -webkit-appearance: none !important;
+                appearance: none !important;
+                width: 1.375rem !important;
+                height: 0.8rem !important;
+                min-width: 1.375rem;
+                min-height: 0.8rem;
+                flex: 0 0 auto;
+                margin: 0 !important;
+                padding: 0 !important;
+                border: 1.5px solid $black !important;
+                border-radius: 50% !important;
+                background-color: $white !important;
+                background-image: none !important;
+                box-shadow: none !important;
+                accent-color: transparent;
+                cursor: pointer;
+                position: relative;
+                display: inline-block;
+                vertical-align: middle;
 
-            input[type="checkbox"]:checked {
-                -webkit-filter: none;
-                filter: none;
-                background-color: $inputlightgray;
-            }
+                &::before,
+                &::after {
+                    content: none !important;
+                    display: none !important;
+                }
 
-            input[type="checkbox"]:hover:checked {
-                background-color: $inputdarkgray;
-            }
+                &:checked {
+                    -webkit-filter: none !important;
+                    filter: none !important;
+                    background-color: $titleblue !important;
+                    background-image: none !important;
+                    border-color: $titleblue !important;
+                }
 
-            input[type="checkbox"]:hover {
-                border: 1px solid $inputdarkgray;
-            }
+                &:hover {
+                    border-color: $inputdarkgray !important;
+                }
 
-            h3 {
-                display: inline;
+                &:hover:checked {
+                    background-color: $titleblue !important;
+                    border-color: $black !important;
+                }
             }
 
             table,
@@ -305,40 +365,59 @@
 
         .hero-point-grid {
             display: grid;
-            grid-template-columns: 55% auto;
+            grid-template-columns: minmax(0, 1fr) auto;
+            column-gap: 0.5rem;
+            align-items: center;
             border-bottom: 1px dotted $black;
+            padding-bottom: 0.4rem;
+            margin-bottom: 0.4rem;
         }
 
-        .hero-point-grid-item {
-            grid-row-start: 1;
-            grid-row-end: 3;
+        .hero-point-heading {
+            line-height: 1.15;
+            font-size: 0.95rem;
         }
 
-        .hero-point-two {
-            display: grid;
-            grid-template-columns: auto auto;
-            grid-gap: 4px;
-            place-content: center;
+        .hero-point-checks {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
         }
 
+        .hero-point-two,
+        .hero-point-three,
+        .hero-point-four {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0.3rem;
+        }
+
+        .hero-point-two,
         .hero-point-three {
-            display: grid;
-            grid-template-columns: auto auto auto;
-            grid-gap: 4px;
-            place-content: center;
+            justify-content: center;
+        }
+
+        .hero-point-rewards {
+            .hero-point-heading {
+                margin-bottom: 0.35rem;
+            }
         }
 
         .hero-reward-grid {
             display: grid;
-            grid-template-columns: 1.5625rem auto;
+            grid-template-columns: 1.75rem 1fr;
+            column-gap: 0.35rem;
+            row-gap: 0.35rem;
+            align-items: center;
         }
 
-        .hero-point-four {
-            display: grid;
-            grid-template-columns: auto auto auto auto;
-            grid-gap: 4px;
-            align-content: center;
-            justify-content: flex-start;
+        .hero-reward-label {
+            font-size: 0.95rem;
+            line-height: 1;
+            text-align: right;
         }
 
         .back-issues,
@@ -349,21 +428,46 @@
                 height: fit-content;
                 color: #111111;
                 -webkit-text-fill-color: #111111;
-                background: rgba(255, 255, 255, 0.92);
+                background: transparent;
                 width: 100%;
                 border-bottom: 1px dotted $black;
-                padding: 0px 4px;
+                padding: 0.15rem 4px;
             }
 
             input[type="checkbox"] {
-                width: 16px;
-                height: 16px;
+                -webkit-appearance: none !important;
+                appearance: none !important;
+                width: 0.85rem !important;
+                height: 0.85rem !important;
+                min-width: 0.85rem;
+                min-height: 0.85rem;
                 margin: auto;
+                padding: 0 !important;
+                border: 1.5px solid $black !important;
+                border-radius: 2px !important;
+                background-color: $white !important;
+                background-image: none !important;
+                box-shadow: none !important;
+                cursor: pointer;
+
+                &::before,
+                &::after {
+                    content: none !important;
+                    display: none !important;
+                }
+
+                &:checked {
+                    background-color: $titleblue !important;
+                    border-color: $titleblue !important;
+                    filter: none !important;
+                }
             }
 
             .collection-grid {
                 display: grid;
-                grid-template-columns: 20px auto;
+                grid-template-columns: 1.1rem auto;
+                column-gap: 0.25rem;
+                align-items: center;
             }
         }
 

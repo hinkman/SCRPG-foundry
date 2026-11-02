@@ -282,15 +282,17 @@
     margin-bottom: 8px;
   }
   .SCRPG.sheet.actor .principle {
-    padding: 4px;
+    padding: 4px 4px 2px;
   }
   .SCRPG.sheet.actor .section-name {
     border: 1px solid #000000;
     box-shadow: 2px 2px #000000;
-    padding: 2px;
+    padding: 2px 6px;
     background: linear-gradient(#AA4618, #fbc015);
+    color: #111111;
   }
   .SCRPG.sheet.actor .section-name input {
+    -webkit-appearance: none;
     appearance: none;
     box-sizing: border-box;
     margin: 0;
@@ -298,12 +300,20 @@
     border: none;
     background: transparent;
     font: inherit;
+    font-weight: 700;
+    font-style: italic;
     width: 100%;
     color: #111111;
     -webkit-text-fill-color: #111111;
   }
+  .SCRPG.sheet.actor .section-name input::placeholder {
+    color: rgba(0, 0, 0, 0.42);
+    -webkit-text-fill-color: rgba(0, 0, 0, 0.42);
+    opacity: 1;
+  }
   .SCRPG.sheet.actor .section-name-principle {
     width: 75%;
+    margin-bottom: 0.35rem;
   }
   .SCRPG.sheet.actor .section-name-powerquality {
     width: 75%;
@@ -350,9 +360,23 @@
     margin: 0;
   }
   .SCRPG.sheet.actor .principle-section {
-    border-top: 2px dotted #000000;
-    border-bottom: 2px dotted #000000;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.35rem 0 0.2rem;
+    border: none;
     text-align: center;
+    color: #57595b;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .SCRPG.sheet.actor .principle-section::before, .SCRPG.sheet.actor .principle-section::after {
+    content: "";
+    flex: 1 1 auto;
+    border-top: 2px dotted #000000;
   }
   .SCRPG.sheet.actor .hero-img {
     height: 476px;
@@ -370,15 +394,23 @@
   .SCRPG.sheet.actor .hero-info h3 {
     color: #AA4618;
     margin: 0px;
+    font-style: italic;
+    font-weight: 700;
   }
   .SCRPG.sheet.actor .hero-info h4 {
     color: #57595b;
-    display: inline;
+    display: block;
+    margin: 0 0 0.1rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
   }
   .SCRPG.sheet.actor .hero-info .names,
   .SCRPG.sheet.actor .hero-info .physical,
   .SCRPG.sheet.actor .hero-info .characteristics {
     background-color: #fce1c7;
+    color: #111111;
   }
   .SCRPG.sheet.actor .villain-info h3 {
     color: #99242a;
@@ -418,43 +450,73 @@
   }
   .SCRPG.sheet.actor .issues-grid {
     display: grid;
-    grid-template-columns: 10.625rem 1fr 1fr;
+    /* Hero points are fixed content; back issues / collections grow with the sheet. */
+    grid-template-columns: 12.5rem minmax(0, 1fr) minmax(0, 1fr);
     column-gap: 4px;
+    align-items: stretch;
   }
   .SCRPG.sheet.actor .hero-point,
   .SCRPG.sheet.actor .back-issues,
   .SCRPG.sheet.actor .collections {
     background-color: #e8f2f8;
-    padding: 4px;
+    padding: 6px 8px;
+    color: #111111;
   }
   .SCRPG.sheet.actor .hero-point h3,
+  .SCRPG.sheet.actor .hero-point .hero-point-heading,
+  .SCRPG.sheet.actor .hero-point .hero-reward-label,
   .SCRPG.sheet.actor .back-issues h3,
-  .SCRPG.sheet.actor .collections h3 {
+  .SCRPG.sheet.actor .back-issues .hero-point-heading,
+  .SCRPG.sheet.actor .back-issues .hero-reward-label,
+  .SCRPG.sheet.actor .collections h3,
+  .SCRPG.sheet.actor .collections .hero-point-heading,
+  .SCRPG.sheet.actor .collections .hero-reward-label {
     color: #232e63;
+    font-style: italic;
+    font-weight: 700;
+    margin: 0;
+  }
+  .SCRPG.sheet.actor .hero-point {
+    /* Oval checkboxes matching the printed sheet; override Foundry defaults. */
   }
   .SCRPG.sheet.actor .hero-point input[type=checkbox] {
-    appearance: none;
-    width: 20px;
-    height: 12px;
-    border: 1px solid #767676;
-    background-color: #ffffff;
-    border-radius: 50%;
-    margin: 0;
-    padding: 0;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    width: 1.375rem !important;
+    height: 0.8rem !important;
+    min-width: 1.375rem;
+    min-height: 0.8rem;
+    flex: 0 0 auto;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 1.5px solid #000000 !important;
+    border-radius: 50% !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    accent-color: transparent;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .SCRPG.sheet.actor .hero-point input[type=checkbox]::before, .SCRPG.sheet.actor .hero-point input[type=checkbox]::after {
+    content: none !important;
+    display: none !important;
   }
   .SCRPG.sheet.actor .hero-point input[type=checkbox]:checked {
-    -webkit-filter: none;
-    filter: none;
-    background-color: #767676;
-  }
-  .SCRPG.sheet.actor .hero-point input[type=checkbox]:hover:checked {
-    background-color: #565656;
+    -webkit-filter: none !important;
+    filter: none !important;
+    background-color: #232e63 !important;
+    background-image: none !important;
+    border-color: #232e63 !important;
   }
   .SCRPG.sheet.actor .hero-point input[type=checkbox]:hover {
-    border: 1px solid #565656;
+    border-color: #565656 !important;
   }
-  .SCRPG.sheet.actor .hero-point h3 {
-    display: inline;
+  .SCRPG.sheet.actor .hero-point input[type=checkbox]:hover:checked {
+    background-color: #232e63 !important;
+    border-color: #000000 !important;
   }
   .SCRPG.sheet.actor .hero-point table,
   .SCRPG.sheet.actor .hero-point tr,
@@ -465,35 +527,50 @@
   }
   .SCRPG.sheet.actor .hero-point-grid {
     display: grid;
-    grid-template-columns: 55% auto;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 0.5rem;
+    align-items: center;
     border-bottom: 1px dotted #000000;
+    padding-bottom: 0.4rem;
+    margin-bottom: 0.4rem;
   }
-  .SCRPG.sheet.actor .hero-point-grid-item {
-    grid-row-start: 1;
-    grid-row-end: 3;
+  .SCRPG.sheet.actor .hero-point-heading {
+    line-height: 1.15;
+    font-size: 0.95rem;
   }
-  .SCRPG.sheet.actor .hero-point-two {
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-gap: 4px;
-    place-content: center;
+  .SCRPG.sheet.actor .hero-point-checks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
   }
+  .SCRPG.sheet.actor .hero-point-two,
+  .SCRPG.sheet.actor .hero-point-three,
+  .SCRPG.sheet.actor .hero-point-four {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.3rem;
+  }
+  .SCRPG.sheet.actor .hero-point-two,
   .SCRPG.sheet.actor .hero-point-three {
-    display: grid;
-    grid-template-columns: auto auto auto;
-    grid-gap: 4px;
-    place-content: center;
+    justify-content: center;
+  }
+  .SCRPG.sheet.actor .hero-point-rewards .hero-point-heading {
+    margin-bottom: 0.35rem;
   }
   .SCRPG.sheet.actor .hero-reward-grid {
     display: grid;
-    grid-template-columns: 1.5625rem auto;
+    grid-template-columns: 1.75rem 1fr;
+    column-gap: 0.35rem;
+    row-gap: 0.35rem;
+    align-items: center;
   }
-  .SCRPG.sheet.actor .hero-point-four {
-    display: grid;
-    grid-template-columns: auto auto auto auto;
-    grid-gap: 4px;
-    align-content: center;
-    justify-content: flex-start;
+  .SCRPG.sheet.actor .hero-reward-label {
+    font-size: 0.95rem;
+    line-height: 1;
+    text-align: right;
   }
   .SCRPG.sheet.actor .back-issues input[type=text],
   .SCRPG.sheet.actor .collections input[type=text] {
@@ -502,21 +579,46 @@
     height: fit-content;
     color: #111111;
     -webkit-text-fill-color: #111111;
-    background: rgba(255, 255, 255, 0.92);
+    background: transparent;
     width: 100%;
     border-bottom: 1px dotted #000000;
-    padding: 0px 4px;
+    padding: 0.15rem 4px;
   }
   .SCRPG.sheet.actor .back-issues input[type=checkbox],
   .SCRPG.sheet.actor .collections input[type=checkbox] {
-    width: 16px;
-    height: 16px;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    width: 0.85rem !important;
+    height: 0.85rem !important;
+    min-width: 0.85rem;
+    min-height: 0.85rem;
     margin: auto;
+    padding: 0 !important;
+    border: 1.5px solid #000000 !important;
+    border-radius: 2px !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    cursor: pointer;
+  }
+  .SCRPG.sheet.actor .back-issues input[type=checkbox]::before, .SCRPG.sheet.actor .back-issues input[type=checkbox]::after,
+  .SCRPG.sheet.actor .collections input[type=checkbox]::before,
+  .SCRPG.sheet.actor .collections input[type=checkbox]::after {
+    content: none !important;
+    display: none !important;
+  }
+  .SCRPG.sheet.actor .back-issues input[type=checkbox]:checked,
+  .SCRPG.sheet.actor .collections input[type=checkbox]:checked {
+    background-color: #232e63 !important;
+    border-color: #232e63 !important;
+    filter: none !important;
   }
   .SCRPG.sheet.actor .back-issues .collection-grid,
   .SCRPG.sheet.actor .collections .collection-grid {
     display: grid;
-    grid-template-columns: 20px auto;
+    grid-template-columns: 1.1rem auto;
+    column-gap: 0.25rem;
+    align-items: center;
   }
   .SCRPG.sheet.actor .stats {
     display: grid;
@@ -1686,6 +1788,7 @@
   .SCRPG.sheet input::placeholder,
   .SCRPG.sheet textarea::placeholder {
     color: #666666;
+    -webkit-text-fill-color: #666666;
     opacity: 1;
   }
   .SCRPG.sheet option {
@@ -1697,8 +1800,15 @@
   .SCRPG.sheet .editor-content {
     color: #111111;
   }
+  .SCRPG.sheet .sheet-tabs {
+    background-color: #d3d3d3;
+  }
   .SCRPG.sheet .sheet-tabs .item {
     color: #111111;
+  }
+  .SCRPG.sheet .sheet-tabs .item.active {
+    color: #000000;
+    font-weight: 700;
   }
   .SCRPG.sheet form,
   .SCRPG.sheet .window-content {
