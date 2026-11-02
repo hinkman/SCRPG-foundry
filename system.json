@@ -1,9 +1,12 @@
 {
-    "id": "scrpg",
-    "title": "Sentinel Comics the Roleplaying Game (Unofficial)",
+    "id": "SCRPG-foundry",
+    "title": "Sentinel Comics RPG (Unofficial)",
     "description": "A system for playing Sentinel Comics the Roleplaying Game",
     "type": "system",
     "authors": [
+        {
+            "name": "hinkman"
+        },
         {
             "name": "RabidRaccoon"
         },
@@ -11,7 +14,7 @@
             "name": "GamerDragon"
         }
     ],
-    "version": "2.0.0",
+    "version": "0.9.0",
     "compatibility": {
         "minimum": "14",
         "verified": "14"
