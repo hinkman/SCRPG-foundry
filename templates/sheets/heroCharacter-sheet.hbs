@@ -22,37 +22,37 @@
         {{!-- Hero Tab Content --}}
         {{#if (eq actor.type "hero")}}
         <div class="tab info" data-group="primary" data-tab="info">
-            {{> "systems/scrpg/templates/partials/heroinfo.hbs"}}
-            {{> "systems/scrpg/templates/partials/principles.hbs"}}
-            {{> "systems/scrpg/templates/partials/issuescollections.hbs"}}
+            {{> "systems/scrpg-foundry/templates/partials/heroinfo.hbs"}}
+            {{> "systems/scrpg-foundry/templates/partials/principles.hbs"}}
+            {{> "systems/scrpg-foundry/templates/partials/issuescollections.hbs"}}
         </div>
         {{#if (eq actor.limited false)}}
         <div class="tab powerabilities" data-group="primary" data-tab="powerabilities">
-            {{> "systems/scrpg/templates/partials/powerquality.hbs"}}
+            {{> "systems/scrpg-foundry/templates/partials/powerquality.hbs"}}
             {{#ifSetting "mod"}}
-            {{> "systems/scrpg/templates/partials/mod.hbs"}}
+            {{> "systems/scrpg-foundry/templates/partials/mod.hbs"}}
             {{/ifSetting}}
-            {{> "systems/scrpg/templates/partials/abilities.hbs"}}
+            {{> "systems/scrpg-foundry/templates/partials/abilities.hbs"}}
         </div>
         <div class="tab auxiliary" data-group="primary" data-tab="auxiliary">
-            {{> "systems/scrpg/templates/partials/auxiliary.hbs"}}
+            {{> "systems/scrpg-foundry/templates/partials/auxiliary.hbs"}}
         </div>
         {{/if}}
         {{/if}}
 
         <div class="tab minions" data-group="primary" data-tab="minions">
-            {{> "systems/scrpg/templates/partials/minions.hbs"}}
+            {{> "systems/scrpg-foundry/templates/partials/minions.hbs"}}
         </div>
 
         {{!-- Villain Tab Content --}}
         {{#if (eq actor.type "villain")}}
         <div class="tab info" data-group="primary" data-tab="info">
-            {{> "systems/scrpg/templates/partials/heroinfo.hbs"}}
-            {{> "systems/scrpg/templates/partials/powerquality.hbs"}}
+            {{> "systems/scrpg-foundry/templates/partials/heroinfo.hbs"}}
+            {{> "systems/scrpg-foundry/templates/partials/powerquality.hbs"}}
             {{#ifSetting "mod"}}
-            {{> "systems/scrpg/templates/partials/mod.hbs"}}
+            {{> "systems/scrpg-foundry/templates/partials/mod.hbs"}}
             {{/ifSetting}}
-            {{> "systems/scrpg/templates/partials/abilities.hbs"}}
+            {{> "systems/scrpg-foundry/templates/partials/abilities.hbs"}}
         </div>
         {{/if}}
     </section>

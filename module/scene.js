@@ -77,7 +77,7 @@ export async function SetRed() {
 
 export async function SceneStatus(gc = 0, yc = 0, rc = 0, gt = 0, yt = 0, rt = 0) {
     const chatData = { gc, yc, rc, gt, yt, rt };
-    const messageTemplate = "systems/scrpg/templates/chat/scenestatus.hbs";
+    const messageTemplate = "systems/scrpg-foundry/templates/chat/scenestatus.hbs";
     const render = await renderTemplate(messageTemplate, chatData);
 
     return ChatMessage.create({

@@ -62,14 +62,14 @@
 {{!-- Displays auxiliary boxes for form-changer --}}
 {{#if (eq actor.system.formchanger true)}}
 
-{{> "systems/scrpg/templates/partials/formmodularcommon.hbs"}}
+{{> "systems/scrpg-foundry/templates/partials/formmodularcommon.hbs"}}
 
 {{/if}}
 
 {{!-- Displays auxiliary boxes for modular --}}
 {{#if (eq actor.system.modular true)}}
 
-{{> "systems/scrpg/templates/partials/formmodularcommon.hbs"}}
+{{> "systems/scrpg-foundry/templates/partials/formmodularcommon.hbs"}}
 
 {{!-- Second yellow mode/form --}}
 <div {{#if (eq actor.system.mode "yellow2" )}} class="select-border yellow-abilities mode-name"
@@ -90,7 +90,7 @@
 {{#if (eq actor.system.modeDisplayed.yellow2 true)}}
 <div class="mode-card box-border yellow-abilities">
     <div class="forms">
-        {{> "systems/scrpg/templates/partials/auxiliarypowers.hbs" mode="yellow2"}}
+        {{> "systems/scrpg-foundry/templates/partials/auxiliarypowers.hbs" mode="yellow2"}}
 
         <div>
             <table class="box-border">
@@ -108,7 +108,7 @@
             </table>
         </div>
 
-        {{> "systems/scrpg/templates/partials/abilitiestable.hbs" mode="yellow2"}}
+        {{> "systems/scrpg-foundry/templates/partials/abilitiestable.hbs" mode="yellow2"}}
 
     </div>
 </div>
@@ -135,7 +135,7 @@
 {{#if (eq actor.system.modeDisplayed.red1 true)}}
 <div class="mode-card box-border red-abilities">
     <div class="forms">
-        {{> "systems/scrpg/templates/partials/auxiliarypowers.hbs" mode="red1"}}
+        {{> "systems/scrpg-foundry/templates/partials/auxiliarypowers.hbs" mode="red1"}}
 
         <div>
             <table class="box-border">
@@ -153,7 +153,7 @@
             </table>
         </div>
 
-        {{> "systems/scrpg/templates/partials/abilitiestable.hbs" mode="red1"}}
+        {{> "systems/scrpg-foundry/templates/partials/abilitiestable.hbs" mode="red1"}}
 
     </div>
 </div>

@@ -25,7 +25,7 @@ export default class SCRPGItemSheet extends HandlebarsApplicationMixin(ItemSheet
 
     static PARTS = {
         body: {
-            template: "systems/scrpg/templates/sheets/power-sheet.hbs",
+            template: "systems/scrpg-foundry/templates/sheets/power-sheet.hbs",
             scrollable: [""]
         }
     };
@@ -33,7 +33,7 @@ export default class SCRPGItemSheet extends HandlebarsApplicationMixin(ItemSheet
     /** @override */
     _configureRenderParts(options) {
         const parts = super._configureRenderParts(options);
-        parts.body.template = `systems/scrpg/templates/sheets/${this.document.type}-sheet.hbs`;
+        parts.body.template = `systems/scrpg-foundry/templates/sheets/${this.document.type}-sheet.hbs`;
         return parts;
     }
 
