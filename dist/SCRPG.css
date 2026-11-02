@@ -225,10 +225,12 @@
     border-bottom: none;
   }
   .SCRPG.sheet.actor .editor {
-    height: 6.25rem;
-    background: rgba(255, 255, 255, 0.2);
+    min-height: 6.25rem;
+    height: auto;
+    background: rgba(255, 255, 255, 0.92);
     border: 1px solid #565656;
     border-radius: 3px;
+    color: #111111;
   }
   .SCRPG.sheet.actor .editor p {
     margin: 0.25rem;
@@ -1795,10 +1797,33 @@
     color: #111111;
     background-color: #ffffff;
   }
+  .SCRPG.sheet {
+    /*
+     * ProseMirror (esp. toggled edit mode) inherits Foundry dark-theme text
+     * colors. Force dark text + caret on our light sheet surfaces.
+     */
+  }
   .SCRPG.sheet prose-mirror,
+  .SCRPG.sheet prose-mirror .editor,
+  .SCRPG.sheet prose-mirror .editor-content,
+  .SCRPG.sheet prose-mirror .ProseMirror,
   .SCRPG.sheet .editor,
-  .SCRPG.sheet .editor-content {
-    color: #111111;
+  .SCRPG.sheet .editor-content,
+  .SCRPG.sheet .ProseMirror {
+    color: #111111 !important;
+    caret-color: #111111 !important;
+    -webkit-text-fill-color: #111111;
+  }
+  .SCRPG.sheet prose-mirror .editor-content,
+  .SCRPG.sheet prose-mirror .ProseMirror,
+  .SCRPG.sheet .editor-content.ProseMirror {
+    background-color: #ffffff !important;
+  }
+  .SCRPG.sheet prose-mirror .editor-content *,
+  .SCRPG.sheet prose-mirror .ProseMirror * {
+    color: inherit;
+    -webkit-text-fill-color: inherit;
+    caret-color: inherit;
   }
   .SCRPG.sheet .sheet-tabs {
     background-color: #d3d3d3;
@@ -1852,9 +1877,19 @@
   .SCRPG.sheet prose-mirror {
     display: block;
     min-height: 6.25rem;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.92);
     border: 1px solid #565656;
     border-radius: 3px;
+    color-scheme: light;
+  }
+  .SCRPG.sheet prose-mirror .editor {
+    height: auto;
+    min-height: 5rem;
+    background: #ffffff;
+  }
+  .SCRPG.sheet prose-mirror .editor-content,
+  .SCRPG.sheet prose-mirror .ProseMirror {
+    min-height: 4.5rem;
   }
 }
 
