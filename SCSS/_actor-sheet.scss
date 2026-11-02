@@ -7,10 +7,12 @@
         }
 
         .editor {
-            height: 6.25rem;
-            background: rgba(255, 255, 255, 0.2);
+            min-height: 6.25rem;
+            height: auto;
+            background: rgba(255, 255, 255, 0.92);
             border: 1px solid $inputdarkgray;
             border-radius: 3px;
+            color: #111111;
 
             p {
                 margin: 0.25rem;
