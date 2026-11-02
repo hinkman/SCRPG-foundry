@@ -184,18 +184,54 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
         return highestIndex + 1;
     }
 
+    /**
+     * Capture scroll + active tab before AppV2 replaces the part DOM.
+     * Foundry's built-in scrollable restore runs while no tab is `.active` yet
+     * (templates omit the class), so scrollTop gets clamped to 0; we re-apply
+     * it after tab activation in `_onRender`.
+     * @override
+     */
+    _preSyncPartState(partId, newElement, priorElement, state) {
+        super._preSyncPartState(partId, newElement, priorElement, state);
+        if (partId !== "body") return;
+
+        const sheetBody = priorElement.querySelector(".sheet-body");
+        this._savedScrollTop = sheetBody?.scrollTop ?? 0;
+
+        const activeTab = priorElement.querySelector(".sheet-tabs [data-tab].active");
+        if (activeTab?.dataset.tab) {
+            this._activeSheetTab = activeTab.dataset.tab;
+            if (this.tabGroups) this.tabGroups.primary = activeTab.dataset.tab;
+        }
+    }
+
     /** @override */
     async _onRender(context, options) {
         await super._onRender(context, options);
         const html = this.element;
 
         // Preserve legacy sheet-tab markup used by existing templates.
+        // Always re-activate the previously selected tab (not hardcoded "info"),
+        // otherwise submitOnChange re-renders jump back to the Hero tab.
         if (html.querySelector(".sheet-tabs")) {
+            const initial = this._activeSheetTab ?? this.tabGroups?.primary ?? "info";
             new foundry.applications.ux.Tabs({
                 navSelector: ".sheet-tabs",
                 contentSelector: ".sheet-body",
-                initial: "info"
+                initial,
+                callback: (_event, _tabs, active) => {
+                    this._activeSheetTab = active;
+                    if (this.tabGroups) this.tabGroups.primary = active;
+                }
             }).bind(html);
+
+            const scrollTop = this._savedScrollTop ?? 0;
+            if (scrollTop > 0) {
+                requestAnimationFrame(() => {
+                    const sheetBody = this.element.querySelector(".sheet-body");
+                    if (sheetBody) sheetBody.scrollTop = scrollTop;
+                });
+            }
         }
 
         if (!this.document.isOwner) return;
