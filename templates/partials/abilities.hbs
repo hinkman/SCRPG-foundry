@@ -44,13 +44,11 @@
 
 {{!-- Second yellow mode/form --}}
 {{#if (eq actor.system.mode "yellow2")}}
-<table class="box-border yellow-abilities">
-    <tr style="{{getAbilitiesEnabledFromStatusClass 'yellow2'
-    actor.system}}">
+<table class="box-border yellow-abilities {{getAbilitiesEnabledFromStatusClass 'yellow2' actor.system}}">
+    <tr>
         <th>{{localize "SCRPG.abilities.description"}}</th>
     </tr>
-    <tr style="{{getAbilitiesEnabledFromStatusClass 'yellow2'
-    actor.system}}">
+    <tr>
         <td>
             {{{actor.system.modeDescription.yellow2}}}
         </td>
@@ -61,13 +59,11 @@
 
 {{!-- Red mode/form --}}
 {{#if (eq actor.system.mode "red1")}}
-<table class="box-border red-abilities">
-    <tr style="{{getAbilitiesEnabledFromStatusClass 'red1'
-    actor.system}}">
+<table class="box-border red-abilities {{getAbilitiesEnabledFromStatusClass 'red1' actor.system}}">
+    <tr>
         <th>{{localize "SCRPG.abilities.description"}}</th>
     </tr>
-    <tr style="{{getAbilitiesEnabledFromStatusClass 'red1'
-    actor.system}}">
+    <tr>
         <td>
             {{{actor.system.modeDescription.red1}}}
         </td>
@@ -86,7 +82,7 @@
     {{> "systems/scrpg-foundry/templates/partials/abilitiestable.hbs" mode="green"}}
     {{> "systems/scrpg-foundry/templates/partials/abilitiestable.hbs" mode="yellow"}}
     {{> "systems/scrpg-foundry/templates/partials/abilitiestable.hbs" mode="red"}}
-    <div class="box-border out-box" style="{{getAbilitiesEnabledFromStatusClass 'out' actor.system}}">
+    <div class="box-border out-box {{getAbilitiesEnabledFromStatusClass 'out' actor.system}}">
         <div class="out-box-child">
             <input type="text" value="{{actor.system.out}}" name="system.out" placeholder="Out">
         </div>

@@ -3,7 +3,7 @@
 {{!-- This partial takes a variable called mode which is uses --}}
 {{!-- to determine where the ability belongs --}}
 <div class="ability-list item-list {{#color}}{{mode}}{{/color}}-abilities">
-    <div class="box-border ability-table" style="{{getAbilitiesEnabledFromStatusClass mode actor.system}}">
+    <div class="box-border ability-table {{getAbilitiesEnabledFromStatusClass mode actor.system}}">
         <div class="ability-title">
             <div class="ability-title-child">{{localize "SCRPG.abilities.icon"}}
             </div>

@@ -62,13 +62,11 @@
 
 {{!-- First yellow mode/form --}}
 {{#if (eq actor.system.mode "yellow1")}}
-<table class="box-border yellow-abilities">
-    <tr style="{{getAbilitiesEnabledFromStatusClass 'yellow1'
-    actor.system}}">
+<table class="box-border yellow-abilities {{getAbilitiesEnabledFromStatusClass 'yellow1' actor.system}}">
+    <tr>
         <th>{{localize "SCRPG.abilities.description"}}</th>
     </tr>
-    <tr style="{{getAbilitiesEnabledFromStatusClass 'yellow1'
-    actor.system}}">
+    <tr>
         <td>
             {{{actor.system.modeDescription.yellow1}}}
         </td>
