@@ -94,9 +94,15 @@
         .section-name {
             border: 1px solid $black;
             box-shadow: 2px 2px $black;
-            padding: 2px 6px;
+            padding: 0.35rem 0.55rem;
             background: linear-gradient($titleorange, $titleyellow);
             color: #111111;
+
+            h3 {
+                color: #111111;
+                margin: 0;
+                line-height: 1.2;
+            }
 
             input {
                 -webkit-appearance: none;
@@ -128,16 +134,21 @@
             &-powerquality {
                 width: 75%;
                 display: flex;
-                height: 1.625rem;
+                align-items: center;
+                min-height: 1.85rem;
+                height: auto;
 
                 .buttons {
                     margin-left: auto;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.35rem;
                 }
             }
 
             &-ability {
                 width: max-content;
-                margin: 0;
+                margin: 0 0 0.25rem;
             }
 
             &-formmode {
@@ -488,15 +499,18 @@
         .status-dice {
             display: grid;
             grid-template-columns: 1fr 1fr;
+            color: #111111;
 
             select {
                 display: block;
+                color: #111111;
             }
 
             select,
             .health-box {
                 margin: 4px;
                 text-align: center;
+                color: #111111;
             }
 
             .health-box {
@@ -506,6 +520,8 @@
 
             input {
                 border: 1px solid $inputdarkgray;
+                color: #111111;
+                -webkit-text-fill-color: #111111;
             }
         }
 
@@ -548,6 +564,7 @@
 
         .powersqualities {
             background-color: $white;
+            color: #111111;
 
             table,
             td,
@@ -556,6 +573,7 @@
                 padding: 0;
                 border: 0px;
                 background-color: inherit;
+                color: #111111;
             }
 
             table {
@@ -565,6 +583,13 @@
 
             table td {
                 border: 1px solid $black;
+                padding: 0.25rem;
+            }
+
+            .power-item,
+            .quality-item,
+            .villain-status-item {
+                color: #111111;
             }
         }
 
@@ -643,6 +668,7 @@
         .red-abilities,
         .villain-abilities {
             margin-top: 0;
+            color: #111111;
 
             table {
                 margin: 0;
@@ -653,11 +679,20 @@
             th {
                 border: 1px dotted $black;
                 padding: 4px;
+                color: #111111;
+                background-color: transparent;
             }
 
             p {
                 margin: 0px;
             }
+        }
+
+        /* Unavailable abilities: soft wash (not a muddy black overlay). */
+        .ability-unavailable {
+            color: #111111;
+            opacity: 0.62;
+            filter: grayscale(0.2);
         }
 
         .out-box {
@@ -695,13 +730,16 @@
             text-align: center;
             align-items: center;
             background: $white;
+            color: #111111;
 
             a {
                 font-size: 1.25rem;
+                color: #111111;
             }
 
             p {
                 overflow: hidden;
+                color: #111111;
             }
 
             p:first-child {
@@ -718,9 +756,13 @@
         }
 
         .status {
+            color: #111111;
+
             h4 {
                 text-align: center;
-                margin: 0;
+                margin: 0 0 0.2rem;
+                color: $titlegray;
+                font-weight: 700;
             }
 
             select {
@@ -728,6 +770,7 @@
                 margin-left: auto;
                 margin-right: auto;
                 width: 4.5rem;
+                color: #111111;
             }
 
             .current-health {
@@ -739,6 +782,8 @@
                     text-align: center;
                     margin-bottom: 4px;
                     margin-left: 8px;
+                    color: #111111;
+                    -webkit-text-fill-color: #111111;
                 }
 
                 .health-adjust {
@@ -746,6 +791,10 @@
                     flex-direction: column;
                     font-size: 0.7rem;
                     margin-left: 1px;
+
+                    a {
+                        color: #111111;
+                    }
                 }
             }
         }
@@ -805,11 +854,14 @@
 
         .ability-table {
             display: grid;
+            color: #111111;
+            background-color: inherit;
 
             .ability-item,
             .ability-title {
                 display: grid;
                 grid-template-columns: 2.8125rem 8.4375rem 2.1875rem auto 1.25rem;
+                color: #111111;
             }
 
             .ability-title {
@@ -818,26 +870,30 @@
             }
 
             .ability-title-child {
-                padding: 4px;
+                padding: 0.4rem 0.35rem;
+                color: #111111;
             }
 
             .ability-item:nth-child(even) {
-                background: rgba(255, 255, 255, 0.2);
+                background: rgba(255, 255, 255, 0.28);
             }
 
             .ability-item-child {
                 border-top-style: dotted;
                 border-width: thin;
-                padding: 4px;
+                border-color: rgba(0, 0, 0, 0.45);
+                padding: 0.4rem 0.35rem;
                 height: 100%;
                 display: flex;
                 align-items: center;
+                color: #111111;
             }
 
             .ability-title-child:not(:first-child),
             .ability-item-child:not(:first-child) {
                 border-left-style: dotted;
                 border-width: thin;
+                border-color: rgba(0, 0, 0, 0.45);
             }
 
             .ability-item-child:nth-child(1),
@@ -1109,15 +1165,19 @@
         .mods {
             background-color: $white;
             margin-bottom: 4px;
+            color: #111111;
 
             table {
                 margin: 0;
                 background-color: inherit;
+                color: #111111;
             }
 
             td,
             th {
                 border: 1px dotted $black;
+                color: #111111;
+                padding: 0.4rem;
             }
 
             th:first-child,
@@ -1135,7 +1195,10 @@
 
             .mod-buttons {
                 display: grid;
-                grid-template-columns: auto auto auto auto;
+                grid-template-columns: repeat(4, 2rem);
+                gap: 0.35rem;
+                justify-content: center;
+                margin-top: 0.4rem;
             }
 
             th:nth-child(2),
@@ -1149,31 +1212,53 @@
             }
 
             .mod-buttons-child {
-                width: 33px;
-                height: 33px;
+                width: 2rem;
+                height: 2rem;
             }
 
             .mod-link {
-                width: 28px;
-                height: 28px;
+                width: 2rem;
+                height: 2rem;
                 line-height: normal;
                 text-align: center;
-                margin: 2px;
+                margin: 0;
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                color: #111111;
 
                 h3 {
                     margin: 0;
                     font-weight: bold;
+                    font-size: 0.95rem;
+                    color: inherit;
                 }
 
+                &.green-abilities {
+                    color: $greentxt;
+                    background-color: $greenbg-light;
+                }
+
+                &.red-abilities {
+                    color: $redtxt;
+                    background-color: $redbg-light;
+                }
             }
 
             .mod-link:active {
                 box-shadow: none;
-                margin-top: 3px;
-                margin-left: 3px;
+                transform: translate(1px, 1px);
+            }
+
+            input[type="text"] {
+                color: #111111;
+                -webkit-text-fill-color: #111111;
+
+                &::placeholder {
+                    color: #666666;
+                    -webkit-text-fill-color: #666666;
+                    opacity: 1;
+                }
             }
         }
 

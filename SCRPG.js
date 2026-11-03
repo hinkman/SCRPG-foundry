@@ -137,23 +137,25 @@ Handlebars.registerHelper("getAbilitiesEnabledFromStatusClass", function (mode, 
     const sceneStatus = actor.scene;
     const actorStatus = actor.thirdDieName;
     const actorHealth = actor.wounds.value;
+    // Soft wash keeps zone colors visible and dark text readable (avoids muddy black overlay).
+    const unavailable = "ability-unavailable";
 
     if (setting) {
         if (actorHealth > 0) {
-            if (mode === "out") return "background: rgba(0, 0, 0, 0.4);";
+            if (mode === "out") return unavailable;
         }
         if (sceneStatus === "red" || actorStatus === "red") {
             // Enable green, yellow and red
         } else if (sceneStatus === "yellow" || actorStatus === "yellow") {
-            if (mode === "red" || mode === "red1") return "background: rgba(0, 0, 0, 0.4);";
+            if (mode === "red" || mode === "red1") return unavailable;
         } else {
             if (mode === "yellow" || mode === "yellow1" || mode === "yellow2" || mode === "red" || mode === "red1") {
-                return "background: rgba(0, 0, 0, 0.4);";
+                return unavailable;
             }
         }
         if (actorHealth <= 0) {
             if (mode === "green" || mode === "yellow" || mode === "yellow1" || mode === "yellow2" || mode === "red" || mode === "red1") {
-                return "background: rgba(0, 0, 0, 0.4);";
+                return unavailable;
             }
         }
     }
