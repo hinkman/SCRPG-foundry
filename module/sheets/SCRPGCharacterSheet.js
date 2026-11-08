@@ -259,7 +259,7 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
             ".mod-item", ".environmentTwist-item", ".heroMinion-item", ".minionForm-item",
             ".initiativeActor-item"
         ]) {
-            new ContextMenu(html, selector, menuItems, { jQuery: false });
+            new ContextMenu(html, selector, menuItems, { jQuery: false, fixed: true });
         }
 
         const on = (sel, evt, fn) => {
