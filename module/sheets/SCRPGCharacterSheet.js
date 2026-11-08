@@ -1121,61 +1121,79 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
         }
     }
 
-    async _onDropItem(event, data) {
-        if (!this.actor.isOwner) return false;
-        const item = await foundry.documents.Item.fromDropData(data);
+    /**
+     * Handle a dropped Item on the Actor Sheet (ActorSheetV2 passes a resolved Item).
+     * @param {DragEvent} event
+     * @param {Item|object} itemOrData  Item document, or legacy drag data
+     */
+    async _onDropItem(event, itemOrData) {
+        if (!this.actor.isOwner) return null;
+
+        const item = itemOrData?.documentName === "Item"
+            ? itemOrData
+            : await foundry.documents.Item.fromDropData(itemOrData);
         const itemData = item.toObject();
 
-        if (!this.isValidDropItem(this.actor.type, itemData.type))
-        {
-            return false;
+        if (!this.isValidDropItem(this.actor.type, itemData.type)) {
+            return null;
         }
 
         switch (itemData.type) {
             case "principles":
                 if (this.checkDropTarget(event, "DroppableFirstPrinciple")) {
-                    this.actor.update({ "system.firstPrinciple.name": itemData.name });
-                    this.actor.update({ "system.firstPrinciple.roleplaying": item.system.roleplaying });
-                    this.actor.update({ "system.firstPrinciple.minorTwist": item.system.minorTwist });
-                    this.actor.update({ "system.firstPrinciple.majorTwist": item.system.majorTwist });
+                    await this.actor.update({
+                        "system.firstPrinciple.name": itemData.name,
+                        "system.firstPrinciple.roleplaying": item.system.roleplaying,
+                        "system.firstPrinciple.minorTwist": item.system.minorTwist,
+                        "system.firstPrinciple.majorTwist": item.system.majorTwist
+                    });
+                    Hooks.callAll("scrpgDropPrinciple", this.actor, item, "first");
                 }
 
                 if (this.checkDropTarget(event, "DroppableSecondPrinciple")) {
-                    this.actor.update({ "system.secondPrinciple.name": itemData.name });
-                    this.actor.update({ "system.secondPrinciple.roleplaying": item.system.roleplaying });
-                    this.actor.update({ "system.secondPrinciple.minorTwist": item.system.minorTwist });
-                    this.actor.update({ "system.secondPrinciple.majorTwist": item.system.majorTwist });
+                    await this.actor.update({
+                        "system.secondPrinciple.name": itemData.name,
+                        "system.secondPrinciple.roleplaying": item.system.roleplaying,
+                        "system.secondPrinciple.minorTwist": item.system.minorTwist,
+                        "system.secondPrinciple.majorTwist": item.system.majorTwist
+                    });
+                    Hooks.callAll("scrpgDropPrinciple", this.actor, item, "second");
                 }
 
-                return false;
+                return null;
             case "backgrounds":
-                this.actor.update({ "system.background": itemData.name });
-                return false;
+                await this.actor.update({ "system.background": itemData.name });
+                return null;
             case "powerSources":
-                this.actor.update({ "system.powerSource": itemData.name });
-                return false;
+                await this.actor.update({ "system.powerSource": itemData.name });
+                Hooks.callAll("scrpgDropPowerSource", this.actor, item);
+                return null;
             case "archetypes":
-                this.actor.update({ "system.archetype": itemData.name });
-                return false;
+                await this.actor.update({ "system.archetype": itemData.name });
+                Hooks.callAll("scrpgDropArchetype", this.actor, item);
+                return null;
             case "personality":
-                this.actor.update({ "system.personality": itemData.name });
-                this.actor.update({ "system.out": item.system.out });
-                this.actor.update({ "system.statusDie.green": item.system.statusDie.green });
-                this.actor.update({ "system.statusDie.yellow": item.system.statusDie.yellow });
-                this.actor.update({ "system.statusDie.red": item.system.statusDie.red });
-                return false;
+                await this.actor.update({
+                    "system.personality": itemData.name,
+                    "system.out": item.system.out,
+                    "system.statusDie.green": item.system.statusDie.green,
+                    "system.statusDie.yellow": item.system.statusDie.yellow,
+                    "system.statusDie.red": item.system.statusDie.red
+                });
+                Hooks.callAll("scrpgDropPersonality", this.actor, item);
+                return null;
         }
-
 
         // Handle item sorting within the same Actor
         if (this.actor.uuid === item.parent?.uuid) {
-            if (typeof this._onSortItem === "function") return this._onSortItem(event, itemData);
-            return false;
+            if (typeof this._onSortItem === "function") return this._onSortItem(event, item);
+            return null;
         }
 
         // Create the owned item
         if (typeof this._onDropItemCreate === "function") return this._onDropItemCreate(itemData);
-        return this.actor.createEmbeddedDocuments("Item", [itemData]);
+        const keepId = !this.actor.items.has(item.id);
+        return Item.implementation.create(itemData, { parent: this.actor, keepId });
     }
 
     /**    
