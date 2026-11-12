@@ -6,6 +6,22 @@ const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
 const { ContextMenu } = foundry.applications.ux;
 
+/** Module flag set by scrpg-actor-compendium while the creation wizard owns this Actor. */
+const WIZARD_LOCKED_FLAG = "wizardLocked";
+const WIZARD_MODULE_ID = "scrpg-actor-compendium";
+
+/**
+ * True when the actor-compendium wizard has locked this sheet read-only.
+ * @param {Actor|null|undefined} actor
+ */
+export function isWizardSheetLocked(actor) {
+    if (!actor) return false;
+    return Boolean(
+        actor.getFlag?.(WIZARD_MODULE_ID, WIZARD_LOCKED_FLAG)
+        ?? actor.flags?.[WIZARD_MODULE_ID]?.[WIZARD_LOCKED_FLAG]
+    );
+}
+
 /**
  * An Actor sheet for hero, villain, environment, scene, and minion actors.
  */
@@ -50,6 +66,15 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
         return parts;
     }
 
+    /**
+     * Wizard draft heroes stay visible but not editable until creation finishes.
+     * @override
+     */
+    get isEditable() {
+        if (isWizardSheetLocked(this.document)) return false;
+        return super.isEditable;
+    }
+
     /** @override */
     async _prepareContext(options) {
         const context = await super._prepareContext(options);
@@ -57,7 +82,11 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
         context.actor = this.document;
         context.system = this.document.system;
         context.editable = this.isEditable;
-        context.cssClass = this.document.isOwner ? "editable" : "locked";
+        context.wizardLocked = isWizardSheetLocked(this.document);
+        context.cssClass = [
+            this.isEditable ? "editable" : "locked",
+            context.wizardLocked ? "scrpg-wizard-locked" : ""
+        ].filter(Boolean).join(" ");
 
         const TextEditor = foundry.applications.ux.TextEditor.implementation;
         const enrich = async (html) => TextEditor.enrichHTML(html ?? "", {
@@ -93,6 +122,28 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
         }
 
         return context;
+    }
+
+    /**
+     * Disable form controls and show a banner while the creation wizard owns this actor.
+     * @param {HTMLElement} html
+     * @param {boolean} wizardLocked
+     */
+    #applyWizardLockUi(html, wizardLocked) {
+        html.querySelectorAll("input, select, textarea, button.item-create, button.item-delete, prose-mirror")
+            .forEach(el => {
+                if (el instanceof HTMLElement) {
+                    el.toggleAttribute("disabled", true);
+                    if ("readOnly" in el) el.readOnly = true;
+                }
+            });
+        html.querySelector(".scrpg-wizard-lock-banner")?.remove();
+        if (!wizardLocked) return;
+        const banner = document.createElement("div");
+        banner.className = "scrpg-wizard-lock-banner";
+        banner.textContent = "Character creation in progress — sheet is read-only until the wizard finishes.";
+        const body = html.querySelector(".sheet-body") || html.querySelector("form") || html;
+        body.prepend(banner);
     }
 
     _prepareCharacterItems(context) {
@@ -234,7 +285,33 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
             }
         }
 
+        if (context.wizardLocked || !this.isEditable) {
+            this.#applyWizardLockUi(html, Boolean(context.wizardLocked));
+        }
+
         if (!this.document.isOwner) return;
+
+        // Read-only wizard drafts: view items, but no create/delete/edit mutations.
+        if (!this.isEditable) {
+            const viewOnly = [
+                {
+                    name: game.i18n.localize("SCRPG.button.edit"),
+                    icon: '<i class="fas fa-eye"></i>',
+                    callback: element => {
+                        const item = this.actor.items.get(element.dataset.itemId);
+                        item?.sheet.render({ force: true });
+                    }
+                }
+            ];
+            for (const selector of [
+                ".ability-item", ".power-item", ".quality-item", ".villain-status-item",
+                ".mod-item", ".environmentTwist-item", ".heroMinion-item", ".minionForm-item",
+                ".initiativeActor-item"
+            ]) {
+                new ContextMenu(html, selector, viewOnly, { jQuery: false, fixed: true });
+            }
+            return;
+        }
 
         const menuItems = [
             {
@@ -1127,7 +1204,7 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
      * @param {Item|object} itemOrData  Item document, or legacy drag data
      */
     async _onDropItem(event, itemOrData) {
-        if (!this.actor.isOwner) return null;
+        if (!this.actor.isOwner || !this.isEditable) return null;
 
         const item = itemOrData?.documentName === "Item"
             ? itemOrData

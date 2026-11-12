@@ -2,6 +2,27 @@
 
 @layer scrpg {
     .SCRPG.sheet.actor {
+        .scrpg-wizard-lock-banner {
+            margin: 0 0 0.5rem;
+            padding: 0.45rem 0.65rem;
+            border: 1px solid $inputdarkgray;
+            border-radius: 3px;
+            background: rgba(255, 244, 214, 0.95);
+            color: #3a2f12;
+            font-size: 0.85rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        &.scrpg-wizard-locked {
+            input:disabled,
+            select:disabled,
+            textarea:disabled {
+                opacity: 0.9;
+                cursor: default;
+            }
+        }
+
         h3 {
             border-bottom: none;
         }

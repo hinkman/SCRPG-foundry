@@ -222,6 +222,23 @@
   }
 }
 @layer scrpg {
+  .SCRPG.sheet.actor .scrpg-wizard-lock-banner {
+    margin: 0 0 0.5rem;
+    padding: 0.45rem 0.65rem;
+    border: 1px solid #565656;
+    border-radius: 3px;
+    background: rgba(255, 244, 214, 0.95);
+    color: #3a2f12;
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .SCRPG.sheet.actor.scrpg-wizard-locked input:disabled,
+  .SCRPG.sheet.actor.scrpg-wizard-locked select:disabled,
+  .SCRPG.sheet.actor.scrpg-wizard-locked textarea:disabled {
+    opacity: 0.9;
+    cursor: default;
+  }
   .SCRPG.sheet.actor h3 {
     border-bottom: none;
   }
