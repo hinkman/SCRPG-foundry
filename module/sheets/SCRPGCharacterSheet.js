@@ -130,6 +130,9 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
      * @param {boolean} wizardLocked
      */
     #applyWizardLockUi(html, wizardLocked) {
+        html.querySelector(".scrpg-wizard-lock-banner")?.remove();
+        html.classList?.toggle?.("scrpg-wizard-locked", Boolean(wizardLocked));
+        if (!wizardLocked) return;
         html.querySelectorAll("input, select, textarea, button.item-create, button.item-delete, prose-mirror")
             .forEach(el => {
                 if (el instanceof HTMLElement) {
@@ -137,8 +140,6 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
                     if ("readOnly" in el) el.readOnly = true;
                 }
             });
-        html.querySelector(".scrpg-wizard-lock-banner")?.remove();
-        if (!wizardLocked) return;
         const banner = document.createElement("div");
         banner.className = "scrpg-wizard-lock-banner";
         banner.textContent = "Character creation in progress — sheet is read-only until the wizard finishes.";
@@ -285,8 +286,17 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
             }
         }
 
-        if (context.wizardLocked || !this.isEditable) {
-            this.#applyWizardLockUi(html, Boolean(context.wizardLocked));
+        // Always clear/apply the wizard banner from the current flag so finish
+        // unlocks even when a prior render left controls disabled.
+        this.#applyWizardLockUi(html, Boolean(context.wizardLocked));
+        if (!this.isEditable && !context.wizardLocked) {
+            html.querySelectorAll("input, select, textarea, button.item-create, button.item-delete, prose-mirror")
+                .forEach(el => {
+                    if (el instanceof HTMLElement) {
+                        el.toggleAttribute("disabled", true);
+                        if ("readOnly" in el) el.readOnly = true;
+                    }
+                });
         }
 
         if (!this.document.isOwner) return;
