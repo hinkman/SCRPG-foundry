@@ -1,3 +1,5 @@
+import { isWizardSheetLocked } from "./SCRPGCharacterSheet.js";
+
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ItemSheetV2 } = foundry.applications.sheets;
 
@@ -37,6 +39,15 @@ export default class SCRPGItemSheet extends HandlebarsApplicationMixin(ItemSheet
         return parts;
     }
 
+    /**
+     * Items on a wizard-locked hero stay read-only until creation finishes.
+     * @override
+     */
+    get isEditable() {
+        if (isWizardSheetLocked(this.document.actor)) return false;
+        return super.isEditable;
+    }
+
     /** @override */
     async _prepareContext(options) {
         const context = await super._prepareContext(options);
@@ -45,7 +56,7 @@ export default class SCRPGItemSheet extends HandlebarsApplicationMixin(ItemSheet
         context.item = item;
         context.system = item.system;
         context.editable = this.isEditable;
-        context.cssClass = item.isOwner ? "editable" : "locked";
+        context.cssClass = this.isEditable ? "editable" : "locked";
 
         const TextEditor = foundry.applications.ux.TextEditor.implementation;
         const enrich = async (html) => TextEditor.enrichHTML(html ?? "", {
