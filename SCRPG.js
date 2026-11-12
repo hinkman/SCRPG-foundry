@@ -83,7 +83,11 @@ Hooks.once("init", function () {
     preloadHandlebarsTemplates();
 });
 
-Handlebars.registerHelper("color", function (color) {
+// Maps zone/aux keys to CSS class prefixes (green/yellow/red/…).
+// Named scrpgColor (not "color") so wizard/data {{color}} is not shadowed —
+// Handlebars prefers helpers over context properties, which caused
+// "color.fn is not a function" when templates used {{color}} as data.
+Handlebars.registerHelper("scrpgColor", function (options) {
     const colors = {
         green: "green",
         yellow: "yellow",
@@ -103,7 +107,9 @@ Handlebars.registerHelper("color", function (color) {
         redmajor: "red"
     };
 
-    return colors[color.fn(this)];
+    if (!options || typeof options.fn !== "function") return "";
+    const key = String(options.fn(this)).trim();
+    return colors[key] || key;
 });
 
 Handlebars.registerHelper("getLocalizeAbilityTypeDescription", function (abilitytype) {

@@ -2,14 +2,14 @@
 
 <div class="sheet-content-root {{cssClass}}">
 <header class="environment-twist-title sheet-header">
-        <h3 class="{{#color}}{{item.system.type}}{{/color}}-abilities box-border "><input name="name" type="text"
+        <h3 class="{{#scrpgColor}}{{item.system.type}}{{/scrpgColor}}-abilities box-border "><input name="name" type="text"
                 value="{{item.name}}" placeholder="{{ localize 'Name' }}" /></h3>
     </header>
 
     {{!-- Drop down menu for selecting the type --}}
     <div class="sheet-content environment-twist-content">
         {{#if (eq this.item.actor null)}}
-        <table class="{{#color}}{{actor.system.type}}{{/color}}-abilities box-border type-table">
+        <table class="{{#scrpgColor}}{{actor.system.type}}{{/scrpgColor}}-abilities box-border type-table">
             <tr>
                 <th>{{localize "SCRPG.type.twist"}}</th>
                 <td>
@@ -20,7 +20,7 @@
             </tr>
         </table>
         {{/if}}
-        <table class="box-border {{#color}}{{item.system.type}}{{/color}}-abilities">
+        <table class="box-border {{#scrpgColor}}{{item.system.type}}{{/scrpgColor}}-abilities">
             <tr>
                 <th>{{localize "SCRPG.sheet.description"}}</th>
             </tr>

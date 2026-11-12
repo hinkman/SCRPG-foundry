@@ -2,13 +2,13 @@
 
 <div class="sheet-content-root {{cssClass}}">
 <header class="ability-title sheet-header">
-        <h3 class="{{#color}}{{item.system.aux}}{{/color}}-abilities box-border "><input name="name" type="text"
+        <h3 class="{{#scrpgColor}}{{item.system.aux}}{{/scrpgColor}}-abilities box-border "><input name="name" type="text"
                 value="{{item.name}}" placeholder="{{ localize 'Name' }}" /></h3>
     </header>
 
     <div class="sheet-content ability-content">
         {{#if (eq this.item.actor null)}}
-        <table class="{{#color}}{{item.system.aux}}{{/color}}-abilities box-border type-table">
+        <table class="{{#scrpgColor}}{{item.system.aux}}{{/scrpgColor}}-abilities box-border type-table">
             <tr>
                 <th>{{localize "SCRPG.type.ability"}}</th>
                 <td>
@@ -21,7 +21,7 @@
             </tr>
         </table>
         {{/if}}
-        <table class="{{#color}}{{item.system.aux}}{{/color}}-abilities box-border">
+        <table class="{{#scrpgColor}}{{item.system.aux}}{{/scrpgColor}}-abilities box-border">
             <colgroup>
                 <col width="45px">
                 <col width="30px">
