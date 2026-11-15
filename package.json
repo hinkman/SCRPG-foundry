@@ -4,7 +4,9 @@
   "type": "module",
   "scripts": {
     "pack:macros": "node ./tools/pack-macros.mjs",
-    "css": "sass SCSS/SCRPG.scss dist/SCRPG.css --style=expanded"
+    "css": "sass SCSS/SCRPG.scss dist/SCRPG.css --style=expanded",
+    "version:check": "node ./tools/bump-system-version.mjs --check",
+    "version:bump": "node ./tools/bump-system-version.mjs"
   },
   "devDependencies": {
     "@foundryvtt/foundryvtt-cli": "^1.0.0",
