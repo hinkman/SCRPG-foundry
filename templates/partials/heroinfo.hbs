@@ -3,7 +3,7 @@
 <section {{#if (eq actor.type "hero" )}}class="character chargrid chargrid-hero" {{/if}} {{#if (eq actor.type "villain"
     )}}class="character chargrid chargrid-villain" {{/if}}>
     <div class="character-photo">
-        <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" {{#if (eq actor.type "hero"
+        <img src="{{actor.img}}" data-action="editImage" data-edit="img" title="{{actor.name}}" {{#if (eq actor.type "hero"
             )}}class="hero-img img-border" {{/if}} {{#if (eq actor.type "villain" )}}class="villain-img img-border"
             {{/if}} />
 

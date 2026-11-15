@@ -32,7 +32,7 @@
     <div>
         {{!-- Environment image --}}
         <div class="character-photo">
-            <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" class="img-border environment-img">
+            <img src="{{actor.img}}" data-action="editImage" data-edit="img" title="{{actor.name}}" class="img-border environment-img">
         </div>
         {{!-- Displays red environment twists --}}
         {{> "systems/scrpg-foundry/templates/partials/environmenttwist.hbs" title="red" minor="redminor" major="redmajor"}}

@@ -437,6 +437,17 @@
     width: 100%;
     object-fit: scale-down;
   }
+  .SCRPG.sheet.actor {
+    /* Foundry DocumentSheetV2 editImage action (AppV2) */
+  }
+  .SCRPG.sheet.actor .character-photo img[data-action=editImage] {
+    cursor: pointer;
+  }
+  .SCRPG.sheet.actor.scrpg-wizard-locked .character-photo img[data-action=editImage],
+  .SCRPG.sheet.actor .sheet-content-root.locked .character-photo img[data-action=editImage] {
+    cursor: default;
+    pointer-events: none;
+  }
   .SCRPG.sheet.actor .hero-info h3 {
     color: #AA4618;
     margin: 0px;

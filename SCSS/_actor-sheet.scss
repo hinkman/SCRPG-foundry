@@ -260,6 +260,17 @@
             object-fit: scale-down;
         }
 
+        /* Foundry DocumentSheetV2 editImage action (AppV2) */
+        .character-photo img[data-action="editImage"] {
+            cursor: pointer;
+        }
+
+        &.scrpg-wizard-locked .character-photo img[data-action="editImage"],
+        .sheet-content-root.locked .character-photo img[data-action="editImage"] {
+            cursor: default;
+            pointer-events: none;
+        }
+
         .hero-info {
             h3 {
                 color: $titleorange;
