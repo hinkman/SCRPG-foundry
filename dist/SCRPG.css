@@ -1549,6 +1549,11 @@
     margin: 0 5px;
     width: 50%;
   }
+  .SCRPG.sheet.actor .initiative-available.drag-over {
+    outline: 2px dashed #3eae4a;
+    outline-offset: -2px;
+    background-color: #b6d6aa;
+  }
   .SCRPG.sheet.actor .initiative-available .initiativeActor-item {
     background-color: #c4debb;
   }
