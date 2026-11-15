@@ -1,0 +1,118 @@
+@use "variables" as *;
+
+@layer scrpg {
+    /* ApplicationV2 form root + prose-mirror editors */
+    .SCRPG.sheet {
+        /* Fill the AppV2 window content area */
+        height: 100%;
+
+        /*
+         * Sheet art is light-themed. Force light form controls + dark text so
+         * Foundry/browser dark mode does not make input values invisible.
+         */
+        color-scheme: light;
+        color: #111111;
+
+        input:not([type="checkbox"]):not([type="radio"]),
+        textarea,
+        select {
+            color: #111111;
+            background-color: rgba(255, 255, 255, 0.92);
+            -webkit-text-fill-color: #111111;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #666666;
+            -webkit-text-fill-color: #666666;
+            opacity: 1;
+        }
+
+        option {
+            color: #111111;
+            background-color: #ffffff;
+        }
+
+        .sheet-tabs {
+            background-color: $lightgray;
+
+            .item {
+                color: #111111;
+            }
+
+            .item.active {
+                color: #000000;
+                font-weight: 700;
+            }
+        }
+
+        form,
+        .window-content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .sheet-content-root {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-height: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* Sheets without a .sheet-body (items, minion, scene) scroll the root */
+        &.item .sheet-content-root,
+        &.actor .sheet-content-root.scroll-root {
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .sheet-tabs {
+            flex: 0 0 auto;
+        }
+
+        /* Actor tab panels scroll inside the fixed sheet height */
+        .sheet-body {
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .sheet-body .tab {
+            height: auto;
+            min-height: 0;
+        }
+
+        /*
+         * ProseMirror must keep Foundry's flex + absolute .editor-content layout.
+         * Only restyle the editable content surface — never the menu/toolbar —
+         * so dark-theme menu icons stay visible on the dark menu background.
+         */
+        prose-mirror {
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid $inputdarkgray;
+            border-radius: 3px;
+
+            /* Inactive enriched HTML (direct children before edit is toggled on) */
+            > :not(.editor-container):not(.menu-container):not(button) {
+                color: #111111;
+            }
+
+            .editor-container {
+                background: #ffffff;
+            }
+
+            .editor-content,
+            .editor-content.ProseMirror {
+                color: #111111;
+                caret-color: #111111;
+                background-color: #ffffff;
+            }
+        }
+    }
+}
