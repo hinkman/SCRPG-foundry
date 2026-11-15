@@ -1590,6 +1590,12 @@
         }
 
         .initiative-available {
+            &.drag-over {
+                outline: 2px dashed $greenborder;
+                outline-offset: -2px;
+                background-color: $greenbg;
+            }
+
             .initiativeActor-item {
                 background-color: $greenbg-light;
             }

@@ -60,7 +60,8 @@
             "available": "Available",
             "done": "Done",
             "initiative": "Initiative",
-            "sceneTracker": "Scene Tracker"
+            "sceneTracker": "Scene Tracker",
+            "dropHeroVillain": "Drop a hero or villain here to add them to Initiative"
         },
         "charInfo": {
             "heroName": "Hero Name",

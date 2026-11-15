@@ -403,6 +403,20 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
         on(".increase-health", "click", this._onIncreaseHealth);
         on(".decrease-health", "click", this._onDecreaseHealth);
         on(".roll-all-minions", "click", this._onRollAllMinions);
+
+        // Highlight Initiative Available while dragging a hero/villain onto it.
+        if (this.document.type === "scene") {
+            const available = html.querySelector(".initiative-available");
+            if (available) {
+                available.addEventListener("dragenter", () => available.classList.add("drag-over"));
+                available.addEventListener("dragleave", event => {
+                    if (!available.contains(event.relatedTarget)) {
+                        available.classList.remove("drag-over");
+                    }
+                });
+                available.addEventListener("drop", () => available.classList.remove("drag-over"));
+            }
+        }
     }
 
 
@@ -1206,6 +1220,28 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
             status.HealthUpdate(scene, health, actor);
             this.actor.update({ "system.wounds.value": health });
         }
+    }
+
+    /**
+     * Drop a hero or villain Actor onto the scene Initiative Available list.
+     * Uses Foundry Actor drag data resolved by ActorSheetV2 (`type: "Actor"` + uuid).
+     * @param {DragEvent} event
+     * @param {Actor} actor  Resolved Actor from drop data
+     * @returns {Promise<Actor|null>}
+     * @override
+     */
+    async _onDropActor(event, actor) {
+        if (!this.actor.isOwner || !this.isEditable) return null;
+        if (this.actor.type !== "scene") return null;
+        if (!actor || (actor.type !== "hero" && actor.type !== "villain")) return null;
+        if (!this.checkDropTarget(event, "initiative-available")) return null;
+
+        await this.actor.createEmbeddedDocuments("Item", [{
+            name: actor.name,
+            type: "initiativeActor",
+            system: { acted: false }
+        }]);
+        return actor;
     }
 
     /**
