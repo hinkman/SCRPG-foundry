@@ -1805,13 +1805,18 @@
         }
 
         .minion-group-name {
-            width: 50%;
+            width: 100%;
             display: grid;
             background-color: $miniontitle;
-            grid-template-columns: auto 3.5rem 1.25rem 1.25rem 1.25rem;
+            grid-template-columns: minmax(0, 1fr) 7.5rem 3.5rem 1.25rem 1.25rem 1.25rem;
+            align-items: center;
 
             h3 {
                 margin: 0;
+            }
+
+            select {
+                margin: 0 2px;
             }
         }
 
@@ -1819,6 +1824,36 @@
             width: 100%;
             border-radius: 0;
             border: 0;
+        }
+
+        .minion-role-select {
+            width: 100%;
+            min-width: 0;
+        }
+
+        .minion-desc-tactics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin: 8px 0;
+        }
+
+        .minion-desc-tactics-col {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+
+            h3 {
+                margin: 0 0 4px;
+                font-size: 0.95rem;
+            }
+
+            textarea {
+                width: 100%;
+                min-height: 5.5rem;
+                resize: vertical;
+                border-radius: 0;
+            }
         }
 
         .minion-group-item {
