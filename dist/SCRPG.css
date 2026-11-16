@@ -1285,8 +1285,9 @@
     flex: 0 0 auto;
     white-space: nowrap;
     font-weight: bold;
-    color: #111111;
-    -webkit-text-fill-color: #111111;
+    /* Match Persistent/Exclusive: primary text, not Foundry form-label mute. */
+    color: var(--color-text-primary, #111111);
+    -webkit-text-fill-color: var(--color-text-primary, #111111);
   }
   .SCRPG.sheet.actor .mods .mod-name-row input[type=text] {
     flex: 1 1 auto;
@@ -1332,37 +1333,52 @@
     background-color: #f8b7a8;
   }
   .SCRPG.sheet.actor .mods .mod-value-option:has(input:checked) {
-    outline: 2px solid #111111;
-    outline-offset: 1px;
+    outline: 3px solid #fbc015;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 1px #000000, inset 0 0 0 2px rgba(255, 255, 255, 0.55);
+    z-index: 1;
+  }
+  .SCRPG.sheet.actor .mods .mod-value-option.green-abilities:has(input:checked) {
+    background-color: #c4debb;
+  }
+  .SCRPG.sheet.actor .mods .mod-value-option.red-abilities:has(input:checked) {
+    background-color: #f9c6ba;
   }
   .SCRPG.sheet.actor .mods .mod-value-option:has(input:focus-visible) {
-    outline: 2px solid #4a90d9;
-    outline-offset: 1px;
+    outline: 3px solid #4a90d9;
+    outline-offset: 2px;
   }
   .SCRPG.sheet.actor .mods .mod-actions {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: nowrap;
     gap: 0.35rem;
     margin-top: 0.5rem;
     width: 100%;
   }
   .SCRPG.sheet.actor .mods .mod-actions button {
-    width: 100%;
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
     margin: 0;
-    padding: 0.3rem 0.4rem;
-    font-size: 0.85rem;
+    padding: 0.3rem 0.35rem;
+    font-size: 0.78rem;
+    font-weight: 700;
     line-height: 1.2;
     cursor: pointer;
+    border: 1px solid #000000;
+    box-shadow: 2px 2px #000000;
+    /* Match .section-name page header accent */
     color: #111111;
     -webkit-text-fill-color: #111111;
-    background: #ffffff;
+    background: linear-gradient(#AA4618, #fbc015);
   }
   .SCRPG.sheet.actor .mods .mod-actions button:hover {
-    background: #e8e8e8;
+    filter: brightness(1.06);
   }
   .SCRPG.sheet.actor .mods .mod-actions button:active {
-    box-shadow: none;
-    margin-top: 1px;
+    box-shadow: 1px 1px #000000;
+    transform: translate(1px, 1px);
   }
   .SCRPG.sheet.actor .mods th:nth-child(2),
   .SCRPG.sheet.actor .mods td:nth-child(2) {
@@ -1444,6 +1460,8 @@
     display: inline;
     vertical-align: middle;
     margin: 0;
+    color: var(--color-text-primary, #111111);
+    -webkit-text-fill-color: var(--color-text-primary, #111111);
   }
   .SCRPG.sheet.actor .mod-dialogue input {
     vertical-align: middle;
