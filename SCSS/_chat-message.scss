@@ -233,6 +233,14 @@
             background-color: $white;
             padding: 0.5rem 0.65rem;
             text-align: center;
+            cursor: grab;
+            user-select: none;
+
+            &.dragging,
+            &:active {
+                cursor: grabbing;
+                opacity: 0.85;
+            }
 
             .mod-share-title {
                 font-weight: bold;

@@ -236,7 +236,8 @@
             "penalty": "Penalty",
             "addNew": "Add New",
             "modName": "Bonus/Penalty Name",
-            "value": "Value"
+            "value": "Value",
+            "dragHint": "Drag onto a character's Bonus or Penalty list"
         },
         "type": {
             "ability": "Ability Color/Type",

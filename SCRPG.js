@@ -2,10 +2,55 @@ import { SCRPG } from "./module/config.js";
 import { actorDataModels } from "./module/data/actor.js";
 import { itemDataModels } from "./module/data/item.js";
 import SCRPGItemSheet from "./module/sheets/SCRPGItemSheet.js";
-import SCRPGCharacterSheet from "./module/sheets/SCRPGCharacterSheet.js";
+import SCRPGCharacterSheet, { SCRPG_MOD_DRAG_TYPE } from "./module/sheets/SCRPGCharacterSheet.js";
 import * as scene from "./module/scene.js";
 
 const { loadTemplates } = foundry.applications.handlebars;
+const SYSTEM_ID = "scrpg-foundry";
+
+/**
+ * Read boost/hinder share payload from chat card dataset attributes.
+ * @param {HTMLElement} card
+ */
+function modShareFromDataset(card) {
+    if (!(card instanceof HTMLElement)) return null;
+    const value = card.dataset.modValue;
+    if (!value) return null;
+    return {
+        type: SCRPG_MOD_DRAG_TYPE,
+        name: card.dataset.modName || "",
+        named: card.dataset.modNamed === "true",
+        value,
+        persistent: card.dataset.modPersistent === "true",
+        exclusive: card.dataset.modExclusive === "true"
+    };
+}
+
+/**
+ * Make Send-to-chat boost/hinder cards draggable onto Bonus/Penalty columns.
+ * @param {ChatMessage} message
+ * @param {HTMLElement} html
+ */
+function enableModShareDrag(message, html) {
+    const root = html instanceof HTMLElement ? html : null;
+    if (!root) return;
+    const card = root.matches?.(".mod-share") ? root : root.querySelector(".mod-share");
+    if (!card) return;
+
+    card.setAttribute("draggable", "true");
+    card.classList.add("scrpg-mod-draggable");
+    card.addEventListener("dragstart", event => {
+        const payload = message?.getFlag?.(SYSTEM_ID, "modShare")
+            ?? message?.flags?.[SYSTEM_ID]?.modShare
+            ?? modShareFromDataset(card);
+        if (!payload) return;
+        const data = { ...payload, type: SCRPG_MOD_DRAG_TYPE };
+        event.dataTransfer.setData("text/plain", JSON.stringify(data));
+        event.dataTransfer.effectAllowed = "copy";
+        card.classList.add("dragging");
+    });
+    card.addEventListener("dragend", () => card.classList.remove("dragging"));
+}
 
 async function preloadHandlebarsTemplates() {
     const templatePaths = [
@@ -81,6 +126,10 @@ Hooks.once("init", function () {
 
     registerSystemSettings();
     preloadHandlebarsTemplates();
+});
+
+Hooks.on("renderChatMessageHTML", (message, html) => {
+    enableModShareDrag(message, html);
 });
 
 // Maps zone/aux keys to CSS class prefixes (green/yellow/red/…).

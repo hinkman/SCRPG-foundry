@@ -1387,10 +1387,28 @@
             }
         }
 
+        .mod-drop-target {
+            min-height: 5.5rem;
+            vertical-align: top;
+            transition: outline-color 0.15s ease, background-color 0.15s ease;
+
+            &.drag-over {
+                outline: 2px dashed $greenborder;
+                outline-offset: -2px;
+                background-color: rgba($greenbg, 0.45);
+            }
+
+            &[data-mod-list="penalty"].drag-over {
+                outline-color: $redborder;
+                background-color: rgba($redbg, 0.45);
+            }
+        }
+
         .penalties,
         .bonuses {
             display: flex;
             flex-wrap: wrap;
+            min-height: 4.5rem;
 
             .p-e-icon {
                 font-size: 0.75rem;

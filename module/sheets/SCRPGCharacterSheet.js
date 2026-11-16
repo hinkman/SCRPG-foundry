@@ -10,6 +10,10 @@ const { ContextMenu } = foundry.applications.ux;
 const WIZARD_LOCKED_FLAG = "wizardLocked";
 const WIZARD_MODULE_ID = "scrpg-actor-compendium";
 
+/** Foundry text/plain drag payload type for chat-shared boost/hinder mods. */
+export const SCRPG_MOD_DRAG_TYPE = "scrpg-mod";
+const SYSTEM_ID = "scrpg-foundry";
+
 /**
  * True when the actor-compendium wizard has locked this sheet read-only.
  * @param {Actor|null|undefined} actor
@@ -418,6 +422,24 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
                 available.addEventListener("drop", () => available.classList.remove("drag-over"));
             }
         }
+
+        // Subtle drop affordance for Bonus/Penalty columns (chat-shared mods).
+        html.querySelectorAll(".mod-drop-target").forEach(target => {
+            target.addEventListener("dragenter", event => {
+                event.preventDefault();
+                target.classList.add("drag-over");
+            });
+            target.addEventListener("dragover", event => {
+                event.preventDefault();
+                target.classList.add("drag-over");
+            });
+            target.addEventListener("dragleave", event => {
+                if (!target.contains(event.relatedTarget)) {
+                    target.classList.remove("drag-over");
+                }
+            });
+            target.addEventListener("drop", () => target.classList.remove("drag-over"));
+        });
     }
 
 
@@ -1100,24 +1122,58 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
         return this.actor.update(updates);
     }
 
+    /**
+     * Build Item create data for a boost/hinder mod (Apply to me / chat drop).
+     * @param {{name?: string, named?: boolean, value: string|number, persistent?: boolean, exclusive?: boolean}} share
+     */
+    _buildModItemData(share) {
+        const named = Boolean(share.named) && String(share.name ?? "").trim() !== "";
+        const name = named
+            ? String(share.name).trim()
+            : game.i18n.localize("SCRPG.sheet.newItem");
+        const numeric = Number.parseInt(share.value, 10);
+        const value = Number.isFinite(numeric)
+            ? (numeric > 0 ? `+${numeric}` : String(numeric))
+            : String(share.value ?? "+1");
+
+        return {
+            name,
+            type: "mod",
+            "system.named": named,
+            "system.value": value,
+            "system.persistent": Boolean(share.persistent),
+            "system.exclusive": Boolean(share.exclusive)
+        };
+    }
+
+    /**
+     * Create a mod on this actor from Apply-to-me / chat drop share data.
+     * Placement is by signed value (>0 Bonus, <0 Penalty), not by drop column.
+     * @param {object} share
+     */
+    async _createModFromShare(share) {
+        if (!this.actor.isOwner || !this.isEditable) return null;
+        if (this.actor.type !== "hero" && this.actor.type !== "villain") return null;
+
+        const numeric = Number.parseInt(share?.value, 10);
+        if (!Number.isFinite(numeric) || numeric === 0) return null;
+
+        const itemData = this._buildModItemData(share);
+        return this.actor.createEmbeddedDocuments("Item", [itemData]);
+    }
+
     // Creates a new mod on this actor from the Add New form.
     async _onCreateMod(event) {
         event.preventDefault();
-        const element = event.currentTarget;
         const { modName, value, persistent, exclusive } = this._readModCreateForm(event);
         const named = modName !== "";
-        const name = named ? modName : game.i18n.localize("SCRPG.sheet.newItem");
-
-        const itemData = {
-            name,
-            type: element.dataset.type || "mod",
-            "system.named": named,
-            "system.value": value,
-            "system.persistent": persistent,
-            "system.exclusive": exclusive
-        };
-
-        await this.actor.createEmbeddedDocuments("Item", [itemData]);
+        await this._createModFromShare({
+            name: modName,
+            named,
+            value,
+            persistent,
+            exclusive
+        });
         return this._resetModCreateForm();
     }
 
@@ -1125,12 +1181,23 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
     async _onSendModToChat(event) {
         event.preventDefault();
         const { modName, value, persistent, exclusive } = this._readModCreateForm(event);
-        const baseName = modName !== "" ? modName : game.i18n.localize("SCRPG.sheet.newItem");
+        const named = modName !== "";
+        const baseName = named ? modName : game.i18n.localize("SCRPG.sheet.newItem");
         const name = `${this.actor.name}: ${baseName}`;
         const bonus = Number.parseInt(value, 10) >= 0;
+        const modShare = {
+            type: SCRPG_MOD_DRAG_TYPE,
+            name: baseName,
+            named,
+            value,
+            persistent,
+            exclusive
+        };
         const { renderTemplate } = foundry.applications.handlebars;
         const content = await renderTemplate("systems/scrpg-foundry/templates/chat/modshare.hbs", {
             name,
+            baseName,
+            named,
             value,
             persistent,
             exclusive,
@@ -1139,9 +1206,39 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
 
         await ChatMessage.create({
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            content
+            content,
+            flags: {
+                [SYSTEM_ID]: { modShare }
+            }
         });
         return this._resetModCreateForm();
+    }
+
+    /**
+     * Accept chat-shared boost/hinder drops on Bonus/Penalty columns.
+     * @param {DragEvent} event
+     * @override
+     */
+    async _onDrop(event) {
+        const TextEditor = foundry.applications.ux.TextEditor;
+        const data = TextEditor.implementation.getDragEventData(event);
+
+        let modShare = null;
+        if (data?.type === SCRPG_MOD_DRAG_TYPE) {
+            modShare = data;
+        } else if (data?.type === "ChatMessage") {
+            const message = await foundry.documents.ChatMessage.fromDropData(data);
+            modShare = message?.getFlag?.(SYSTEM_ID, "modShare")
+                ?? message?.flags?.[SYSTEM_ID]?.modShare
+                ?? null;
+        }
+
+        if (modShare) {
+            if (!this.checkDropTarget(event, "mod-drop-target")) return null;
+            return this._createModFromShare(modShare);
+        }
+
+        return super._onDrop(event);
     }
 
 

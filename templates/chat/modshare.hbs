@@ -1,5 +1,13 @@
 <div class="SCRPG chat roll">
-    <div class="box-border mod-share {{#if bonus}}green-abilities{{else}}red-abilities{{/if}}">
+    <div class="box-border mod-share {{#if bonus}}green-abilities{{else}}red-abilities{{/if}}"
+        draggable="true"
+        data-scrpg-mod="true"
+        data-mod-name="{{baseName}}"
+        data-mod-named="{{named}}"
+        data-mod-value="{{value}}"
+        data-mod-persistent="{{persistent}}"
+        data-mod-exclusive="{{exclusive}}"
+        title='{{localize "SCRPG.mod.dragHint"}}'>
         <div class="mod-share-title">{{name}}</div>
         <div class="mod-share-value">{{value}}</div>
         <div class="mod-share-flags">
