@@ -108,25 +108,81 @@ export default class SCRPGItemSheet extends HandlebarsApplicationMixin(ItemSheet
     /** @override */
     async _onRender(context, options) {
         await super._onRender(context, options);
-        if (!this.isEditable || this.document.type !== "ability") return;
+        if (!this.isEditable) return;
 
         const html = this.element;
-        const bind = (selector, key) => {
-            html.querySelectorAll(selector).forEach(el => {
+        if (this.document.type === "ability") {
+            const bind = (selector, key) => {
+                html.querySelectorAll(selector).forEach(el => {
+                    el.addEventListener("click", event => {
+                        event.preventDefault();
+                        const state = this.item.system.icon?.[key];
+                        this.item.update({ [`system.icon.${key}`]: !state });
+                    });
+                });
+            };
+
+            bind(".set-attack", "attack");
+            bind(".set-defend", "defend");
+            bind(".set-overcome", "overcome");
+            bind(".set-hinder", "hinder");
+            bind(".set-boost", "boost");
+            bind(".set-recover", "recover");
+        }
+
+        if (this.document.type === "environmentTwist") {
+            html.querySelector(".add-challenge")?.addEventListener("click", event => {
+                event.preventDefault();
+                this.#onAddChallenge();
+            });
+            html.querySelectorAll(".remove-challenge").forEach(el => {
                 el.addEventListener("click", event => {
                     event.preventDefault();
-                    const state = this.item.system.icon?.[key];
-                    this.item.update({ [`system.icon.${key}`]: !state });
+                    const index = Number.parseInt(event.currentTarget.dataset.challengeIndex, 10);
+                    this.#onRemoveChallenge(index);
                 });
             });
-        };
+            html.querySelectorAll(".challenge-box-count").forEach(el => {
+                el.addEventListener("change", event => {
+                    event.preventDefault();
+                    const index = Number.parseInt(event.currentTarget.dataset.challengeIndex, 10);
+                    const count = Number.parseInt(event.currentTarget.value, 10);
+                    this.#onResizeChallengeBoxes(index, count);
+                });
+            });
+        }
+    }
 
-        bind(".set-attack", "attack");
-        bind(".set-defend", "defend");
-        bind(".set-overcome", "overcome");
-        bind(".set-hinder", "hinder");
-        bind(".set-boost", "boost");
-        bind(".set-recover", "recover");
+    #onAddChallenge() {
+        const challenges = foundry.utils.deepClone(this.item.system.challenges ?? []);
+        challenges.push({
+            name: game.i18n.localize("SCRPG.twist.challenge"),
+            description: "",
+            boxes: [false]
+        });
+        return this.item.update({ "system.challenges": challenges });
+    }
+
+    #onRemoveChallenge(index) {
+        if (Number.isNaN(index)) return;
+        const challenges = foundry.utils.deepClone(this.item.system.challenges ?? []);
+        if (index < 0 || index >= challenges.length) return;
+        challenges.splice(index, 1);
+        return this.item.update({ "system.challenges": challenges });
+    }
+
+    #onResizeChallengeBoxes(index, count) {
+        if (Number.isNaN(index)) return;
+        const nextCount = Math.max(0, Math.min(12, Number.isNaN(count) ? 0 : count));
+        const challenges = foundry.utils.deepClone(this.item.system.challenges ?? []);
+        const challenge = challenges[index];
+        if (!challenge) return;
+
+        const boxes = Array.isArray(challenge.boxes) ? [...challenge.boxes] : [];
+        while (boxes.length < nextCount) boxes.push(false);
+        if (boxes.length > nextCount) boxes.length = nextCount;
+        challenge.boxes = boxes;
+        return this.item.update({ "system.challenges": challenges });
     }
 
     static #onToggleIcon(event, target) {

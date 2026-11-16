@@ -5,6 +5,25 @@
                 <div class="nested-name">
                     <p>{{item.name}}: </p>
                     {{{item.system.description}}}
+                    {{#if item.system.challenges.length}}
+                    <div class="twist-challenges">
+                        {{#each item.system.challenges as |challenge|}}
+                        <div class="twist-challenge">
+                            <div class="twist-challenge-header">
+                                <span class="twist-challenge-boxes">
+                                    {{#each challenge.boxes as |checked|}}
+                                    <i class="{{#if checked}}fas fa-check-square{{else}}far fa-square{{/if}}"></i>
+                                    {{/each}}
+                                </span>
+                                <strong>{{challenge.name}}</strong>
+                            </div>
+                            {{#if challenge.description}}
+                            <div class="twist-challenge-description">{{challenge.description}}</div>
+                            {{/if}}
+                        </div>
+                        {{/each}}
+                    </div>
+                    {{/if}}
                 </div>
 
             </td>
