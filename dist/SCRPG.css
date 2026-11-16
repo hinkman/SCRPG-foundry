@@ -1403,10 +1403,25 @@
     -webkit-text-fill-color: #666666;
     opacity: 1;
   }
+  .SCRPG.sheet.actor .mod-drop-target {
+    min-height: 5.5rem;
+    vertical-align: top;
+    transition: outline-color 0.15s ease, background-color 0.15s ease;
+  }
+  .SCRPG.sheet.actor .mod-drop-target.drag-over {
+    outline: 2px dashed #3eae4a;
+    outline-offset: -2px;
+    background-color: rgba(182, 214, 170, 0.45);
+  }
+  .SCRPG.sheet.actor .mod-drop-target[data-mod-list=penalty].drag-over {
+    outline-color: #db363d;
+    background-color: rgba(248, 183, 168, 0.45);
+  }
   .SCRPG.sheet.actor .penalties,
   .SCRPG.sheet.actor .bonuses {
     display: flex;
     flex-wrap: wrap;
+    min-height: 4.5rem;
   }
   .SCRPG.sheet.actor .penalties .p-e-icon,
   .SCRPG.sheet.actor .bonuses .p-e-icon {
@@ -1941,6 +1956,12 @@
     background-color: #ffffff;
     padding: 0.5rem 0.65rem;
     text-align: center;
+    cursor: grab;
+    user-select: none;
+  }
+  .SCRPG.chat.roll .mod-share.dragging, .SCRPG.chat.roll .mod-share:active {
+    cursor: grabbing;
+    opacity: 0.85;
   }
   .SCRPG.chat.roll .mod-share .mod-share-title {
     font-weight: bold;

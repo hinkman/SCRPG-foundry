@@ -81,7 +81,7 @@
                         </button>
                     </div>
                 </td>
-                <td>
+                <td class="mod-drop-target" data-mod-list="bonus">
                     <div class="bonuses">
                         {{#each actor.mod as |mod id|}}
                         {{#if (gte system.value 0)}}
@@ -101,7 +101,7 @@
                         {{/each}}
                     </div>
                 </td>
-                <td>
+                <td class="mod-drop-target" data-mod-list="penalty">
                     <div class="penalties">
                         {{#each actor.mod as |mod id|}}
                         {{#if (lte system.value 0)}}
