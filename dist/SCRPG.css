@@ -1285,9 +1285,13 @@
     flex: 0 0 auto;
     white-space: nowrap;
     font-weight: bold;
-    /* Match Persistent/Exclusive: primary text, not Foundry form-label mute. */
-    color: var(--color-text-primary, #111111);
-    -webkit-text-fill-color: var(--color-text-primary, #111111);
+    /*
+     * .mods is always a light surface ($white). Use Foundry's
+     * dark-primary text (not --color-text-primary, which flips
+     * light in dark theme and washes out on this panel).
+     */
+    color: var(--color-text-dark-primary, #191813);
+    -webkit-text-fill-color: var(--color-text-dark-primary, #191813);
   }
   .SCRPG.sheet.actor .mods .mod-name-row input[type=text] {
     flex: 1 1 auto;
@@ -1352,19 +1356,21 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    align-items: stretch;
     gap: 0.35rem;
     margin-top: 0.5rem;
     width: 100%;
   }
   .SCRPG.sheet.actor .mods .mod-actions button {
-    flex: 1 1 0;
+    flex: 1 1 auto;
     width: auto;
-    min-width: 0;
+    min-width: max-content;
     margin: 0;
-    padding: 0.3rem 0.35rem;
+    padding: 0.3rem 0.5rem;
     font-size: 0.78rem;
     font-weight: 700;
     line-height: 1.2;
+    white-space: nowrap;
     cursor: pointer;
     border: 1px solid #000000;
     box-shadow: 2px 2px #000000;
@@ -1460,17 +1466,21 @@
     display: inline;
     vertical-align: middle;
     margin: 0;
-    color: var(--color-text-primary, #111111);
-    -webkit-text-fill-color: var(--color-text-primary, #111111);
+    /* Same light-surface contrast as .mod-name-label (see above). */
+    color: var(--color-text-dark-primary, #191813);
+    -webkit-text-fill-color: var(--color-text-dark-primary, #191813);
   }
   .SCRPG.sheet.actor .mod-dialogue input {
     vertical-align: middle;
   }
   .SCRPG.sheet.actor .fa-hourglass {
     color: #2e8b57;
+    /* Beat parent -webkit-text-fill-color so icons stay green on light .mods. */
+    -webkit-text-fill-color: #2e8b57;
   }
   .SCRPG.sheet.actor .fa-lock {
     color: #cd5c5c;
+    -webkit-text-fill-color: #cd5c5c;
   }
   .SCRPG.sheet.actor .green-status-background {
     background-color: #b6d6aa;
