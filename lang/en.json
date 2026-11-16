@@ -187,9 +187,17 @@
             "form": "Form",
             "minion": "Minion",
             "minions": "Minions",
+            "lieutenant": "Lieutenant",
             "minionlieutenant": "Minion Group/Lieutenant",
             "minionForm": "Minion Forms",
             "minionAbilities": "Minion Abilities",
+            "role": {
+                "label": "Role",
+                "minion": "Minion",
+                "lieutenant": "Lieutenant"
+            },
+            "description": "Description",
+            "tactics": "Tactics",
             "bonus": {
                 "one": "+1 or higher",
                 "two": "+2 or higher",

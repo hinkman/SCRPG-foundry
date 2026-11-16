@@ -1740,18 +1740,47 @@
     margin-left: 5px;
   }
   .SCRPG.sheet.actor .minion-group-name {
-    width: 50%;
+    width: 100%;
     display: grid;
     background-color: #cd5c5c;
-    grid-template-columns: auto 3.5rem 1.25rem 1.25rem 1.25rem;
+    grid-template-columns: minmax(0, 1fr) 7.5rem 3.5rem 1.25rem 1.25rem 1.25rem;
+    align-items: center;
   }
   .SCRPG.sheet.actor .minion-group-name h3 {
     margin: 0;
+  }
+  .SCRPG.sheet.actor .minion-group-name select {
+    margin: 0 2px;
   }
   .SCRPG.sheet.actor .minion-group-name-input {
     width: 100%;
     border-radius: 0;
     border: 0;
+  }
+  .SCRPG.sheet.actor .minion-role-select {
+    width: 100%;
+    min-width: 0;
+  }
+  .SCRPG.sheet.actor .minion-desc-tactics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 8px 0;
+  }
+  .SCRPG.sheet.actor .minion-desc-tactics-col {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .SCRPG.sheet.actor .minion-desc-tactics-col h3 {
+    margin: 0 0 4px;
+    font-size: 0.95rem;
+  }
+  .SCRPG.sheet.actor .minion-desc-tactics-col textarea {
+    width: 100%;
+    min-height: 5.5rem;
+    resize: vertical;
+    border-radius: 0;
   }
   .SCRPG.sheet.actor .minion-group-item {
     display: flex;

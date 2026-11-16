@@ -73,6 +73,12 @@ SCRPG.twistType = {
     redmajor: "SCRPG.twist.redmajor"
 }
 
+// Minion vs lieutenant role (Archive minion actors)
+SCRPG.minionRoles = {
+    minion: "SCRPG.minion.role.minion",
+    lieutenant: "SCRPG.minion.role.lieutenant"
+}
+
 //Minion bonuses
 SCRPG.bonus = {
     "one": "SCRPG.minion.bonus.one",

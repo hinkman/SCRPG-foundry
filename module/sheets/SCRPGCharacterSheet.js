@@ -226,6 +226,19 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
         context.minionForm = minionForm;
         context.actor.heroMinion = heroMinion;
         context.actor.minionForm = minionForm;
+
+        const groupKeys = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
+        const groupIndex = Math.max(1, Math.min(10, Number.parseInt(this.document.system.groups, 10) || 1));
+        const groupKey = groupKeys[groupIndex - 1];
+        context.activeMinionGroup = {
+            index: groupIndex,
+            key: groupKey,
+            name: this.document.system.groupName[groupKey],
+            die: this.document.system.typicalDie[groupKey],
+            nameField: `system.groupName.${groupKey}`,
+            dieField: `system.typicalDie.${groupKey}`,
+            showDivider: groupIndex > 1
+        };
     }
 
     getNextMinionIndex(start = 1) {

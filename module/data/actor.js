@@ -156,7 +156,18 @@ export class MinionData extends foundry.abstract.TypeDataModel {
         return {
             groups: new StringField({ required: true, blank: false, initial: "1" }),
             groupName: groupNameSchema(),
-            typicalDie: typicalDieSchema()
+            typicalDie: typicalDieSchema(),
+            role: new StringField({
+                required: true,
+                blank: false,
+                initial: "minion",
+                choices: {
+                    minion: "SCRPG.minion.role.minion",
+                    lieutenant: "SCRPG.minion.role.lieutenant"
+                }
+            }),
+            description: new StringField({ required: true, blank: true, initial: "" }),
+            tactics: new StringField({ required: true, blank: true, initial: "" })
         };
     }
 }

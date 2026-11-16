@@ -16,203 +16,38 @@
         </select>
     </div>
 
-    {{#if (eq actor.system.groups "1")}}
-    <div class="box-border minion-group-name">
-        <h3>
-            <input class="minion-group-name-input" type="text" name="system.groupName.one"
-                value="{{actor.system.groupName.one}}" placeholder='{{localize "SCRPG.minion.minionlieutenant"}}'>
-        </h3>
-        {{!-- Buttons for minimizing the details and applying it to character --}}
-        <select name="system.typicalDie.one">
-            {{selectOptions config.dieTypes selected=actor.system.typicalDie.one localize=true}}
-        </select>
-        <a title='{{localize "SCRPG.button.addNew" }}' class="item-create minion-group-item" data-type="heroMinion"
-            data-group=1 data-dietype={{actor.system.typicalDie.one}}>
-            <i class="fas fa-plus"></i>
-        </a>
-        {{> "systems/scrpg-foundry/templates/partials/minionsheetbuttons.hbs" index=1}}
-    </div>
-    {{> "systems/scrpg-foundry/templates/partials/miniongroups.hbs" index=1}}
-    {{/if}}
-
-    {{#if (eq actor.system.groups "2")}}
+    {{#if activeMinionGroup.showDivider}}
     <div class="line-1"></div>
+    {{/if}}
     <div class="box-border minion-group-name">
         <h3>
-            <input class="minion-group-name-input" type="text" name="system.groupName.two"
-                value="{{actor.system.groupName.two}}" placeholder='{{localize "SCRPG.minion.minionlieutenant"}}'>
+            <input class="minion-group-name-input" type="text" name="{{activeMinionGroup.nameField}}"
+                value="{{activeMinionGroup.name}}" placeholder='{{localize "SCRPG.minion.minionlieutenant"}}'>
         </h3>
-        {{!-- Buttons for minimizing the details and applying it to character --}}
-        <select name="system.typicalDie.two">
-            {{selectOptions config.dieTypes selected=actor.system.typicalDie.two localize=true}}
+        <select class="minion-role-select" name="system.role" title='{{localize "SCRPG.minion.role.label"}}'>
+            {{selectOptions config.minionRoles selected=actor.system.role localize=true}}
+        </select>
+        <select name="{{activeMinionGroup.dieField}}">
+            {{selectOptions config.dieTypes selected=activeMinionGroup.die localize=true}}
         </select>
         <a title='{{localize "SCRPG.button.addNew" }}' class="item-create minion-group-item" data-type="heroMinion"
-            data-group=2 data-dietype={{actor.system.typicalDie.two}}>
+            data-group={{activeMinionGroup.index}} data-dietype={{activeMinionGroup.die}}>
             <i class="fas fa-plus"></i>
         </a>
-        {{> "systems/scrpg-foundry/templates/partials/minionsheetbuttons.hbs" index=2}}
+        {{> "systems/scrpg-foundry/templates/partials/minionsheetbuttons.hbs" index=activeMinionGroup.index}}
     </div>
-    {{> "systems/scrpg-foundry/templates/partials/miniongroups.hbs" index=2}}
-    {{/if}}
 
-    {{#if (eq actor.system.groups "3")}}
-    <div class="line-1"></div>
-    <div class="box-border minion-group-name">
-        <h3>
-            <input class="minion-group-name-input" type="text" name="system.groupName.three"
-                value="{{actor.system.groupName.three}}" placeholder='{{localize "SCRPG.minion.minionlieutenant"}}'>
-        </h3>
-        {{!-- Buttons for minimizing the details and applying it to character --}}
-        <select name="system.typicalDie.three">
-            {{selectOptions config.dieTypes selected=actor.system.typicalDie.three localize=true}}
-        </select>
-        <a title='{{localize "SCRPG.button.addNew" }}' class="item-create minion-group-item" data-type="heroMinion"
-            data-group=3 data-dietype={{actor.system.typicalDie.three}}>
-            <i class="fas fa-plus"></i>
-        </a>
-        {{> "systems/scrpg-foundry/templates/partials/minionsheetbuttons.hbs" index=3}}
+    <div class="minion-desc-tactics">
+        <div class="minion-desc-tactics-col box-border">
+            <h3>{{localize "SCRPG.minion.description"}}</h3>
+            <textarea name="system.description" rows="5">{{actor.system.description}}</textarea>
+        </div>
+        <div class="minion-desc-tactics-col box-border">
+            <h3>{{localize "SCRPG.minion.tactics"}}</h3>
+            <textarea name="system.tactics" rows="5">{{actor.system.tactics}}</textarea>
+        </div>
     </div>
-    {{> "systems/scrpg-foundry/templates/partials/miniongroups.hbs" index=3}}
-    {{/if}}
 
-    {{#if (eq actor.system.groups "4")}}
-    <div class="line-1"></div>
-    <div class="box-border minion-group-name">
-        <h3>
-            <input class="minion-group-name-input" type="text" name="system.groupName.four"
-                value="{{actor.system.groupName.four}}" placeholder='{{localize "SCRPG.minion.minionlieutenant"}}'>
-        </h3>
-        {{!-- Buttons for minimizing the details and applying it to character --}}
-        <select name="system.typicalDie.four">
-            {{selectOptions config.dieTypes selected=actor.system.typicalDie.four localize=true}}
-        </select>
-        <a title='{{localize "SCRPG.button.addNew" }}' class="item-create minion-group-item" data-type="heroMinion"
-            data-group=4 data-dietype={{actor.system.typicalDie.four}}>
-            <i class="fas fa-plus"></i>
-        </a>
-        {{> "systems/scrpg-foundry/templates/partials/minionsheetbuttons.hbs" index=4}}
-    </div>
-    {{> "systems/scrpg-foundry/templates/partials/miniongroups.hbs" index=4}}
-    {{/if}}
-
-    {{#if (eq actor.system.groups "5")}}
-    <div class="line-1"></div>
-    <div class="box-border minion-group-name">
-        <h3>
-            <input class="minion-group-name-input" type="text" name="system.groupName.five"
-                value="{{actor.system.groupName.five}}" placeholder='{{localize "SCRPG.minion.minionlieutenant"}}'>
-        </h3>
-        {{!-- Buttons for minimizing the details and applying it to character --}}
-        <select name="system.typicalDie.five">
-            {{selectOptions config.dieTypes selected=actor.system.typicalDie.five localize=true}}
-        </select>
-        <a title='{{localize "SCRPG.button.addNew" }}' class="item-create minion-group-item" data-type="heroMinion"
-            data-group=5 data-dietype={{actor.system.typicalDie.five}}>
-            <i class="fas fa-plus"></i>
-        </a>
-        {{> "systems/scrpg-foundry/templates/partials/minionsheetbuttons.hbs" index=5}}
-    </div>
-    {{> "systems/scrpg-foundry/templates/partials/miniongroups.hbs" index=5}}
-    {{/if}}
-
-    {{#if (eq actor.system.groups "6")}}
-    <div class="line-1"></div>
-    <div class="box-border minion-group-name">
-        <h3>
-            <input class="minion-group-name-input" type="text" name="system.groupName.six"
-                value="{{actor.system.groupName.six}}" placeholder='{{localize "SCRPG.minion.minionlieutenant"}}'>
-        </h3>
-        {{!-- Buttons for minimizing the details and applying it to character --}}
-        <select name="system.typicalDie.six">
-            {{selectOptions config.dieTypes selected=actor.system.typicalDie.six localize=true}}
-        </select>
-        <a title='{{localize "SCRPG.button.addNew" }}' class="item-create minion-group-item" data-type="heroMinion"
-            data-group=6 data-dietype={{actor.system.typicalDie.six}}>
-            <i class="fas fa-plus"></i>
-        </a>
-        {{> "systems/scrpg-foundry/templates/partials/minionsheetbuttons.hbs" index=6}}
-    </div>
-    {{> "systems/scrpg-foundry/templates/partials/miniongroups.hbs" index=6}}
-    {{/if}}
-
-    {{#if (eq actor.system.groups "7")}}
-    <div class="line-1"></div>
-    <div class="box-border minion-group-name">
-        <h3>
-            <input class="minion-group-name-input" type="text" name="system.groupName.seven"
-                value="{{actor.system.groupName.seven}}" placeholder='{{localize "SCRPG.minion.minionlieutenant"}}'>
-        </h3>
-        {{!-- Buttons for minimizing the details and applying it to character --}}
-        <select name="system.typicalDie.seven">
-            {{selectOptions config.dieTypes selected=actor.system.typicalDie.seven localize=true}}
-        </select>
-        <a title='{{localize "SCRPG.button.addNew" }}' class="item-create minion-group-item" data-type="heroMinion"
-            data-group=7 data-dietype={{actor.system.typicalDie.seven}}>
-            <i class="fas fa-plus"></i>
-        </a>
-        {{> "systems/scrpg-foundry/templates/partials/minionsheetbuttons.hbs" index=7}}
-    </div>
-    {{> "systems/scrpg-foundry/templates/partials/miniongroups.hbs" index=7}}
-    {{/if}}
-
-    {{#if (eq actor.system.groups "8")}}
-    <div class="line-1"></div>
-    <div class="box-border minion-group-name">
-        <h3>
-            <input class="minion-group-name-input" type="text" name="system.groupName.eight"
-                value="{{actor.system.groupName.eight}}" placeholder='{{localize "SCRPG.minion.minionlieutenant"}}'>
-        </h3>
-        {{!-- Buttons for minimizing the details and applying it to character --}}
-        <select name="system.typicalDie.eight">
-            {{selectOptions config.dieTypes selected=actor.system.typicalDie.eight localize=true}}
-        </select>
-        <a title='{{localize "SCRPG.button.addNew" }}' class="item-create minion-group-item" data-type="heroMinion"
-            data-group=8 data-dietype={{actor.system.typicalDie.eight}}>
-            <i class="fas fa-plus"></i>
-        </a>
-        {{> "systems/scrpg-foundry/templates/partials/minionsheetbuttons.hbs" index=8}}
-    </div>
-    {{> "systems/scrpg-foundry/templates/partials/miniongroups.hbs" index=8}}
-    {{/if}}
-
-    {{#if (eq actor.system.groups "9")}}
-    <div class="line-1"></div>
-    <div class="box-border minion-group-name">
-        <h3>
-            <input class="minion-group-name-input" type="text" name="system.groupName.nine"
-                value="{{actor.system.groupName.nine}}" placeholder='{{localize "SCRPG.minion.minionlieutenant"}}'>
-        </h3>
-        {{!-- Buttons for minimizing the details and applying it to character --}}
-        <select name="system.typicalDie.nine">
-            {{selectOptions config.dieTypes selected=actor.system.typicalDie.nine localize=true}}
-        </select>
-        <a title='{{localize "SCRPG.button.addNew" }}' class="item-create minion-group-item" data-type="heroMinion"
-            data-group=9 data-dietype={{actor.system.typicalDie.nine}}>
-            <i class="fas fa-plus"></i>
-        </a>
-        {{> "systems/scrpg-foundry/templates/partials/minionsheetbuttons.hbs" index=9}}
-    </div>
-    {{> "systems/scrpg-foundry/templates/partials/miniongroups.hbs" index=9}}
-    {{/if}}
-
-    {{#if (eq actor.system.groups "10")}}
-    <div class="line-1"></div>
-    <div class="box-border minion-group-name">
-        <h3>
-            <input class="minion-group-name-input" type="text" name="system.groupName.ten"
-                value="{{actor.system.groupName.ten}}" placeholder='{{localize "SCRPG.minion.minionlieutenant"}}'>
-        </h3>
-        {{!-- Buttons for minimizing the details and applying it to character --}}
-        <select name="system.typicalDie.ten">
-            {{selectOptions config.dieTypes selected=actor.system.typicalDie.ten localize=true}}
-        </select>
-        <a title='{{localize "SCRPG.button.addNew" }}' class="item-create minion-group-item" data-type="heroMinion"
-            data-group=10 data-dietype={{actor.system.typicalDie.ten}}>
-            <i class="fas fa-plus"></i>
-        </a>
-        {{> "systems/scrpg-foundry/templates/partials/minionsheetbuttons.hbs" index=10}}
-    </div>
-    {{> "systems/scrpg-foundry/templates/partials/miniongroups.hbs" index=10}}
-    {{/if}}
+    {{> "systems/scrpg-foundry/templates/partials/miniongroups.hbs" index=activeMinionGroup.index}}
 
 </div>
