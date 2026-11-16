@@ -19,6 +19,7 @@ function modShareFromDataset(card) {
     return {
         type: SCRPG_MOD_DRAG_TYPE,
         name: card.dataset.modName || "",
+        displayName: card.dataset.modDisplayName || "",
         named: card.dataset.modNamed === "true",
         value,
         persistent: card.dataset.modPersistent === "true",
