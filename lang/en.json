@@ -224,7 +224,9 @@
             "rollAllMinions": "Roll all in this group",
             "editScene": "Edit Scene",
             "closeSceneEdit": "Close Scene Edit",
-            "displayScene": "Display Scene to Chat"
+            "displayScene": "Display Scene to Chat",
+            "applyToMe": "Apply to me",
+            "sendToChat": "Send to chat"
         },
         "mod": {
             "mod": "Bonus/Penalty",
@@ -233,7 +235,8 @@
             "bonus": "Bonus",
             "penalty": "Penalty",
             "addNew": "Add New",
-            "modName": "Bonus/Penalty Name"
+            "modName": "Bonus/Penalty Name",
+            "value": "Value"
         },
         "type": {
             "ability": "Ability Color/Type",

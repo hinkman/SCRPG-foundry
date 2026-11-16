@@ -1,0 +1,20 @@
+<div class="SCRPG chat roll">
+    <div class="box-border mod-share {{#if bonus}}green-abilities{{else}}red-abilities{{/if}}">
+        <div class="mod-share-title">{{name}}</div>
+        <div class="mod-share-value">{{value}}</div>
+        <div class="mod-share-flags">
+            {{#if persistent}}
+            <span class="mod-share-flag">
+                <i title='{{localize "SCRPG.mod.persistent"}}' class="fas fa-hourglass"></i>
+                {{localize "SCRPG.mod.persistent"}}
+            </span>
+            {{/if}}
+            {{#if exclusive}}
+            <span class="mod-share-flag">
+                <i title='{{localize "SCRPG.mod.exclusive"}}' class="fas fa-lock"></i>
+                {{localize "SCRPG.mod.exclusive"}}
+            </span>
+            {{/if}}
+        </div>
+    </div>
+</div>

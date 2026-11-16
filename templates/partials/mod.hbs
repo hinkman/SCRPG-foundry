@@ -15,8 +15,9 @@
             </tr>
             <tr>
                 <td class="mod-create-td">
-                    <div>
-                        <input name="system.modName" type="text" value="{{actor.system.modName}}"
+                    <div class="mod-name-row">
+                        <label class="mod-name-label" for="{{actor._id}}-modName">{{localize "SCRPG.sheet.name"}}:</label>
+                        <input id="{{actor._id}}-modName" name="system.modName" type="text" value="{{actor.system.modName}}"
                             placeholder='{{localize "SCRPG.mod.modName"}}' />
                     </div>
                     <div class="mod-dialogue">
@@ -37,25 +38,47 @@
                                 data-dtype="boolean" />
                         </div>
                     </div>
-                    <div class="mod-buttons">
-                        {{#multiple 4}}
-                        <div class="mod-buttons-child">
-                            <a title='{{localize "SCRPG.button.addNew"}}'
-                                class="create-mod mod-link box-border green-abilities" data-type="mod"
-                                data-value="+{{@index}}">
-                                <h3>+{{@index}}</h3>
-                            </a>
-                        </div>
-                        {{/multiple}}
-                        {{#multiple 4}}
-                        <div class="mod-buttons-child">
-                            <a title='{{localize "SCRPG.button.addNew"}}'
-                                class="create-mod mod-link box-border red-abilities" data-type="mod"
-                                data-value="-{{@index}}">
-                                <h3>-{{@index}}</h3>
-                            </a>
-                        </div>
-                        {{/multiple}}
+                    <div class="mod-value-radios" role="radiogroup" aria-label='{{localize "SCRPG.mod.value"}}'>
+                        <label class="mod-value-option box-border green-abilities">
+                            <input type="radio" name="system.modValue" value="+1" {{checked (eq actor.system.modValue "+1")}} />
+                            <span>+1</span>
+                        </label>
+                        <label class="mod-value-option box-border green-abilities">
+                            <input type="radio" name="system.modValue" value="+2" {{checked (eq actor.system.modValue "+2")}} />
+                            <span>+2</span>
+                        </label>
+                        <label class="mod-value-option box-border green-abilities">
+                            <input type="radio" name="system.modValue" value="+3" {{checked (eq actor.system.modValue "+3")}} />
+                            <span>+3</span>
+                        </label>
+                        <label class="mod-value-option box-border green-abilities">
+                            <input type="radio" name="system.modValue" value="+4" {{checked (eq actor.system.modValue "+4")}} />
+                            <span>+4</span>
+                        </label>
+                        <label class="mod-value-option box-border red-abilities">
+                            <input type="radio" name="system.modValue" value="-1" {{checked (eq actor.system.modValue "-1")}} />
+                            <span>-1</span>
+                        </label>
+                        <label class="mod-value-option box-border red-abilities">
+                            <input type="radio" name="system.modValue" value="-2" {{checked (eq actor.system.modValue "-2")}} />
+                            <span>-2</span>
+                        </label>
+                        <label class="mod-value-option box-border red-abilities">
+                            <input type="radio" name="system.modValue" value="-3" {{checked (eq actor.system.modValue "-3")}} />
+                            <span>-3</span>
+                        </label>
+                        <label class="mod-value-option box-border red-abilities">
+                            <input type="radio" name="system.modValue" value="-4" {{checked (eq actor.system.modValue "-4")}} />
+                            <span>-4</span>
+                        </label>
+                    </div>
+                    <div class="mod-actions">
+                        <button type="button" class="create-mod box-border" data-type="mod">
+                            {{localize "SCRPG.button.applyToMe"}}
+                        </button>
+                        <button type="button" class="send-mod-chat box-border" data-type="mod">
+                            {{localize "SCRPG.button.sendToChat"}}
+                        </button>
                     </div>
                 </td>
                 <td>
