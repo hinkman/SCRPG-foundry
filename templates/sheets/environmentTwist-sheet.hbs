@@ -33,5 +33,43 @@
                 </td>
             </tr>
         </table>
+
+        <div class="box-border twist-challenge-editor {{#scrpgColor}}{{item.system.type}}{{/scrpgColor}}-abilities">
+            <div class="twist-challenge-editor-title">
+                <h3>{{localize "SCRPG.twist.challenges"}}</h3>
+                <a title='{{localize "SCRPG.twist.addChallenge"}}' class="add-challenge">
+                    <i class="fas fa-plus"></i>
+                </a>
+            </div>
+            {{#each item.system.challenges as |challenge cIndex|}}
+            <div class="twist-challenge-edit" data-challenge-index="{{cIndex}}">
+                <div class="twist-challenge-edit-row">
+                    <label>{{localize "SCRPG.twist.challengeName"}}</label>
+                    <input type="text" name="system.challenges.{{cIndex}}.name" value="{{challenge.name}}"
+                        placeholder='{{localize "SCRPG.twist.challengeName"}}'>
+                    <a title='{{localize "SCRPG.twist.removeChallenge"}}' class="remove-challenge"
+                        data-challenge-index="{{cIndex}}">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </div>
+                <div class="twist-challenge-edit-row">
+                    <label>{{localize "SCRPG.twist.challengeBoxes"}}</label>
+                    <input type="number" class="challenge-box-count" data-challenge-index="{{cIndex}}" min="0"
+                        max="12" value="{{challenge.boxes.length}}">
+                    <span class="twist-challenge-boxes preview">
+                        {{#each challenge.boxes as |checked bIndex|}}
+                        <i class="{{#if checked}}fas fa-check-square{{else}}far fa-square{{/if}}"></i>
+                        {{/each}}
+                    </span>
+                </div>
+                <div class="twist-challenge-edit-row">
+                    <label>{{localize "SCRPG.twist.challengeDescription"}}</label>
+                    <textarea name="system.challenges.{{cIndex}}.description" rows="3">{{challenge.description}}</textarea>
+                </div>
+            </div>
+            {{else}}
+            <p class="twist-challenge-empty">{{localize "SCRPG.twist.challenges"}}: —</p>
+            {{/each}}
+        </div>
     </div>
 </div>

@@ -18,6 +18,28 @@
             <div class="nested-name">
                 <p>{{name}}: </p>
                 {{{system.description}}}
+                {{#if system.challenges.length}}
+                <div class="twist-challenges">
+                    {{#each system.challenges as |challenge cIndex|}}
+                    <div class="twist-challenge" data-challenge-index="{{cIndex}}">
+                        <div class="twist-challenge-header">
+                            <span class="twist-challenge-boxes">
+                                {{#each challenge.boxes as |checked bIndex|}}
+                                <a class="toggle-challenge-box" data-challenge-index="{{cIndex}}"
+                                    data-box-index="{{bIndex}}" title='{{localize "SCRPG.twist.challengeBoxes"}}'>
+                                    <i class="{{#if checked}}fas fa-check-square{{else}}far fa-square{{/if}}"></i>
+                                </a>
+                                {{/each}}
+                            </span>
+                            <strong class="twist-challenge-name">{{challenge.name}}</strong>
+                        </div>
+                        {{#if challenge.description}}
+                        <div class="twist-challenge-description">{{challenge.description}}</div>
+                        {{/if}}
+                    </div>
+                    {{/each}}
+                </div>
+                {{/if}}
             </div>
             <div class="environment-buttons">
                 {{!-- button for pushing twist to chat --}}
@@ -44,6 +66,28 @@
             <div class="nested-name">
                 <p>{{name}}: </p>
                 {{{system.description}}}
+                {{#if system.challenges.length}}
+                <div class="twist-challenges">
+                    {{#each system.challenges as |challenge cIndex|}}
+                    <div class="twist-challenge" data-challenge-index="{{cIndex}}">
+                        <div class="twist-challenge-header">
+                            <span class="twist-challenge-boxes">
+                                {{#each challenge.boxes as |checked bIndex|}}
+                                <a class="toggle-challenge-box" data-challenge-index="{{cIndex}}"
+                                    data-box-index="{{bIndex}}" title='{{localize "SCRPG.twist.challengeBoxes"}}'>
+                                    <i class="{{#if checked}}fas fa-check-square{{else}}far fa-square{{/if}}"></i>
+                                </a>
+                                {{/each}}
+                            </span>
+                            <strong class="twist-challenge-name">{{challenge.name}}</strong>
+                        </div>
+                        {{#if challenge.description}}
+                        <div class="twist-challenge-description">{{challenge.description}}</div>
+                        {{/if}}
+                    </div>
+                    {{/each}}
+                </div>
+                {{/if}}
             </div>
             <div class="environment-buttons">
                 {{!-- button for pushing twist to chat --}}

@@ -401,6 +401,7 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
         on(".set-civilian", "click", this._onSetCivilian);
         on(".show-main", "click", this._onShowMain);
         on(".create-twist", "click", this._onCreateTwist);
+        on(".toggle-challenge-box", "click", this._onToggleChallengeBox);
         on(".roll-minion", "click", this._onRollMinion);
         on(".downgrade-minion", "click", this._onDowngradeMinion);
         on(".upgrade-minion", "click", this._onUpgradeMinion);
@@ -1315,6 +1316,27 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
         };
         //creates new power and assigns it to actor
         return this.actor.createEmbeddedDocuments("Item", [itemData]);
+    }
+
+    /** Toggle a challenge checkbox on an environment twist during play. */
+    _onToggleChallengeBox(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        const el = event.currentTarget;
+        const row = el.closest("[data-item-id]");
+        const item = this.actor.items.get(row?.dataset?.itemId);
+        if (!item || item.type !== "environmentTwist") return;
+
+        const challengeIndex = Number.parseInt(el.dataset.challengeIndex, 10);
+        const boxIndex = Number.parseInt(el.dataset.boxIndex, 10);
+        if (Number.isNaN(challengeIndex) || Number.isNaN(boxIndex)) return;
+
+        const challenges = foundry.utils.deepClone(item.system.challenges ?? []);
+        const challenge = challenges[challengeIndex];
+        if (!challenge?.boxes || boxIndex < 0 || boxIndex >= challenge.boxes.length) return;
+
+        challenge.boxes[boxIndex] = !challenge.boxes[boxIndex];
+        return item.update({ "system.challenges": challenges });
     }
 
     //Increases health by 1 and then updates status

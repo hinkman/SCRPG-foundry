@@ -166,7 +166,14 @@
             "redminor": "Red Minor",
             "redmajor": "Red Major",
             "minorTwist": "Minor Twist",
-            "majorTwist": "Major Twist"
+            "majorTwist": "Major Twist",
+            "challenges": "Challenges",
+            "challenge": "Challenge",
+            "challengeName": "Challenge Name",
+            "challengeDescription": "Challenge Text",
+            "challengeBoxes": "Checkboxes",
+            "addChallenge": "Add Challenge",
+            "removeChallenge": "Remove Challenge"
         },
         "environment": {
             "dieOne": "First Die",

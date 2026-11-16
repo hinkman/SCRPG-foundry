@@ -1052,6 +1052,42 @@
             justify-content: center;
         }
 
+        .twist-challenges {
+            margin-top: 4px;
+        }
+
+        .twist-challenge {
+            margin-top: 4px;
+            padding-left: 4px;
+        }
+
+        .twist-challenge-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .twist-challenge-boxes {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+
+            a {
+                color: inherit;
+            }
+        }
+
+        .twist-challenge-name {
+            font-weight: bold;
+        }
+
+        .twist-challenge-description {
+            margin-top: 2px;
+            padding-left: 1.25rem;
+            font-style: italic;
+        }
+
         .green-twists {
             background-color: $greenbg;
 
