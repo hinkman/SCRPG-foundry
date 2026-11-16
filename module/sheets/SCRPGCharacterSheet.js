@@ -1124,13 +1124,20 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
 
     /**
      * Build Item create data for a boost/hinder mod (Apply to me / chat drop).
-     * @param {{name?: string, named?: boolean, value: string|number, persistent?: boolean, exclusive?: boolean}} share
+     * Chat drops may include displayName (e.g. "AckAck: Boost") so the created
+     * mod keeps the creator prefix shown on the chat card. Apply to me omits
+     * displayName and uses the raw form name only.
+     * @param {{name?: string, displayName?: string, named?: boolean, value: string|number, persistent?: boolean, exclusive?: boolean}} share
      */
     _buildModItemData(share) {
-        const named = Boolean(share.named) && String(share.name ?? "").trim() !== "";
-        const name = named
-            ? String(share.name).trim()
-            : game.i18n.localize("SCRPG.sheet.newItem");
+        const displayName = String(share.displayName ?? "").trim();
+        const baseName = String(share.name ?? "").trim();
+        const named = (Boolean(share.named) && baseName !== "") || displayName !== "";
+        const name = displayName
+            ? displayName
+            : (Boolean(share.named) && baseName !== ""
+                ? baseName
+                : game.i18n.localize("SCRPG.sheet.newItem"));
         const numeric = Number.parseInt(share.value, 10);
         const value = Number.isFinite(numeric)
             ? (numeric > 0 ? `+${numeric}` : String(numeric))
@@ -1188,6 +1195,7 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
         const modShare = {
             type: SCRPG_MOD_DRAG_TYPE,
             name: baseName,
+            displayName: name,
             named,
             value,
             persistent,
