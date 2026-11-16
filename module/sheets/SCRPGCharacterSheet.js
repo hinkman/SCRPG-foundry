@@ -1137,10 +1137,11 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
             bonus
         });
 
-        return ChatMessage.create({
+        await ChatMessage.create({
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
             content
         });
+        return this._resetModCreateForm();
     }
 
 
