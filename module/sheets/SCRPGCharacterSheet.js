@@ -388,6 +388,7 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
         on(".downgrade-minion", "click", this._onDowngradeMinion);
         on(".upgrade-minion", "click", this._onUpgradeMinion);
         on(".create-mod", "click", this._onCreateMod);
+        on(".send-mod-chat", "click", this._onSendModToChat);
         on(".roll-item", "click", this._onRollItem);
         on(".roll-out", "click", this._onRollOut);
         on(".set-scene", "click", this._onSetScene);
@@ -1064,83 +1065,82 @@ export default class SCRPGCharacterSheet extends HandlebarsApplicationMixin(Acto
         }
     }
 
-    //creates a new mod
-    _onCreateMod(event) {
-        event.preventDefault();
-        let element = event.currentTarget;
-        let named = false;
-        let name = game.i18n.localize("SCRPG.sheet.newItem");
-        //checks datatype of element and assigns that to the ability value
-        //value is used to determine where the ability goes, ex in a mode/form
-        var value = "+1"
-        if (element.dataset.value) {
-            value = element.dataset.value
-        }
-
-        //Tranverse up the DOM to find the input for Mod Names, then get the value via javascript (as the default value isn't updated until it is deselected)
-        let InputBox = this.getInputBoxViaDOM(event);
-
-        //Hopefully, will fix issues with blur triggering after this function is called
-        InputBox.blur();
-
-        let modNameTrueValue = InputBox.value;
-
-        if (modNameTrueValue !== "") {
-            name = modNameTrueValue;
-            named = modNameTrueValue !== "";
-        }
-
-        let itemData = {
-            name: name,
-            type: element.dataset.type,
-            "system.named": named,
-            "system.value": value,
-            "system.persistent": this.actor.system.persistent,
-            "system.exclusive": this.actor.system.exclusive
-        };
-        this.actor.update({ "system.persistent": false });
-        this.actor.update({ "system.exclusive": false });
-        this.actor.update({ "system.modName": "" })
-
-        return this.actor.createEmbeddedDocuments("Item", [itemData]);
+    /** @param {Event} event */
+    _getModCreateRoot(event) {
+        const root = event.currentTarget.closest(".mod-create-td");
+        if (!root) throw new Error("_getModCreateRoot: Can't find .mod-create-td");
+        return root;
     }
 
-    /* Transverse up via parentElements, until we find the class 'mod-create-td', then tranverse back down until we find input with name 'system.modName' */
-    getInputBoxViaDOM(event) {
-        let DOMDepth = 0;
-        let foundItem = false;
+    /**
+     * Read live Add New form values from the DOM (before blur/submit sync).
+     * @param {Event} event
+     */
+    _readModCreateForm(event) {
+        const root = this._getModCreateRoot(event);
+        const nameInput = root.querySelector('input[name="system.modName"]');
+        nameInput?.blur();
 
-        let target = event.target;
+        const modName = (nameInput?.value ?? "").trim();
+        const valueInput = root.querySelector('input[name="system.modValue"]:checked');
+        const value = valueInput?.value || this.actor.system.modValue || "+1";
+        const persistent = root.querySelector('input[name="system.persistent"]')?.checked
+            ?? Boolean(this.actor.system.persistent);
+        const exclusive = root.querySelector('input[name="system.exclusive"]')?.checked
+            ?? Boolean(this.actor.system.exclusive);
 
-        //Look for 'mod-create-td' in the DOM
-        while (DOMDepth < 20 && !foundItem) {
-            if (target.classList.contains('mod-create-td')) {
-                foundItem = true;
-            }
-            else {
-                target = target.parentElement;
-                DOMDepth++;
-            }
-        }
+        return { modName, value, persistent, exclusive };
+    }
 
-        if (!foundItem) { throw "getInputBoxViaDOM(event): Can't find the <td> with class 'mod-create-td'"; }
-        //Now look for the input with name 'system.modName'
-        DOMDepth = 0;
-        foundItem = false;
+    /** Reset Add New form fields after applying a mod. */
+    async _resetModCreateForm() {
+        const updates = { "system.modName": "", "system.modValue": "+1" };
+        if ("persistent" in this.actor.system) updates["system.persistent"] = false;
+        if ("exclusive" in this.actor.system) updates["system.exclusive"] = false;
+        return this.actor.update(updates);
+    }
 
-        while (DOMDepth < 20 && !foundItem) {
-            if (target.attributes['name'] && target.attributes['name'].value === 'system.modName') {
-                foundItem = true;
-            }
-            else {
-                target = target.children[0];
-                DOMDepth++;
-            }
-        }
+    // Creates a new mod on this actor from the Add New form.
+    async _onCreateMod(event) {
+        event.preventDefault();
+        const element = event.currentTarget;
+        const { modName, value, persistent, exclusive } = this._readModCreateForm(event);
+        const named = modName !== "";
+        const name = named ? modName : game.i18n.localize("SCRPG.sheet.newItem");
 
-        if (!foundItem) { throw "getInputBoxViaDOM(event): Can't find the input with the name 'system.modename'"; }
+        const itemData = {
+            name,
+            type: element.dataset.type || "mod",
+            "system.named": named,
+            "system.value": value,
+            "system.persistent": persistent,
+            "system.exclusive": exclusive
+        };
 
-        return target;
+        await this.actor.createEmbeddedDocuments("Item", [itemData]);
+        return this._resetModCreateForm();
+    }
+
+    // Posts boost/hinder details to chat without creating the item on this actor.
+    async _onSendModToChat(event) {
+        event.preventDefault();
+        const { modName, value, persistent, exclusive } = this._readModCreateForm(event);
+        const baseName = modName !== "" ? modName : game.i18n.localize("SCRPG.sheet.newItem");
+        const name = `${this.actor.name}: ${baseName}`;
+        const bonus = Number.parseInt(value, 10) >= 0;
+        const { renderTemplate } = foundry.applications.handlebars;
+        const content = await renderTemplate("systems/scrpg-foundry/templates/chat/modshare.hbs", {
+            name,
+            value,
+            persistent,
+            exclusive,
+            bonus
+        });
+
+        return ChatMessage.create({
+            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            content
+        });
     }
 
 

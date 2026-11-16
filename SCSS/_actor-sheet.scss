@@ -1228,50 +1228,66 @@
                 vertical-align: top;
 
                 .mod-dialogue,
-                .mod-buttons {
+                .mod-value-radios,
+                .mod-actions {
                     width: fit-content;
                     margin-left: auto;
                     margin-right: auto;
                 }
             }
 
-            .mod-buttons {
+            .mod-name-row {
+                display: flex;
+                align-items: center;
+                gap: 0.35rem;
+                margin-bottom: 0.35rem;
+
+                .mod-name-label {
+                    flex: 0 0 auto;
+                    white-space: nowrap;
+                    font-weight: bold;
+                    color: #111111;
+                    -webkit-text-fill-color: #111111;
+                }
+
+                input[type="text"] {
+                    flex: 1 1 auto;
+                    min-width: 0;
+                }
+            }
+
+            .mod-value-radios {
                 display: grid;
-                grid-template-columns: auto auto auto auto;
+                grid-template-columns: repeat(4, 36px);
                 gap: 0.4rem;
                 justify-content: center;
                 margin-top: 0.45rem;
             }
 
-            th:nth-child(2),
-            td:nth-child(2) {
-                width: 40%;
-            }
-
-            td:nth-child(2),
-            td:nth-child(3) {
-                vertical-align: text-top;
-            }
-
-            .mod-buttons-child {
+            .mod-value-option {
                 width: 36px;
                 height: 36px;
-            }
-
-            .mod-link {
-                width: 32px;
-                height: 32px;
-                line-height: normal;
-                text-align: center;
                 margin: 0;
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                cursor: pointer;
+                position: relative;
+                font-weight: bold;
+                line-height: normal;
 
-                h3 {
+                input[type="radio"] {
+                    position: absolute;
+                    opacity: 0;
+                    width: 0;
+                    height: 0;
                     margin: 0;
-                    font-weight: bold;
+                }
+
+                span {
                     color: inherit;
+                    -webkit-text-fill-color: inherit;
+                    pointer-events: none;
                 }
 
                 &.green-abilities {
@@ -1283,12 +1299,55 @@
                     color: $redtxt;
                     background-color: $redbg;
                 }
+
+                &:has(input:checked) {
+                    outline: 2px solid #111111;
+                    outline-offset: 1px;
+                }
+
+                &:has(input:focus-visible) {
+                    outline: 2px solid #4a90d9;
+                    outline-offset: 1px;
+                }
             }
 
-            .mod-link:active {
-                box-shadow: none;
-                margin-top: 3px;
-                margin-left: 3px;
+            .mod-actions {
+                display: flex;
+                flex-direction: column;
+                gap: 0.35rem;
+                margin-top: 0.5rem;
+                width: 100%;
+
+                button {
+                    width: 100%;
+                    margin: 0;
+                    padding: 0.3rem 0.4rem;
+                    font-size: 0.85rem;
+                    line-height: 1.2;
+                    cursor: pointer;
+                    color: #111111;
+                    -webkit-text-fill-color: #111111;
+                    background: $white;
+                }
+
+                button:hover {
+                    background: #e8e8e8;
+                }
+
+                button:active {
+                    box-shadow: none;
+                    margin-top: 1px;
+                }
+            }
+
+            th:nth-child(2),
+            td:nth-child(2) {
+                width: 40%;
+            }
+
+            td:nth-child(2),
+            td:nth-child(3) {
+                vertical-align: text-top;
             }
 
             input[type="text"] {

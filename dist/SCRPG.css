@@ -1266,19 +1266,103 @@
     vertical-align: top;
   }
   .SCRPG.sheet.actor .mods th:first-child .mod-dialogue,
-  .SCRPG.sheet.actor .mods th:first-child .mod-buttons,
+  .SCRPG.sheet.actor .mods th:first-child .mod-value-radios,
+  .SCRPG.sheet.actor .mods th:first-child .mod-actions,
   .SCRPG.sheet.actor .mods td:first-child .mod-dialogue,
-  .SCRPG.sheet.actor .mods td:first-child .mod-buttons {
+  .SCRPG.sheet.actor .mods td:first-child .mod-value-radios,
+  .SCRPG.sheet.actor .mods td:first-child .mod-actions {
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
   }
-  .SCRPG.sheet.actor .mods .mod-buttons {
+  .SCRPG.sheet.actor .mods .mod-name-row {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-bottom: 0.35rem;
+  }
+  .SCRPG.sheet.actor .mods .mod-name-row .mod-name-label {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    font-weight: bold;
+    color: #111111;
+    -webkit-text-fill-color: #111111;
+  }
+  .SCRPG.sheet.actor .mods .mod-name-row input[type=text] {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .SCRPG.sheet.actor .mods .mod-value-radios {
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: repeat(4, 36px);
     gap: 0.4rem;
     justify-content: center;
     margin-top: 0.45rem;
+  }
+  .SCRPG.sheet.actor .mods .mod-value-option {
+    width: 36px;
+    height: 36px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    font-weight: bold;
+    line-height: normal;
+  }
+  .SCRPG.sheet.actor .mods .mod-value-option input[type=radio] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+  }
+  .SCRPG.sheet.actor .mods .mod-value-option span {
+    color: inherit;
+    -webkit-text-fill-color: inherit;
+    pointer-events: none;
+  }
+  .SCRPG.sheet.actor .mods .mod-value-option.green-abilities {
+    color: #22622B;
+    background-color: #b6d6aa;
+  }
+  .SCRPG.sheet.actor .mods .mod-value-option.red-abilities {
+    color: #99242a;
+    background-color: #f8b7a8;
+  }
+  .SCRPG.sheet.actor .mods .mod-value-option:has(input:checked) {
+    outline: 2px solid #111111;
+    outline-offset: 1px;
+  }
+  .SCRPG.sheet.actor .mods .mod-value-option:has(input:focus-visible) {
+    outline: 2px solid #4a90d9;
+    outline-offset: 1px;
+  }
+  .SCRPG.sheet.actor .mods .mod-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
+    width: 100%;
+  }
+  .SCRPG.sheet.actor .mods .mod-actions button {
+    width: 100%;
+    margin: 0;
+    padding: 0.3rem 0.4rem;
+    font-size: 0.85rem;
+    line-height: 1.2;
+    cursor: pointer;
+    color: #111111;
+    -webkit-text-fill-color: #111111;
+    background: #ffffff;
+  }
+  .SCRPG.sheet.actor .mods .mod-actions button:hover {
+    background: #e8e8e8;
+  }
+  .SCRPG.sheet.actor .mods .mod-actions button:active {
+    box-shadow: none;
+    margin-top: 1px;
   }
   .SCRPG.sheet.actor .mods th:nth-child(2),
   .SCRPG.sheet.actor .mods td:nth-child(2) {
@@ -1287,38 +1371,6 @@
   .SCRPG.sheet.actor .mods td:nth-child(2),
   .SCRPG.sheet.actor .mods td:nth-child(3) {
     vertical-align: text-top;
-  }
-  .SCRPG.sheet.actor .mods .mod-buttons-child {
-    width: 36px;
-    height: 36px;
-  }
-  .SCRPG.sheet.actor .mods .mod-link {
-    width: 32px;
-    height: 32px;
-    line-height: normal;
-    text-align: center;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .SCRPG.sheet.actor .mods .mod-link h3 {
-    margin: 0;
-    font-weight: bold;
-    color: inherit;
-  }
-  .SCRPG.sheet.actor .mods .mod-link.green-abilities {
-    color: #22622B;
-    background-color: #b6d6aa;
-  }
-  .SCRPG.sheet.actor .mods .mod-link.red-abilities {
-    color: #99242a;
-    background-color: #f8b7a8;
-  }
-  .SCRPG.sheet.actor .mods .mod-link:active {
-    box-shadow: none;
-    margin-top: 3px;
-    margin-left: 3px;
   }
   .SCRPG.sheet.actor .mods input[type=text] {
     color: #111111;
@@ -1803,6 +1855,42 @@
     display: flex;
     flex-wrap: wrap;
     margin-left: 16px;
+  }
+  .SCRPG.chat.roll .mod-share {
+    background-color: #ffffff;
+    padding: 0.5rem 0.65rem;
+    text-align: center;
+  }
+  .SCRPG.chat.roll .mod-share .mod-share-title {
+    font-weight: bold;
+    font-size: 1.05rem;
+    color: #111111;
+    -webkit-text-fill-color: #111111;
+    margin-bottom: 0.25rem;
+  }
+  .SCRPG.chat.roll .mod-share .mod-share-value {
+    font-weight: bold;
+    font-size: 1.35rem;
+    margin-bottom: 0.25rem;
+  }
+  .SCRPG.chat.roll .mod-share.green-abilities .mod-share-value {
+    color: #22622B;
+    -webkit-text-fill-color: #22622B;
+  }
+  .SCRPG.chat.roll .mod-share.red-abilities .mod-share-value {
+    color: #99242a;
+    -webkit-text-fill-color: #99242a;
+  }
+  .SCRPG.chat.roll .mod-share .mod-share-flags {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    color: #111111;
+  }
+  .SCRPG.chat.roll .mod-share .mod-share-flag i {
+    margin-right: 0.2rem;
   }
   .SCRPG.chat.roll .mod-rolls {
     margin: 2px;

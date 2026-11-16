@@ -22,7 +22,8 @@ export function heroicSchema() {
             max: new NumberField({ required: true, integer: true, min: 0, initial: 0 })
         }),
         mode: new StringField({ required: true, blank: false, initial: "main" }),
-        modName: new StringField({ required: true, blank: true, initial: "" })
+        modName: new StringField({ required: true, blank: true, initial: "" }),
+        modValue: new StringField({ required: true, blank: false, initial: "+1" })
     };
 }
 
