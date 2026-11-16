@@ -1247,9 +1247,9 @@
                     white-space: nowrap;
                     font-weight: bold;
                     /*
-                     * .mods is always a light surface ($white). Use Foundry's
-                     * dark-primary text (not --color-text-primary, which flips
-                     * light in dark theme and washes out on this panel).
+                     * Light theme: dark text on the light .mods panel.
+                     * Dark theme override below uses --color-text-primary
+                     * once the panel tracks the dark surface.
                      */
                     color: var(--color-text-dark-primary, #191813);
                     -webkit-text-fill-color: var(--color-text-dark-primary, #191813);
@@ -1457,13 +1457,65 @@
                 display: inline;
                 vertical-align: middle;
                 margin: 0;
-                /* Same light-surface contrast as .mod-name-label (see above). */
+                /* Same light-theme contrast as .mod-name-label (see above). */
                 color: var(--color-text-dark-primary, #191813);
                 -webkit-text-fill-color: var(--color-text-dark-primary, #191813);
             }
 
             input {
                 vertical-align: middle;
+            }
+
+            input[type="checkbox"] {
+                /* Visible square on the light .mods panel. */
+                --checkbox-background-color: #4b4a44;
+                --checkbox-checked-color: var(--color-warm-1, #ff6400);
+                --checkbox-checkmark-color: transparent;
+                --checkbox-font-weight: bold;
+            }
+        }
+
+        /*
+         * Foundry dark theme: the Add New panel is a dark surface (window /
+         * table chrome), not the forced $white from light art. Match text and
+         * checkbox fills to that surface so Name / Persistent / Exclusive stay
+         * readable without regressing light theme.
+         */
+        @at-root {
+            body.theme-dark #{&} .mods,
+            .themed.theme-dark#{&} .mods {
+                background-color: var(--color-cool-5, #1c1c1c);
+                color: var(--color-text-primary, #efe6d8);
+
+                table,
+                td,
+                th {
+                    color: var(--color-text-primary, #efe6d8);
+                    border-color: var(--color-light-5, #aaa);
+                }
+
+                .mod-name-row .mod-name-label,
+                .mod-dialogue p {
+                    color: var(--color-text-primary, #efe6d8);
+                    -webkit-text-fill-color: var(--color-text-primary, #efe6d8);
+                }
+
+                .mod-dialogue input[type="checkbox"] {
+                    --checkbox-background-color: var(--color-light-4, #bbb);
+                    --checkbox-checked-color: var(--color-warm-1, #ff6400);
+                    --checkbox-checkmark-color: transparent;
+                }
+
+                input[type="text"] {
+                    color: var(--input-text-color, #ddd);
+                    -webkit-text-fill-color: var(--input-text-color, #ddd);
+                    background-color: var(--input-background-color, #2a2a2a);
+
+                    &::placeholder {
+                        color: var(--input-placeholder-color, #999);
+                        -webkit-text-fill-color: var(--input-placeholder-color, #999);
+                    }
+                }
             }
         }
 
