@@ -1,4 +1,4 @@
-const { BooleanField, HTMLField, NumberField, SchemaField, StringField } = foundry.data.fields;
+const { ArrayField, BooleanField, HTMLField, NumberField, SchemaField, StringField } = foundry.data.fields;
 
 export class PowerData extends foundry.abstract.TypeDataModel {
     static defineSchema() {
@@ -53,7 +53,15 @@ export class EnvironmentTwistData extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
             type: new StringField({ required: true, blank: false, initial: "greenminor" }),
-            description: new HTMLField({ required: true, blank: true, initial: "" })
+            description: new HTMLField({ required: true, blank: true, initial: "" }),
+            challenges: new ArrayField(new SchemaField({
+                name: new StringField({ required: true, blank: true, initial: "" }),
+                description: new StringField({ required: true, blank: true, initial: "" }),
+                boxes: new ArrayField(new BooleanField({ required: true, initial: false }), {
+                    required: true,
+                    initial: []
+                })
+            }), { required: true, initial: [] })
         };
     }
 }
